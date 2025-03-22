@@ -1,24 +1,26 @@
-package org.faddy.domain;
+package org.faddy.User.domain;
 
 import java.util.Objects;
+import org.faddy.common.domain.PositiveInteger;
 
 public class User {
+
     private final Long id;
     private final UserInfo info;
-    private final UserRelationCounter followingCounter;
-    private final UserRelationCounter followerCounter;
+    private final PositiveInteger followingCounter;
+    private final PositiveInteger followerCounter;
 
 
     public User(Long id, UserInfo info) {
         this.id = id;
         this.info = info;
-        this.followerCounter = new UserRelationCounter(0);
-        this.followingCounter = new UserRelationCounter(0);
+        this.followerCounter = new PositiveInteger();
+        this.followingCounter = new PositiveInteger();
     }
 
     public void follow(User targetUser) {
         // 자기 자신 팔로우 -> 에러 발생
-        if(targetUser.equals(this)) {
+        if (targetUser.equals(this)) {
             throw new IllegalArgumentException("자기 자신은 팔로우 할 수 없습니다.");
         }
 
@@ -28,7 +30,7 @@ public class User {
 
     public void unFollow(User targetUser) {
         // 자기 자신 팔로우 -> 에러 발생
-        if(targetUser.equals(this)) {
+        if (targetUser.equals(this)) {
             throw new IllegalArgumentException("자기 자신은 팔로우 할 수 없습니다.");
         }
 
