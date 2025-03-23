@@ -10,7 +10,7 @@ public class PositiveInteger {
     }
 
     public void increase() {
-        count++;
+        count += 1;
     }
 
     public void decrease() {
@@ -18,10 +18,10 @@ public class PositiveInteger {
             throw new IllegalArgumentException();
         }
 
-        count--;
+        count -= 1;
     }
 
-    public int getLikeCount() {
+    public int getCount() {
         return this.count;
     }
 }

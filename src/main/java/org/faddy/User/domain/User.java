@@ -12,6 +12,11 @@ public class User {
 
 
     public User(Long id, UserInfo info) {
+
+        if(info == null) {
+            throw new IllegalArgumentException("유저 정보가 존재하지 않습니다.");
+        }
+
         this.id = id;
         this.info = info;
         this.followerCounter = new PositiveInteger();
@@ -24,7 +29,7 @@ public class User {
             throw new IllegalArgumentException("자기 자신은 팔로우 할 수 없습니다.");
         }
 
-        followingCounter.increase();
+        this.increaseFollowingCount();
         targetUser.increaseFollowerCount();
     }
 
@@ -34,18 +39,26 @@ public class User {
             throw new IllegalArgumentException("자기 자신은 팔로우 할 수 없습니다.");
         }
 
-        followingCounter.decrease();
+        this.decreaseFollowingCount();
         targetUser.decreaseFollowerCount();
     }
 
 
     // java 디미터 법칙 (자신의 소유 객체랑 상호작용) 캡슐화
     private void increaseFollowerCount() {
-        followerCounter.increase();
+        this.followerCounter.increase();
     }
 
     private void decreaseFollowerCount() {
-        followerCounter.decrease();
+        this.followerCounter.decrease();
+    }
+
+    private void increaseFollowingCount() {
+        this.followingCounter.increase();
+    }
+
+    private void decreaseFollowingCount() {
+        this.followingCounter.decrease();
     }
 
 
@@ -61,5 +74,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public int getFollowingCount() {
+        return this.followingCounter.getCount();
+    }
+
+    public int getFollowerCount() {
+        return this.followerCounter.getCount();
     }
 }

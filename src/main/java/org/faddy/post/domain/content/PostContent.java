@@ -1,5 +1,7 @@
 package org.faddy.post.domain.content;
 
+import org.faddy.User.domain.User;
+
 public class PostContent extends Content {
 
     private static final int MAX_POST_LENGTH = 500;
@@ -23,4 +25,5 @@ public class PostContent extends Content {
             throw new IllegalArgumentException("게시글은 최대 500글자 이상 넘길 수 없습니다.");
         }
     }
+
 }

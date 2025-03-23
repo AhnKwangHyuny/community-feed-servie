@@ -1,7 +1,6 @@
-package org.faddy.common.domain.trait;
+package org.faddy.common.trait;
 
 import org.faddy.User.domain.User;
-import org.faddy.common.domain.PositiveInteger;
 
 public interface Likeable {
     void like(User user);

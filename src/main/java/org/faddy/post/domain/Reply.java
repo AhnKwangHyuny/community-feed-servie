@@ -1,9 +1,8 @@
 package org.faddy.post.domain;
 
-import java.io.Writer;
 import org.faddy.User.domain.User;
 import org.faddy.common.domain.PositiveInteger;
-import org.faddy.common.domain.trait.Likeable;
+import org.faddy.common.trait.Likeable;
 import org.faddy.post.domain.content.ReplyContent;
 
 public class Reply implements Likeable {
@@ -47,7 +46,7 @@ public class Reply implements Likeable {
 
     @Override
     public int getLikeCount() {
-        return this.likeCount.getLikeCount();
+        return this.likeCount.getCount();
     }
 
     @Override
@@ -55,5 +54,13 @@ public class Reply implements Likeable {
         if(!this.writer.equals(user)) {
             throw new IllegalArgumentException("작성자는 좋아요를 누를 수 없습니다.");
         }
+    }
+
+    public void updateReply(User user , String content) {
+        if(!writer.equals(user)) {
+            throw new IllegalArgumentException("수정하는 사람은 본인의 댓글만 수정 가능합니다.");
+        }
+
+        this.content.updateContent(content);
     }
 }

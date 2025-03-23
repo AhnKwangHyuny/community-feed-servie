@@ -2,8 +2,9 @@ package org.faddy.post.domain;
 
 import org.faddy.User.domain.User;
 import org.faddy.common.domain.PositiveInteger;
-import org.faddy.common.domain.trait.Likeable;
+import org.faddy.common.trait.Likeable;
 import org.faddy.post.domain.content.PostContent;
+import org.faddy.post.domain.content.PostPublicationState;
 
 public class Post implements Likeable {
 
@@ -11,6 +12,7 @@ public class Post implements Likeable {
     private final User writer;
     private final PostContent content;
     private final PositiveInteger likeCount;
+    private PostPublicationState state;
 
     public Post(Long id, User writer, String content) {
         this.content = new PostContent(content);
@@ -21,6 +23,7 @@ public class Post implements Likeable {
         this.writer = writer;
         this.id = id;
         this.likeCount = new PositiveInteger();
+        this.state = PostPublicationState.PUBLIC;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class Post implements Likeable {
 
     @Override
     public int getLikeCount() {
-        return this.likeCount.getLikeCount();
+        return this.likeCount.getCount();
     }
 
     @Override
@@ -50,5 +53,13 @@ public class Post implements Likeable {
         }
     }
 
+    public void updatePost(User user , String content , PostPublicationState state) {
+        if (!writer.equals(user)) {
+            throw new IllegalArgumentException("작성자가 아니면 게시글을 수정할 수 없습니다.");
+        }
+
+        this.content.updateContent(content);
+        this.state = state;
+    }
 
 }
