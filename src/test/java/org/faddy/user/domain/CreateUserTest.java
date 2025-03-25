@@ -1,10 +1,9 @@
-package org.faddy.common.domain;
+package org.faddy.user.domain;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.faddy.User.domain.User;
 import org.faddy.User.domain.UserInfo;
 import org.junit.jupiter.api.Test;
 

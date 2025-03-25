@@ -1,4 +1,4 @@
-package org.faddy.common.domain;
+package org.faddy.user.domain;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;

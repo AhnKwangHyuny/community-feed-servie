@@ -83,4 +83,12 @@ public class User {
     public int getFollowerCount() {
         return this.followerCounter.getCount();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserInfo getInfo() {
+        return info;
+    }
 }
