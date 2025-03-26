@@ -1,4 +1,4 @@
-package org.faddy.User.application;
+package org.faddy.User.application.service;
 
 import org.faddy.User.application.dto.FollowUserRequestDto;
 import org.faddy.User.application.interfae.UserRelationRepository;
@@ -6,13 +6,13 @@ import org.faddy.User.application.interfae.UserRepository;
 import org.faddy.User.domain.User;
 
 public class UserRelationService {
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     private final UserRelationRepository userRelationRepository;
     private final UserRepository userRepository;
 
-    public UserRelationService(UserService userService,
+    public UserRelationService(UserServiceImpl userServiceImpl,
         UserRelationRepository userRelationRepository, UserRepository userRepository) {
-        this.userService = userService;
+        this.userServiceImpl = userServiceImpl;
         this.userRelationRepository = userRelationRepository;
         this.userRepository = userRepository;
     }

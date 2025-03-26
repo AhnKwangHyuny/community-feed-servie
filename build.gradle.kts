@@ -22,8 +22,8 @@ dependencies {
     // Spring Boot Starter Thymeleaf (템플릿 엔진)
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-    // Spring Boot Starter Security (보안을 위한 기본 의존성)
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    // MySQL 드라이버 의존성 추가
+    implementation("com.mysql:mysql-connector-j")
 
     // H2 데이터베이스 (개발 및 테스트용으로 사용되는 내장형 DB)
     implementation("com.h2database:h2")

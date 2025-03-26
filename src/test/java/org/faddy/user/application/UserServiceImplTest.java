@@ -2,7 +2,7 @@ package org.faddy.user.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.faddy.User.application.UserService;
+import org.faddy.User.application.service.UserServiceImpl;
 import org.faddy.User.application.dto.CreateUserRequestDto;
 import org.faddy.User.application.interfae.UserRepository;
 import org.faddy.User.domain.User;
@@ -11,15 +11,15 @@ import org.faddy.user.repository.FakeUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UserServiceTest {
+public class UserServiceImplTest {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     private final UserRepository userRepository;
     private UserInfo userInfo;
 
-    public UserServiceTest() {
+    public UserServiceImplTest() {
         this.userRepository = new FakeUserRepository();
-        this.userService = new UserService(this.userRepository);
+        this.userServiceImpl = new UserServiceImpl(this.userRepository);
     }
 
     @BeforeEach
@@ -35,7 +35,7 @@ public class UserServiceTest {
         CreateUserRequestDto dto = new CreateUserRequestDto(name, profileImageUrl);
 
         //when
-        User newUser = userService.createUser(dto);
+        User newUser = userServiceImpl.createUser(dto);
 
         //then
         assertEquals(1L , newUser.getId());
@@ -47,8 +47,8 @@ public class UserServiceTest {
         CreateUserRequestDto dto = new CreateUserRequestDto(userInfo.getName() , userInfo.getProfileImageUrl());
 
         //when
-        User newUser = userService.createUser(dto);
-        User foundUser = userService.getUser(newUser.getId());
+        User newUser = userServiceImpl.createUser(dto);
+        User foundUser = userServiceImpl.getUser(newUser.getId());
 
         //then
         assertEquals(newUser.getId(), foundUser.getId());

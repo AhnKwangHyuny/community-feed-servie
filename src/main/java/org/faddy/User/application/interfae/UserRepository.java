@@ -8,5 +8,6 @@ public interface UserRepository {
     // 유저 저장
     User save(User user);
     Optional<User> findById(Long userId);
+    // create User wrapped Optional Object
 
 }
