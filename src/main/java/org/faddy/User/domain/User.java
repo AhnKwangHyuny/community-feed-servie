@@ -1,11 +1,16 @@
 package org.faddy.User.domain;
 
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
 import org.faddy.common.domain.PositiveInteger;
 
+@Getter
 public class User {
 
+    @Getter
     private final Long id;
+    @Getter
     private final UserInfo info;
     private final PositiveInteger followingCounter;
     private final PositiveInteger followerCounter;
@@ -22,6 +27,19 @@ public class User {
         this.followerCounter = new PositiveInteger();
         this.followingCounter = new PositiveInteger();
     }
+
+    @Builder
+    public User(Long id, UserInfo info, PositiveInteger followingCounter, PositiveInteger followerCounter) {
+        if(info == null) {
+            throw new IllegalArgumentException("유저 정보가 존재하지 않습니다.");
+        }
+
+        this.id = id;
+        this.info = info;
+        this.followerCounter = followerCounter != null ? followerCounter : new PositiveInteger();
+        this.followingCounter = followingCounter != null ? followingCounter : new PositiveInteger();
+    }
+
 
     public void follow(User targetUser) {
         // 자기 자신 팔로우 -> 에러 발생
@@ -84,11 +102,4 @@ public class User {
         return this.followerCounter.getCount();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public UserInfo getInfo() {
-        return info;
-    }
 }

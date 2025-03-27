@@ -13,27 +13,81 @@ repositories {
 }
 
 dependencies {
-    // Spring Boot Starter Web (웹 애플리케이션을 위한 기본 의존성)
+    // Spring Boot Starters
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-
-    // Spring Boot Starter Data JPA (데이터베이스 접근을 위한 JPA 의존성)
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+//    implementation("org.springframework.boot:spring-boot-starter-security") // Spring Security 추가
 
-    // Spring Boot Starter Thymeleaf (템플릿 엔진)
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.apache.commons:commons-pool2")
 
-    // MySQL 드라이버 의존성 추가
-    implementation("com.mysql:mysql-connector-j")
+    // Database
+    implementation("com.mysql:mysql-connector-j:8.3.0") // MySQL 버전 수정
 
-    // H2 데이터베이스 (개발 및 테스트용으로 사용되는 내장형 DB)
-    implementation("com.h2database:h2")
+    // QueryDSL
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jakarta")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
 
-    // Spring Boot Starter Test (단위 테스트를 위한 기본 의존성)
+    // Lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    // Development Tools
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    // Documentation
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
+    // Logging
+    implementation("org.slf4j:slf4j-api:2.0.9") // SLF4J 추가
+
+    // Jackson for JSON processing
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") // Java 8 날짜/시간 지원
+
+    // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+//    testImplementation("org.springframework.security:spring-security-test") // Security Test 추가
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // JUnit 5 의존성
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    // MapStruct
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
+    // JJWT 라이브러리
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5") // Jackson
+
+    // Nimbus JOSE + JWT
+    implementation("com.nimbusds:nimbus-jose-jwt:9.31")
+
+    // Web Socket
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+
+    // Amazon
+    implementation("com.amazonaws:aws-java-sdk-s3:1.12.646")
+
+    // web mail
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+
+    //swagger
+    implementation("io.swagger:swagger-annotations:1.6.11")
+
+    // AWS SDK - 중복된 의존성 제거, 하나만 유지
+    implementation("com.amazonaws:aws-java-sdk-s3:1.12.657")
+
+    // Spring Cloud AWS
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+
+    // env 환경변수
+    implementation("me.paulschwarz:spring-dotenv:3.0.0")
 }
 
 tasks.test {

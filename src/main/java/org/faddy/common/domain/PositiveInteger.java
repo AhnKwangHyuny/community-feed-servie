@@ -9,6 +9,10 @@ public class PositiveInteger {
         this.count = 0;
     }
 
+    public PositiveInteger(int count) {
+        this.count = count;
+    }
+
     public void increase() {
         count += 1;
     }
