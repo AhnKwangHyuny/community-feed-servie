@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.faddy.common.repo.entity.TimeBaseEntity;
+import org.faddy.common.infrastructure.entity.TimeBaseEntity;
 
 @Entity
 @Table(name = "community_user_relations")
@@ -15,9 +15,9 @@ public class UserRelationEntity extends TimeBaseEntity {
 
     @Id
     @Column(name = "follower_id")
-    private Long followerUserId;
+    private Long followerId;
 
     @Id
     @Column(name = "following_id")
-    private Long followingUserId;
+    private Long followingId;
 }

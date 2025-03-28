@@ -1,0 +1,410 @@
+2025-03-28 01:52:25.097 INFO  [restartedMain] org.faddy.Application - Starting Application using Java 17.0.14 with PID 841 (/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main started by ahnkwanghyun in /Users/ahnkwanghyun/Documents/dev/community-feed-service)
+2025-03-28 01:52:25.099 INFO  [restartedMain] org.faddy.Application - No active profile set, falling back to 1 default profile: "default"
+2025-03-28 01:52:25.118 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-28 01:52:25.118 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-28 01:52:25.478 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 01:52:25.479 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-28 01:52:25.492 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2025-03-28 01:52:25.500 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 01:52:25.501 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-03-28 01:52:25.507 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-03-28 01:52:25.859 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-28 01:52:25.865 INFO  [restartedMain] o.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-28 01:52:25.865 INFO  [restartedMain] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2025-03-28 01:52:25.891 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-28 01:52:25.892 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 774 ms
+2025-03-28 01:52:25.978 DEBUG [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-03-28 01:52:25.986 INFO  [restartedMain] o.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-28 01:52:26.018 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-03-28 01:52:26.033 INFO  [restartedMain] o.h.c.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-28 01:52:26.201 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-28 01:52:26.220 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-28 01:52:26.301 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1935045a
+2025-03-28 01:52:26.302 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-28 01:52:26.327 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-28 01:52:26.327 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-28 01:52:26.913 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-28 01:52:26.987 INFO  [restartedMain] p6spy - ????: 1743094346987|????: 4ms|SQL: select * from `community_feed_db`.`community_user` where 1=0
+2025-03-28 01:52:26.990 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 01:52:27.596 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-03-28 01:52:27.614 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-03-28 01:52:27.621 INFO  [restartedMain] org.faddy.Application - Started Application in 2.701 seconds (process running for 8.166)
+2025-03-28 01:56:50.068 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 01:56:50.071 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-28 01:56:50.078 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-28 01:56:58.463 INFO  [restartedMain] org.faddy.Application - Starting Application using Java 17.0.14 with PID 1213 (/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main started by ahnkwanghyun in /Users/ahnkwanghyun/Documents/dev/community-feed-service)
+2025-03-28 01:56:58.464 INFO  [restartedMain] org.faddy.Application - No active profile set, falling back to 1 default profile: "default"
+2025-03-28 01:56:58.483 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-28 01:56:58.483 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-28 01:56:58.846 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 01:56:58.847 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-28 01:56:58.858 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2025-03-28 01:56:58.866 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 01:56:58.866 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-03-28 01:56:58.872 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-03-28 01:56:59.208 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-28 01:56:59.213 INFO  [restartedMain] o.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-28 01:56:59.213 INFO  [restartedMain] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2025-03-28 01:56:59.239 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-28 01:56:59.240 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 757 ms
+2025-03-28 01:56:59.317 DEBUG [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-03-28 01:56:59.323 INFO  [restartedMain] o.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-28 01:56:59.347 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-03-28 01:56:59.360 INFO  [restartedMain] o.h.c.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-28 01:56:59.513 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-28 01:56:59.525 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-28 01:56:59.582 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d07adfd
+2025-03-28 01:56:59.583 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-28 01:56:59.606 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-28 01:56:59.607 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-28 01:57:00.036 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-28 01:57:00.094 INFO  [restartedMain] p6spy - #2025-03-28 01:57:00 | took 1ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_user` where 1=0
+select * from `community_feed_db`.`community_user` where 1=0;
+2025-03-28 01:57:00.096 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 01:57:00.570 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-03-28 01:57:00.586 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-03-28 01:57:00.592 INFO  [restartedMain] org.faddy.Application - Started Application in 2.293 seconds (process running for 7.753)
+2025-03-28 03:21:23.207 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m44s158ms).
+2025-03-28 03:39:59.726 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m36s482ms).
+2025-03-28 03:57:08.572 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m38s869ms).
+2025-03-28 04:38:20.725 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m38s744ms).
+2025-03-28 04:56:54.573 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m3s865ms).
+2025-03-28 05:09:59.654 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m35s76ms).
+2025-03-28 05:26:18.564 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m48s903ms).
+2025-03-28 05:47:32.112 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m43s511ms).
+2025-03-28 06:06:46.220 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m14s80ms).
+2025-03-28 06:11:01.414 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m15s159ms).
+2025-03-28 06:29:56.008 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m54s578ms).
+2025-03-28 06:49:37.399 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m41s378ms).
+2025-03-28 07:07:37.146 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m59s713ms).
+2025-03-28 07:27:00.994 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m53s721ms).
+2025-03-28 07:48:49.360 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m45s593ms).
+2025-03-28 08:07:23.037 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m3s650ms).
+2025-03-28 08:11:59.358 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m6s302ms).
+2025-03-28 08:32:19.194 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m49s787ms).
+2025-03-28 08:52:23.969 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m33s677ms).
+2025-03-28 09:11:47.771 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m51s964ms).
+2025-03-28 09:29:52.601 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m4s771ms).
+2025-03-28 09:54:56.536 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m24s28ms).
+2025-03-28 10:13:25.180 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m58s608ms).
+2025-03-28 10:31:30.787 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m35s581ms).
+2025-03-28 10:51:20.047 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m47s39ms).
+2025-03-28 14:59:30.460 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 14:59:30.478 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-28 14:59:30.480 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-28 15:09:46.385 INFO  [restartedMain] org.faddy.Application - Starting Application using Java 17.0.14 with PID 32639 (/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main started by ahnkwanghyun in /Users/ahnkwanghyun/Documents/dev/community-feed-service)
+2025-03-28 15:09:46.386 INFO  [restartedMain] org.faddy.Application - No active profile set, falling back to 1 default profile: "default"
+2025-03-28 15:09:46.406 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-28 15:09:46.406 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-28 15:09:46.790 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 15:09:46.791 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-28 15:09:46.802 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2025-03-28 15:09:46.811 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 15:09:46.811 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-03-28 15:09:46.818 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-03-28 15:09:47.176 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-28 15:09:47.182 INFO  [restartedMain] o.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-28 15:09:47.182 INFO  [restartedMain] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2025-03-28 15:09:47.208 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-28 15:09:47.208 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 802 ms
+2025-03-28 15:09:47.298 DEBUG [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-03-28 15:09:47.305 INFO  [restartedMain] o.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-28 15:09:47.332 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-03-28 15:09:47.348 INFO  [restartedMain] o.h.c.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-28 15:09:47.507 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-28 15:09:47.524 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-28 15:09:47.588 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60add830
+2025-03-28 15:09:47.589 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-28 15:09:47.643 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-28 15:09:47.644 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-28 15:09:47.736 ERROR [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+2025-03-28 15:09:47.736 WARN  [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+2025-03-28 15:09:47.737 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-28 15:09:47.774 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-28 15:09:47.776 INFO  [restartedMain] o.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2025-03-28 15:09:47.784 INFO  [restartedMain] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-28 15:09:47.792 ERROR [restartedMain] o.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at org.faddy.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.hibernate.DuplicateMappingException: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.addEntityBinding(InFlightMetadataCollectorImpl.java:337)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:259)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:399)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:259)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:281)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:324)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1835)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1784)
+	... 20 common frames omitted
+2025-03-28 15:10:52.448 INFO  [restartedMain] org.faddy.Application - Starting Application using Java 17.0.14 with PID 32726 (/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main started by ahnkwanghyun in /Users/ahnkwanghyun/Documents/dev/community-feed-service)
+2025-03-28 15:10:52.449 INFO  [restartedMain] org.faddy.Application - No active profile set, falling back to 1 default profile: "default"
+2025-03-28 15:10:52.467 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-28 15:10:52.468 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-28 15:10:52.839 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 15:10:52.840 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-28 15:10:52.852 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2025-03-28 15:10:52.860 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 15:10:52.860 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-03-28 15:10:52.866 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-03-28 15:10:53.214 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-28 15:10:53.220 INFO  [restartedMain] o.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-28 15:10:53.220 INFO  [restartedMain] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2025-03-28 15:10:53.247 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-28 15:10:53.247 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 779 ms
+2025-03-28 15:10:53.329 DEBUG [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-03-28 15:10:53.335 INFO  [restartedMain] o.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-28 15:10:53.360 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-03-28 15:10:53.374 INFO  [restartedMain] o.h.c.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-28 15:10:53.524 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-28 15:10:53.537 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-28 15:10:53.603 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2d933dbc
+2025-03-28 15:10:53.604 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-28 15:10:53.630 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-28 15:10:53.630 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-28 15:10:53.710 ERROR [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+2025-03-28 15:10:53.710 WARN  [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+2025-03-28 15:10:53.711 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-28 15:10:53.749 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-28 15:10:53.752 INFO  [restartedMain] o.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2025-03-28 15:10:53.760 INFO  [restartedMain] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-28 15:10:53.770 ERROR [restartedMain] o.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at org.faddy.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.hibernate.DuplicateMappingException: Entity classes [org.faddy.comment.infrastructure.entity.CommentEntity] and [org.faddy.post.application.repo.entity.CommentEntity] share the entity name 'CommentEntity' (entity names must be distinct)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.addEntityBinding(InFlightMetadataCollectorImpl.java:337)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:259)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:399)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:259)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:281)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:324)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1835)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1784)
+	... 20 common frames omitted
+2025-03-28 15:13:10.912 INFO  [restartedMain] org.faddy.Application - Starting Application using Java 17.0.14 with PID 32888 (/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main started by ahnkwanghyun in /Users/ahnkwanghyun/Documents/dev/community-feed-service)
+2025-03-28 15:13:10.913 INFO  [restartedMain] org.faddy.Application - No active profile set, falling back to 1 default profile: "default"
+2025-03-28 15:13:10.931 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-28 15:13:10.932 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-28 15:13:11.331 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 15:13:11.332 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-28 15:13:11.344 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2025-03-28 15:13:11.352 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 15:13:11.352 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-03-28 15:13:11.358 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-03-28 15:13:11.708 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-28 15:13:11.714 INFO  [restartedMain] o.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-28 15:13:11.714 INFO  [restartedMain] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2025-03-28 15:13:11.740 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-28 15:13:11.741 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 809 ms
+2025-03-28 15:13:11.821 DEBUG [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-03-28 15:13:11.827 INFO  [restartedMain] o.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-28 15:13:11.852 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-03-28 15:13:11.866 INFO  [restartedMain] o.h.c.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-28 15:13:12.020 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-28 15:13:12.032 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-28 15:13:12.092 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57c24fa5
+2025-03-28 15:13:12.093 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-28 15:13:12.117 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-28 15:13:12.117 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-28 15:13:12.572 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-28 15:13:12.628 DEBUG [restartedMain] org.hibernate.SQL - 
+    create table community_comments (
+        comment_id bigint not null auto_increment,
+        mod_dt datetime(6),
+        reg_dt datetime(6),
+        content varchar(1000) not null,
+        like_count integer not null,
+        author_id bigint not null,
+        post_id bigint not null,
+        primary key (comment_id)
+    ) engine=InnoDB
+2025-03-28 15:13:12.688 INFO  [restartedMain] p6spy - #2025-03-28 15:13:12 | took 58ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+    create table community_comments (
+        comment_id bigint not null auto_increment,
+        mod_dt datetime(6),
+        reg_dt datetime(6),
+        content varchar(1000) not null,
+        like_count integer not null,
+        author_id bigint not null,
+        post_id bigint not null,
+        primary key (comment_id)
+    ) engine=InnoDB
+
+    create table community_comments (
+        comment_id bigint not null auto_increment,
+        mod_dt datetime(6),
+        reg_dt datetime(6),
+        content varchar(1000) not null,
+        like_count integer not null,
+        author_id bigint not null,
+        post_id bigint not null,
+        primary key (comment_id)
+    ) engine=InnoDB;
+2025-03-28 15:13:12.689 DEBUG [restartedMain] org.hibernate.SQL - 
+    alter table community_comments 
+       add constraint FKgqgpgrnm9rg5xujv0a77n8xr8 
+       foreign key (author_id) 
+       references community_user (id)
+2025-03-28 15:13:12.723 INFO  [restartedMain] p6spy - #2025-03-28 15:13:12 | took 33ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+    alter table community_comments 
+       add constraint FKgqgpgrnm9rg5xujv0a77n8xr8 
+       foreign key (author_id) 
+       references community_user (id)
+
+    alter table community_comments 
+       add constraint FKgqgpgrnm9rg5xujv0a77n8xr8 
+       foreign key (author_id) 
+       references community_user (id);
+2025-03-28 15:13:12.723 DEBUG [restartedMain] org.hibernate.SQL - 
+    alter table community_comments 
+       add constraint FKlrj6e98eodhkxqxolyyqowvbc 
+       foreign key (post_id) 
+       references community_posts (post_id)
+2025-03-28 15:13:12.755 INFO  [restartedMain] p6spy - #2025-03-28 15:13:12 | took 31ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+    alter table community_comments 
+       add constraint FKlrj6e98eodhkxqxolyyqowvbc 
+       foreign key (post_id) 
+       references community_posts (post_id)
+
+    alter table community_comments 
+       add constraint FKlrj6e98eodhkxqxolyyqowvbc 
+       foreign key (post_id) 
+       references community_posts (post_id);
+2025-03-28 15:13:12.776 INFO  [restartedMain] p6spy - #2025-03-28 15:13:12 | took 2ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_user` where 1=0
+select * from `community_feed_db`.`community_user` where 1=0;
+2025-03-28 15:13:12.779 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 15:13:13.312 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-03-28 15:13:13.330 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-03-28 15:13:13.336 INFO  [restartedMain] org.faddy.Application - Started Application in 2.587 seconds (process running for 7.951)
+2025-03-28 15:13:53.920 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 15:13:53.924 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-28 15:13:53.930 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-28 19:31:04.545 INFO  [restartedMain] org.faddy.Application - Starting Application using Java 17.0.14 with PID 51239 (/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main started by ahnkwanghyun in /Users/ahnkwanghyun/Documents/dev/community-feed-service)
+2025-03-28 19:31:04.546 INFO  [restartedMain] org.faddy.Application - No active profile set, falling back to 1 default profile: "default"
+2025-03-28 19:31:04.566 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-28 19:31:04.566 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-28 19:31:05.003 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 19:31:05.004 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-28 19:31:05.016 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2025-03-28 19:31:05.024 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-28 19:31:05.025 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-03-28 19:31:05.031 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-03-28 19:31:05.425 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-28 19:31:05.431 INFO  [restartedMain] o.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-28 19:31:05.431 INFO  [restartedMain] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2025-03-28 19:31:05.463 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-28 19:31:05.464 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 897 ms
+2025-03-28 19:31:05.548 DEBUG [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-03-28 19:31:05.555 INFO  [restartedMain] o.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-28 19:31:05.582 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-03-28 19:31:05.598 INFO  [restartedMain] o.h.c.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-28 19:31:05.779 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-28 19:31:05.800 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-28 19:31:05.958 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b40fee6
+2025-03-28 19:31:05.959 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-28 19:31:06.008 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-28 19:31:06.009 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-28 19:31:06.508 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-28 19:31:06.564 DEBUG [restartedMain] org.hibernate.SQL - 
+    create table community_likes (
+        target_id bigint not null,
+        target_type varchar(255) not null,
+        user_id bigint not null,
+        mod_dt datetime(6),
+        reg_dt datetime(6),
+        primary key (target_id, target_type, user_id)
+    ) engine=InnoDB
+2025-03-28 19:31:06.605 INFO  [restartedMain] p6spy - #2025-03-28 19:31:06 | took 39ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+    create table community_likes (
+        target_id bigint not null,
+        target_type varchar(255) not null,
+        user_id bigint not null,
+        mod_dt datetime(6),
+        reg_dt datetime(6),
+        primary key (target_id, target_type, user_id)
+    ) engine=InnoDB
+
+    create table community_likes (
+        target_id bigint not null,
+        target_type varchar(255) not null,
+        user_id bigint not null,
+        mod_dt datetime(6),
+        reg_dt datetime(6),
+        primary key (target_id, target_type, user_id)
+    ) engine=InnoDB;
+2025-03-28 19:31:06.628 INFO  [restartedMain] p6spy - #2025-03-28 19:31:06 | took 3ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_posts` where 1=0
+select * from `community_feed_db`.`community_posts` where 1=0;
+2025-03-28 19:31:06.631 INFO  [restartedMain] p6spy - #2025-03-28 19:31:06 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_user` where 1=0
+select * from `community_feed_db`.`community_user` where 1=0;
+2025-03-28 19:31:06.641 INFO  [restartedMain] p6spy - #2025-03-28 19:31:06 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_user` where 1=0
+select * from `community_feed_db`.`community_user` where 1=0;
+2025-03-28 19:31:06.642 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 19:31:07.192 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-03-28 19:31:07.210 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-03-28 19:31:07.216 INFO  [restartedMain] org.faddy.Application - Started Application in 2.875 seconds (process running for 8.278)

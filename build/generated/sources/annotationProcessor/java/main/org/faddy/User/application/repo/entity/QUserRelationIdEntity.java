@@ -19,9 +19,9 @@ public class QUserRelationIdEntity extends BeanPath<UserRelationIdEntity> {
 
     public static final QUserRelationIdEntity userRelationIdEntity = new QUserRelationIdEntity("userRelationIdEntity");
 
-    public final NumberPath<Long> followerUserId = createNumber("followerUserId", Long.class);
+    public final NumberPath<Long> followerId = createNumber("followerId", Long.class);
 
-    public final NumberPath<Long> followingUserId = createNumber("followingUserId", Long.class);
+    public final NumberPath<Long> followingId = createNumber("followingId", Long.class);
 
     public QUserRelationIdEntity(String variable) {
         super(UserRelationIdEntity.class, forVariable(variable));

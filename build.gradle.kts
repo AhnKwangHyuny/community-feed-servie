@@ -88,6 +88,8 @@ dependencies {
 
     // env 환경변수
     implementation("me.paulschwarz:spring-dotenv:3.0.0")
+
+    implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 }
 
 tasks.test {

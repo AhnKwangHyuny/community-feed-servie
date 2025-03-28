@@ -19,11 +19,11 @@ public class QUserRelationEntity extends EntityPathBase<UserRelationEntity> {
 
     public static final QUserRelationEntity userRelationEntity = new QUserRelationEntity("userRelationEntity");
 
-    public final org.faddy.common.repo.entity.QTimeBaseEntity _super = new org.faddy.common.repo.entity.QTimeBaseEntity(this);
+    public final org.faddy.common.infrastructure.entity.QTimeBaseEntity _super = new org.faddy.common.infrastructure.entity.QTimeBaseEntity(this);
 
-    public final NumberPath<Long> followerUserId = createNumber("followerUserId", Long.class);
+    public final NumberPath<Long> followerId = createNumber("followerId", Long.class);
 
-    public final NumberPath<Long> followingUserId = createNumber("followingUserId", Long.class);
+    public final NumberPath<Long> followingId = createNumber("followingId", Long.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDt = _super.modDt;

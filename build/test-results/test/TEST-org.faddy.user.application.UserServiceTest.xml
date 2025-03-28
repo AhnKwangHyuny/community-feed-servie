@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.faddy.user.application.UserServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-24T01:05:11" hostname="Ahns-MacBook-Air.local" time="0.016">
-  <properties/>
-  <testcase name="givenCreateUserRequestDto_whenCreateUser_thanCanFindUser()" classname="org.faddy.user.application.UserServiceTest" time="0.016"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

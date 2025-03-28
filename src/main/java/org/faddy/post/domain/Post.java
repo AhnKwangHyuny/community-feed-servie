@@ -1,30 +1,35 @@
 package org.faddy.post.domain;
 
+import lombok.Builder;
+import lombok.Getter;
 import org.faddy.User.domain.User;
 import org.faddy.common.domain.PositiveInteger;
 import org.faddy.common.trait.Likeable;
 import org.faddy.post.domain.content.PostContent;
 import org.faddy.post.domain.content.PostPublicationState;
 
+@Getter
 public class Post implements Likeable {
 
     private Long id;
-    private final User writer;
+    private final User author;
     private final PostContent content;
     private final PositiveInteger likeCount;
     private PostPublicationState state;
 
-    public Post(Long id, User writer, String content) {
-        this.content = new PostContent(content);
+    @Builder
+    public Post(Long id, User writer, String content, PostPublicationState state, Integer likeCount) {
         if (writer == null) {
             throw new IllegalArgumentException("게시자가 존재하지 않습니다.");
         }
 
-        this.writer = writer;
         this.id = id;
-        this.likeCount = new PositiveInteger();
-        this.state = PostPublicationState.PUBLIC;
+        this.author = writer;
+        this.content = new PostContent(content);
+        this.state = state;
+        this.likeCount = likeCount != null ? new PositiveInteger(likeCount) : new PositiveInteger();
     }
+
 
     @Override
     public void like(User user) {
@@ -48,13 +53,13 @@ public class Post implements Likeable {
 
     @Override
     public void validateLikeOperation(User user) {
-        if(writer.equals(user)) {
+        if(author.equals(user)) {
             throw new IllegalArgumentException("작성자는 좋아요 또는 싫어요를 누를 수 없습니다.");
         }
     }
 
     public void updatePost(User user , String content , PostPublicationState state) {
-        if (!writer.equals(user)) {
+        if (!author.equals(user)) {
             throw new IllegalArgumentException("작성자가 아니면 게시글을 수정할 수 없습니다.");
         }
 
@@ -62,4 +67,7 @@ public class Post implements Likeable {
         this.state = state;
     }
 
+    public String getContentText() {
+        return this.content.getContentText();
+    }
 }

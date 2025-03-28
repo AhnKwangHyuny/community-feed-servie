@@ -19,7 +19,7 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public static final QUserEntity userEntity = new QUserEntity("userEntity");
 
-    public final org.faddy.common.repo.entity.QTimeBaseEntity _super = new org.faddy.common.repo.entity.QTimeBaseEntity(this);
+    public final org.faddy.common.infrastructure.entity.QTimeBaseEntity _super = new org.faddy.common.infrastructure.entity.QTimeBaseEntity(this);
 
     public final NumberPath<Integer> followerCount = createNumber("followerCount", Integer.class);
 

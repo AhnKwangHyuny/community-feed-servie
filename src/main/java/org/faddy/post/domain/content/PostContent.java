@@ -1,7 +1,9 @@
 package org.faddy.post.domain.content;
 
-import org.faddy.User.domain.User;
+import lombok.Getter;
+import org.faddy.common.domain.content.Content;
 
+@Getter
 public class PostContent extends Content {
 
     private static final int MAX_POST_LENGTH = 500;

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.faddy.User.domain.User;
 import org.faddy.User.domain.UserInfo;
 import org.faddy.common.domain.PositiveInteger;
-import org.faddy.common.repo.entity.TimeBaseEntity;
+import org.faddy.common.infrastructure.entity.TimeBaseEntity;
 
 @Entity
 @Table(name = "community_user")

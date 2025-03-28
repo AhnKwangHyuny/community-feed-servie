@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.faddy.comment.infrastructure.entity.CommentEntityTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-28T10:30:50" hostname="Ahns-MacBook-Air.local" time="0.959">
+  <properties/>
+  <testcase name="CommentEntity에서 Comment 도메인 객체로 변환 테스트" classname="org.faddy.comment.infrastructure.entity.CommentEntityTest" time="0.959"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
