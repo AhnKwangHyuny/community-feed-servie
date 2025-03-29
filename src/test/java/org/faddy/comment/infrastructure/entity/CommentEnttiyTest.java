@@ -1,6 +1,6 @@
 package org.faddy.comment.infrastructure.entity;
 
-import org.faddy.User.application.repo.entity.UserEntity;
+import org.faddy.User.infrastructure.repo.entity.UserEntity;
 import org.faddy.User.domain.User;
 import org.faddy.comment.domain.Comment;
 import org.faddy.comment.domain.content.CommentContent;

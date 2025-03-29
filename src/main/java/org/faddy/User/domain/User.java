@@ -102,4 +102,12 @@ public class User {
         return this.followerCounter.getCount();
     }
 
+    public String getUserName() {
+        return this.info.getName();
+    }
+
+    public String getUserProfileImageUrl() {
+        return this.info.getProfileImageUrl();
+    }
+
 }

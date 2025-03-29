@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.faddy.User.application.service.UserServiceImpl;
 import org.faddy.User.application.dto.CreateUserRequestDto;
-import org.faddy.User.application.interfae.UserRepository;
+import org.faddy.User.application.interfaces.UserRepository;
 import org.faddy.User.domain.User;
 import org.faddy.User.domain.UserInfo;
 import org.faddy.user.repository.FakeUserRepository;

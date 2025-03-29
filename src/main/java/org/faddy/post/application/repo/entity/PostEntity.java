@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.faddy.User.application.repo.entity.UserEntity;
+import org.faddy.User.infrastructure.repo.entity.UserEntity;
 import org.faddy.common.infrastructure.entity.TimeBaseEntity;
 import org.faddy.post.application.common.converter.PostPublicationStateConverter;
 import org.faddy.post.domain.Post;

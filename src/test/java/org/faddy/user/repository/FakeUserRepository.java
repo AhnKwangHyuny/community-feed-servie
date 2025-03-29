@@ -3,7 +3,7 @@ package org.faddy.user.repository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import org.faddy.User.application.interfae.UserRepository;
+import org.faddy.User.application.interfaces.UserRepository;
 import org.faddy.User.domain.User;
 
 public class FakeUserRepository implements UserRepository {

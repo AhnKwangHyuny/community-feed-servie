@@ -2,8 +2,7 @@ package org.faddy.user.repository;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.management.relation.Relation;
-import org.faddy.User.application.interfae.UserRelationRepository;
+import org.faddy.User.application.interfaces.UserRelationRepository;
 import org.faddy.User.domain.User;
 
 public class FakeUserRelationRepository implements UserRelationRepository {

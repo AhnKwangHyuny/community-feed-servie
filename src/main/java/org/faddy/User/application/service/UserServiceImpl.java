@@ -1,8 +1,9 @@
 package org.faddy.User.application.service;
 
 import org.faddy.User.application.dto.CreateUserRequestDto;
-import org.faddy.User.application.interfae.UserRepository;
-import org.faddy.User.application.interfae.UserService;
+import org.faddy.User.application.dto.GetUserResponseDto;
+import org.faddy.User.application.interfaces.UserRepository;
+import org.faddy.User.application.interfaces.UserService;
 import org.faddy.User.domain.User;
 import org.faddy.User.domain.UserInfo;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(Long id) {
         return this.userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+
+    @Override
+    public GetUserResponseDto getUserProfile(Long id) {
+        User user = getUser(id);
+        return new GetUserResponseDto(user);
     }
 }

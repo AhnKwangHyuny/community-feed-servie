@@ -1,8 +1,8 @@
 package org.faddy.User.application.service;
 
 import org.faddy.User.application.dto.FollowUserRequestDto;
-import org.faddy.User.application.interfae.UserRelationRepository;
-import org.faddy.User.application.interfae.UserRepository;
+import org.faddy.User.application.interfaces.UserRelationRepository;
+import org.faddy.User.application.interfaces.UserRepository;
 import org.faddy.User.domain.User;
 
 public class UserRelationService {

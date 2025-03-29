@@ -1,6 +1,6 @@
 package org.faddy.post.application.repo.entity;
 
-import org.faddy.User.application.repo.entity.UserEntity;
+import org.faddy.User.infrastructure.repo.entity.UserEntity;
 import org.faddy.User.domain.User;
 import org.faddy.post.domain.Post;
 import org.faddy.post.domain.content.PostContent;

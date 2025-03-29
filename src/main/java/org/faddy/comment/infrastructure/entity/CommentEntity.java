@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.faddy.User.application.repo.entity.UserEntity;
+import org.faddy.User.infrastructure.repo.entity.UserEntity;
 import org.faddy.comment.domain.Comment;
 import org.faddy.common.infrastructure.entity.TimeBaseEntity;
 import org.faddy.post.application.repo.entity.PostEntity;
