@@ -1,22 +1,22 @@
 package org.faddy.User.application.service;
 
+import lombok.RequiredArgsConstructor;
 import org.faddy.User.application.dto.FollowUserRequestDto;
 import org.faddy.User.application.interfaces.UserRelationRepository;
+import org.faddy.User.application.interfaces.UserRelationService;
 import org.faddy.User.application.interfaces.UserRepository;
+import org.faddy.User.application.interfaces.UserService;
 import org.faddy.User.domain.User;
+import org.springframework.stereotype.Service;
 
-public class UserRelationService {
-    private final UserServiceImpl userServiceImpl;
+@Service
+@RequiredArgsConstructor
+public class UserRelationServiceImpl implements UserRelationService {
+    private final UserService userService;
     private final UserRelationRepository userRelationRepository;
     private final UserRepository userRepository;
 
-    public UserRelationService(UserServiceImpl userServiceImpl,
-        UserRelationRepository userRelationRepository, UserRepository userRepository) {
-        this.userServiceImpl = userServiceImpl;
-        this.userRelationRepository = userRelationRepository;
-        this.userRepository = userRepository;
-    }
-
+    @Override
     public void follow(FollowUserRequestDto dto) {
         User user = userRepository.findById(dto.userId()).orElseThrow(IllegalArgumentException::new);
         User targetUser = userRepository.findById(dto.targetUserId()).orElseThrow(IllegalArgumentException::new);
@@ -29,6 +29,7 @@ public class UserRelationService {
         userRelationRepository.save(user, targetUser);
     }
 
+    @Override
     public void unFollow(FollowUserRequestDto dto) {
         User user = userRepository.findById(dto.userId()).orElseThrow(IllegalArgumentException::new);
         User targetUser = userRepository.findById(dto.targetUserId()).orElseThrow(IllegalArgumentException::new);

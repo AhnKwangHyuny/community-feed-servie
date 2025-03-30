@@ -276,3 +276,98 @@ java.lang.IllegalArgumentException: 유저 이름이 공백 또는 오류가 존
 
 ;
 2025-03-29 19:12:11.478 DEBUG [http-nio-8080-exec-6] o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1355745300<open>)] after transaction
+2025-03-29 19:14:28.483 DEBUG [http-nio-8080-exec-8] o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-03-29 19:14:28.491 DEBUG [http-nio-8080-exec-8] o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1749517107<open>)] for JPA transaction
+2025-03-29 19:14:28.510 DEBUG [http-nio-8080-exec-8] o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@6680604b]
+2025-03-29 19:14:28.521 DEBUG [http-nio-8080-exec-8] org.hibernate.SQL - 
+    /* insert for
+        org.faddy.User.infrastructure.repo.entity.UserEntity */insert 
+    into
+        community_user (follower_count, following_count, mod_dt, name, profile_image_url, reg_dt) 
+    values
+        (?, ?, ?, ?, ?, ?)
+2025-03-29 19:14:28.525 TRACE [http-nio-8080-exec-8] org.hibernate.orm.jdbc.bind - binding parameter (1:INTEGER) <- [0]
+2025-03-29 19:14:28.526 TRACE [http-nio-8080-exec-8] org.hibernate.orm.jdbc.bind - binding parameter (2:INTEGER) <- [0]
+2025-03-29 19:14:28.526 TRACE [http-nio-8080-exec-8] org.hibernate.orm.jdbc.bind - binding parameter (3:TIMESTAMP) <- [null]
+2025-03-29 19:14:28.526 TRACE [http-nio-8080-exec-8] org.hibernate.orm.jdbc.bind - binding parameter (4:VARCHAR) <- [ahn2]
+2025-03-29 19:14:28.526 TRACE [http-nio-8080-exec-8] org.hibernate.orm.jdbc.bind - binding parameter (5:VARCHAR) <- [www.example.com]
+2025-03-29 19:14:28.526 TRACE [http-nio-8080-exec-8] org.hibernate.orm.jdbc.bind - binding parameter (6:TIMESTAMP) <- [null]
+2025-03-29 19:14:28.535 INFO  [http-nio-8080-exec-8] p6spy - #2025-03-29 19:14:28 | took 6ms | statement | connection 4| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+/* insert for org.faddy.User.infrastructure.repo.entity.UserEntity */insert into community_user (follower_count,following_count,mod_dt,name,profile_image_url,reg_dt) values (?,?,?,?,?,?)
+/* insert for org.faddy.User.infrastructure.repo.entity.UserEntity */insert into community_user (follower_count,following_count,mod_dt,name,profile_image_url,reg_dt) values (0,0,NULL,'ahn2','www.example.com',NULL);
+2025-03-29 19:14:28.539 DEBUG [http-nio-8080-exec-8] o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-03-29 19:14:28.539 DEBUG [http-nio-8080-exec-8] o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1749517107<open>)]
+2025-03-29 19:14:28.544 INFO  [http-nio-8080-exec-8] p6spy - #2025-03-29 19:14:28 | took 3ms | commit | connection 4| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+;
+2025-03-29 19:14:28.545 DEBUG [http-nio-8080-exec-8] o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1749517107<open>)] after transaction
+2025-03-29 19:37:25.417 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 19:37:25.437 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 19:37:25.440 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 19:38:17.501 INFO  [restartedMain] org.faddy.Application - Starting Application using Java 17.0.14 with PID 33906 (/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main started by ahnkwanghyun in /Users/ahnkwanghyun/Documents/dev/community-feed-service)
+2025-03-29 19:38:17.502 INFO  [restartedMain] org.faddy.Application - No active profile set, falling back to 1 default profile: "default"
+2025-03-29 19:38:17.524 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-29 19:38:17.524 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-29 19:38:17.918 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-29 19:38:17.919 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 19:38:17.996 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 74 ms. Found 5 JPA repository interfaces.
+2025-03-29 19:38:18.005 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-03-29 19:38:18.005 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-03-29 19:38:18.013 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.faddy.User.infrastructure.repo.jpa.JpaUserListQueryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-03-29 19:38:18.014 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.faddy.User.infrastructure.repo.jpa.JpaUserRelationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-03-29 19:38:18.014 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.faddy.User.infrastructure.repo.jpa.JpaUserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-03-29 19:38:18.014 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.faddy.common.infrastructure.jpa.JpaLikeRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-03-29 19:38:18.014 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.faddy.post.application.repo.jpa.JpaCommentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-03-29 19:38:18.014 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2025-03-29 19:38:18.354 INFO  [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-29 19:38:18.360 INFO  [restartedMain] o.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 19:38:18.360 INFO  [restartedMain] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2025-03-29 19:38:18.381 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-29 19:38:18.381 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 857 ms
+2025-03-29 19:38:18.474 DEBUG [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-03-29 19:38:18.482 INFO  [restartedMain] o.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 19:38:18.509 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-03-29 19:38:18.525 INFO  [restartedMain] o.h.c.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 19:38:18.684 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 19:38:18.698 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 19:38:18.771 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@84d81a1
+2025-03-29 19:38:18.772 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 19:38:18.804 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 19:38:18.804 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-29 19:38:19.263 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 19:38:19.329 INFO  [restartedMain] p6spy - #2025-03-29 19:38:19 | took 1ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_posts` where 1=0
+select * from `community_feed_db`.`community_posts` where 1=0;
+2025-03-29 19:38:19.332 INFO  [restartedMain] p6spy - #2025-03-29 19:38:19 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_user` where 1=0
+select * from `community_feed_db`.`community_user` where 1=0;
+2025-03-29 19:38:19.345 INFO  [restartedMain] p6spy - #2025-03-29 19:38:19 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/community_feed_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+select * from `community_feed_db`.`community_user` where 1=0
+select * from `community_feed_db`.`community_user` where 1=0;
+2025-03-29 19:38:19.346 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 19:38:19.387 DEBUG [restartedMain] o.s.o.j.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler - Creating new EntityManager for shared EntityManager invocation
+2025-03-29 19:38:19.403 DEBUG [restartedMain] o.s.o.j.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler - Creating new EntityManager for shared EntityManager invocation
+2025-03-29 19:38:19.425 DEBUG [restartedMain] o.s.o.j.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler - Creating new EntityManager for shared EntityManager invocation
+2025-03-29 19:38:19.444 WARN  [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userRelationServiceImpl' defined in file [/Users/ahnkwanghyun/Documents/dev/community-feed-service/build/classes/java/main/org/faddy/User/application/service/UserRelationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1: No qualifying bean of type 'org.faddy.User.application.interfaces.UserRelationRepository' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2025-03-29 19:38:19.444 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 19:38:19.446 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 19:38:19.450 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 19:38:19.451 INFO  [restartedMain] o.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2025-03-29 19:38:19.459 INFO  [restartedMain] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-29 19:38:19.468 ERROR [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 1 of constructor in org.faddy.User.application.service.UserRelationServiceImpl required a bean of type 'org.faddy.User.application.interfaces.UserRelationRepository' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.faddy.User.application.interfaces.UserRelationRepository' in your configuration.
+

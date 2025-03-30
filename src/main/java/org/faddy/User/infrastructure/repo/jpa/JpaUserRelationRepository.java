@@ -1,8 +1,14 @@
 package org.faddy.User.infrastructure.repo.jpa;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import org.faddy.User.infrastructure.repo.entity.UserRelationEntity;
+import org.faddy.User.infrastructure.repo.entity.UserRelationIdEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+public interface JpaUserRelationRepository extends
+    JpaRepository<UserRelationEntity, UserRelationIdEntity> {
 
-public interface JpaUserRelationRepository {
-
+    @Query("SELECT u.followerId FROM UserRelationEntity u WHERE u.followerId = :userId")
+    List<Long> findFollowers(Long userId);
 }
