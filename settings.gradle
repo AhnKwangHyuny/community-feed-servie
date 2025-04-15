@@ -1,4 +1,0 @@
-rootProject.name = 'fastcampus-ecommerce-springbatch'
-include 'ecommerce-batch'
-include 'ecommerce-api'
-
