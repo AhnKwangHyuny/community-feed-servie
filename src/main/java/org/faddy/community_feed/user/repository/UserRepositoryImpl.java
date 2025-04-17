@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         UserEntity entity = new UserEntity(user);
-        System.out.println("entity.getId() = " + entity.getId());
+
         entity = jpaUserRepository.save(entity);
         System.out.println("entity.getId() = " + entity.getId());
         return entity.toUser();

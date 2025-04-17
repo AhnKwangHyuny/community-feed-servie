@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.faddy.community_feed.auth.application.dto.CreateUserAuthRequestDto;
 import org.faddy.community_feed.auth.application.dto.SendEmailRequestDto;
+import org.faddy.community_feed.user.domain.User;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,4 +53,5 @@ public class DataLoader {
         requestVerifyEmail(email, token);
         registerUser(new CreateUserAuthRequestDto(email, password, "USER", "nickname", "profile"));
     }
+
 }

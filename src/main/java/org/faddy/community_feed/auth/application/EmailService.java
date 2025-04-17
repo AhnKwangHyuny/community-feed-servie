@@ -23,15 +23,15 @@ public class EmailService {
     public void sendEmail(SendEmailRequestDto dto) {
         // 이메일 객체 생성
         Email emailValue = Email.createEmail(dto.email());
-        
+
         // 도메인 검증
         emailDomainService.isAllowedDomain(emailValue.getDomain());
-        
+
         // 인증 토큰 생성 및 저장
         String randomToken = RandomTokenGenerator.generateToken();
-        
+
         emailVerificationRepository.createEmailVerification(emailValue, randomToken);
-        emailSendRepository.sendVerificationEmail(emailValue, randomToken);
+//        emailSendRepository.sendVerificationEmail(emailValue, randomToken); //??
     }
     
     /**
