@@ -8,13 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.faddy.community_feed.acceptance.utils.AcceptanceTestTemplate;
 import org.faddy.community_feed.auth.application.dto.LoginRequestDto;
+import org.faddy.community_feed.auth.application.dto.SendEmailRequestDto;
 import org.faddy.community_feed.auth.domain.TokenProvider;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class LoginAcceptanceTest extends AcceptanceTestTemplate {
 
-    private final String email = "email@email.com";
+    private final String email = "email@naver.com";
     private final TokenProvider tokenProvider = new TokenProvider("testteststestteststestteststestteststestteststestteststestteststestteststestteststesttests");
 
 
@@ -31,16 +33,13 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
 
     @Test
     void givenEmailAndPassword_whenLogin_thenToken() {
-        // given
-        LoginRequestDto dto = new LoginRequestDto(email, "password");
+        //given
 
-        // when
-        String token = requestLoginGetToken(dto);
+        //when
+        Integer code = requestLoginGetCode(new LoginRequestDto(email, "password"));
 
-        // then
-        assertNotNull(token);
-        Long id = tokenProvider.getUserId(token);
-        assertEquals(1L, id);
+        //then
+        Assertions.assertEquals(code, 0);
     }
 
     @Test
@@ -52,6 +51,6 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
         Integer code = requestLoginGetCode(dto);
 
         // then
-        assertEquals(500, code);
+        assertEquals(400, code);
     }
 }

@@ -63,6 +63,7 @@ public class AuthService {
      */
     public UserAccessTokenResponseDto loginUser(LoginRequestDto dto) {
         UserAuth userAuth = userAuthRepository.findByEmail(dto.email());
+
         if (!userAuth.matchPassword(dto.password())) {
             throw new IllegalArgumentException("Invalid password");
         }

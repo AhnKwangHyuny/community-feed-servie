@@ -9,6 +9,7 @@ import jakarta.persistence.PersistenceContext;
 import org.faddy.community_feed.auth.application.dto.CreateUserAuthRequestDto;
 import org.faddy.community_feed.auth.application.dto.SendEmailRequestDto;
 import org.faddy.community_feed.user.domain.User;
+import org.faddy.community_feed.user.domain.UserInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

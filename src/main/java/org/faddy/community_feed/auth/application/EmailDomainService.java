@@ -17,7 +17,7 @@ public class EmailDomainService {
     
     private final Set<String> allowedDomains = new HashSet<>();
     
-    @Value("${email.allowed-domains:naver.com,google.com}")
+    @Value("${email.allowed-domains:naver.com,gmail.com}")
     private String[] defaultAllowedDomains;
     
     @PostConstruct

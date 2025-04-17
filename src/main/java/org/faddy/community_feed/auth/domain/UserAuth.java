@@ -45,4 +45,14 @@ public class UserAuth {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "UserAuth{" +
+            "email=" + email +
+            ", password=" + password +
+            ", role=" + role +
+            ", userId=" + userId +
+            '}';
+    }
 }
