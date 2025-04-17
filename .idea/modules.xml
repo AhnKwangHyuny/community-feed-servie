@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/community-feed-service.iml" filepath="$PROJECT_DIR$/.idea/community-feed-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/community-feed-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/community-feed-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/community-feed.main.iml" filepath="$PROJECT_DIR$/.idea/modules/community-feed.main.iml" />
     </modules>
   </component>
 </project>

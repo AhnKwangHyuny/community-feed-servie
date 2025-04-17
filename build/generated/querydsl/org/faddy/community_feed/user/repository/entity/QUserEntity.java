@@ -31,6 +31,8 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final StringPath profileImage = createString("profileImage");
 
+    public final DatePath<java.time.LocalDate> regDate = createDate("regDate", java.time.LocalDate.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDt = _super.regDt;
 

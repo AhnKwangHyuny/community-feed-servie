@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/community-feed
+    url: jdbc:mysql://localhost:3306/faddy_community_feed_db
     username: root
     password: Agh@p970314
 
