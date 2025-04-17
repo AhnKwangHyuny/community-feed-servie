@@ -1,5 +1,9 @@
 package org.faddy.community_feed.post.repository.post_queue;
 
+import static org.faddy.community_feed.post.repository.entity.like.QLikeEntity.likeEntity;
+import static org.faddy.community_feed.post.repository.entity.post.QPostEntity.postEntity;
+
+import com.querydsl.core.types.dsl.BooleanExpression;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +13,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class UserPostQueueQueryRepositoryImpl {
+public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepository {
 
     private final UserQueueRedisRepositoryImpl queueRepository;
-
-    public UserPostQueueQueryRepositoryImpl(UserQueueRedisRepositoryImpl queueRepository) {
-        this.queueRepository = queueRepository;
-    }
 
     @Override
     public List<GetPostContentResponseDto> getContentResponse(Long userId, Long lastContentId) {

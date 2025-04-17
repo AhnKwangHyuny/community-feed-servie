@@ -41,4 +41,8 @@ public class UserAuth {
     public boolean matchPassword(String password) {
         return this.password.matchPassword(password);
     }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

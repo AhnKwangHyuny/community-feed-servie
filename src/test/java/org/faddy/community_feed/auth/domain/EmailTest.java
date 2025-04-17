@@ -3,6 +3,7 @@ package org.faddy.community_feed.auth.domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.faddy.community_feed.auth.application.dto.CreateUserAuthRequestDto;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -12,11 +13,11 @@ class EmailTest {
     @ParameterizedTest
     @NullAndEmptySource
     void givenEmailIsEmptyWhenCreateThenReturnEmail(String email) {
-        // given email
+        //given email
 
-        // when, then
         assertThrows(IllegalArgumentException.class, () -> Email.createEmail(email));
     }
+
 
     @ParameterizedTest
     @ValueSource(strings = {"vaild/@ab", "naver.com", "natty#@naver", "안녕@하세요.com"})

@@ -16,7 +16,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         UserEntity entity = new UserEntity(user);
+        System.out.println("entity.getId() = " + entity.getId());
         entity = jpaUserRepository.save(entity);
+        System.out.println("entity.getId() = " + entity.getId());
         return entity.toUser();
     }
 
@@ -24,7 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findById(Long id) {
         UserEntity userEntity = jpaUserRepository
                 .findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow( () -> new IllegalArgumentException("User with id " + id + " not found"));
         return userEntity.toUser();
     }
 }

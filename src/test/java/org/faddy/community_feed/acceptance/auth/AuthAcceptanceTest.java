@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 class AuthAcceptanceTest extends AcceptanceTestTemplate {
 
-    private final String email = "email@email.com";
+    private final String email = "email@google.com";
 
     @BeforeEach
     void init() {

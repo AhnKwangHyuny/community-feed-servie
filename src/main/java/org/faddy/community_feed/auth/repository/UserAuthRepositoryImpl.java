@@ -19,10 +19,13 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
 
     @Override
     @Transactional
-    public void registerUser(UserAuth userAuth, User user) {
+    public Long registerUser(UserAuth userAuth, User user) {
         User savedUser = userRepository.save(user);
         UserAuthEntity userAuthEntity = new UserAuthEntity(userAuth, savedUser.getId());
-        jpaUserAuthRepository.save(userAuthEntity);
+
+        UserAuthEntity savedUserAuthEntity = jpaUserAuthRepository.save(userAuthEntity);
+
+        return savedUserAuthEntity.getUserId();
     }
 
     @Override

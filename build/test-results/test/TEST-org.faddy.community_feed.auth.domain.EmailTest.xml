@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.faddy.community_feed.auth.domain.EmailTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-04-17T08:12:59" hostname="Ahns-MacBook-Air.local" time="0.025">
+  <properties/>
+  <testcase name="[1] email=vaild@ab" classname="org.faddy.community_feed.auth.domain.EmailTest" time="0.017"/>
+  <testcase name="[2] email=a@naver.com" classname="org.faddy.community_feed.auth.domain.EmailTest" time="0.001"/>
+  <testcase name="[3] email=natty@naver" classname="org.faddy.community_feed.auth.domain.EmailTest" time="0.001"/>
+  <testcase name="[4] email=test@test.com" classname="org.faddy.community_feed.auth.domain.EmailTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -21,13 +21,13 @@ public class DataLoader {
     public void loadData() {
         // user 1, 2, 3 생성
         for (int i = 1; i < 4; i++) {
-            createUser("user" + i + "@test.com");
+            createUser("user" + i + "@naver.com");
         }
     }
 
 
     public String getEmailToken(String email) {
-        return entityManager.createNativeQuery("SELECT  token FROM community_email_verification WHERE email = ?", String.class)
+        return entityManager.createNativeQuery("SELECT token FROM community_email_verification WHERE email = ?", String.class)
             .setParameter(1, email)
             .getSingleResult()
             .toString();

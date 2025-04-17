@@ -27,5 +27,14 @@ public class SignUpController {
         return Response.ok(null);
     }
 
+    @GetMapping("/verify-email")
+    public Response<Void> verifyEmail(String email, String token) {
+        emailService.verify(email, token);
+        return Response.ok(null);
+    }
 
+    @PostMapping("/register")
+    public Response<UserAccessTokenResponseDto> register(@RequestBody CreateUserAuthRequestDto dto) {
+        return Response.ok(authService.registerUser(dto));
+    }
 }
