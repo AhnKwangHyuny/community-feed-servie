@@ -1,5 +1,7 @@
 package org.faddy.community_feed.auth.application;
 
+import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
 import org.faddy.community_feed.auth.application.dto.CreateUserAuthRequestDto;
 import org.faddy.community_feed.auth.application.dto.LoginRequestDto;
 import org.faddy.community_feed.auth.application.dto.UserAccessTokenResponseDto;
@@ -8,6 +10,7 @@ import org.faddy.community_feed.auth.application.interfaces.UserAuthRepository;
 import org.faddy.community_feed.auth.domain.Email;
 import org.faddy.community_feed.auth.domain.TokenProvider;
 import org.faddy.community_feed.auth.domain.UserAuth;
+import org.faddy.community_feed.auth.repository.entity.UserAuthEntity;
 import org.faddy.community_feed.user.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +64,15 @@ public class AuthService {
     /**
      * 사용자 로그인
      */
+    @Transactional
     public UserAccessTokenResponseDto loginUser(LoginRequestDto dto) {
-        UserAuth userAuth = userAuthRepository.findByEmail(dto.email());
+        UserAuthEntity entity = userAuthRepository.findByEmail(dto.email());
+
+        if(entity == null) {
+            throw new IllegalArgumentException("Do not find UserAuth Information");
+        }
+
+        UserAuth userAuth = entity.toUserAuth();
 
         if (!userAuth.matchPassword(dto.password())) {
             throw new IllegalArgumentException("Invalid password");

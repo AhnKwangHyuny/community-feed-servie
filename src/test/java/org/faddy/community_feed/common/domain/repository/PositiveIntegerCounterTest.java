@@ -1,4 +1,4 @@
-package org.faddy.community_feed.common;
+package org.faddy.community_feed.common.domain.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -4,9 +4,9 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.faddy.community_feed.admin.ui.dto.GetDailyRegisteredUserResponseDto;
+import org.faddy.community_feed.admin.ui.dto.users.GetDailyRegisteredUserResponseDto;
 import org.faddy.community_feed.admin.ui.query.UserStatsQueryRepository;
-import org.faddy.community_feed.common.TimeCalculator;
+import org.faddy.community_feed.common.utils.TimeCalculator;
 import org.faddy.community_feed.user.repository.entity.QUserEntity;
 import org.springframework.stereotype.Repository;
 

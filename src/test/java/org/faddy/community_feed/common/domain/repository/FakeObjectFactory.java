@@ -1,4 +1,4 @@
-package org.faddy.community_feed.common;
+package org.faddy.community_feed.common.domain.repository;
 
 import org.faddy.community_feed.post.application.CommentService;
 import org.faddy.community_feed.post.application.PostService;

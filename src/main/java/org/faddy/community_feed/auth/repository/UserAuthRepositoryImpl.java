@@ -29,8 +29,7 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
     }
 
     @Override
-    public UserAuth findByEmail(String email) {
-        UserAuthEntity userAuthEntity = jpaUserAuthRepository.findByEmail(email).orElseThrow();
-        return userAuthEntity.toUserAuth();
+    public UserAuthEntity findByEmail(String email) {
+        return jpaUserAuthRepository.findByEmail(email).orElseThrow();
     }
 }

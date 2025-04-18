@@ -3,7 +3,7 @@ package org.faddy.community_feed.post.application;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.faddy.community_feed.common.FakeObjectFactory;
+import org.faddy.community_feed.common.domain.repository.FakeObjectFactory;
 import org.faddy.community_feed.post.application.dto.CreateCommentRequestDto;
 import org.faddy.community_feed.post.application.dto.LikeRequestDto;
 import org.faddy.community_feed.post.application.dto.UpdateCommentRequestDto;

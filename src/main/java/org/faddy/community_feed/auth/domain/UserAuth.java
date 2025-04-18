@@ -1,14 +1,20 @@
 package org.faddy.community_feed.auth.domain;
 
+import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.faddy.community_feed.auth.repository.entity.UserAuthEntity;
 
 @Getter
+@AllArgsConstructor
 public class UserAuth {
 
     private final Email email;
     private final Password password;
     private final UserRole role;
     private Long userId;
+
+    private LocalDateTime lastLoginAt = null;
 
     public UserAuth(String email, String password, String role) {
         if (email == null || password == null || role == null) {
@@ -44,6 +50,10 @@ public class UserAuth {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public void updateLastLoginDate(LocalDateTime lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
     }
 
     @Override

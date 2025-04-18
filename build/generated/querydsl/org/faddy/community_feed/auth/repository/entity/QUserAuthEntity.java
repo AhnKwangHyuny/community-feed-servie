@@ -21,6 +21,8 @@ public class QUserAuthEntity extends EntityPathBase<UserAuthEntity> {
 
     public final StringPath email = createString("email");
 
+    public final DateTimePath<java.time.LocalDateTime> lastLoginAt = createDateTime("lastLoginAt", java.time.LocalDateTime.class);
+
     public final StringPath password = createString("password");
 
     public final StringPath role = createString("role");

@@ -3,7 +3,7 @@ package org.faddy.community_feed.user.application;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.faddy.community_feed.common.FakeObjectFactory;
+import org.faddy.community_feed.common.domain.repository.FakeObjectFactory;
 import org.faddy.community_feed.user.application.dto.CreateUserRequestDto;
 import org.faddy.community_feed.user.application.dto.FollowUserRequestDto;
 import org.faddy.community_feed.user.domain.User;
