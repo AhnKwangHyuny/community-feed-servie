@@ -14,6 +14,12 @@ spring:
         format_sql: true
     open-in-view: false
 
+# 프로시져 호출 여부 설정
+app:
+  generate-test-data: false
+  # 생성할 테스트 데이터 수
+  test-data-count: 500000
+
 # 이메일 관련 설정
 email:
   allowed-domains: naver.com,gmail.com
