@@ -26,4 +26,9 @@ public class GetPostTableRequestDto extends Pageable {
     public String getPostId() {
         return this.postId;
     }
+
+    // 명시적인 setter 추가
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
 }

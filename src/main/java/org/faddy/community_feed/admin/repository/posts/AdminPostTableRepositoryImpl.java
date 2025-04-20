@@ -38,18 +38,14 @@ public class AdminPostTableRepositoryImpl implements AdminPostTableQuery {
         // 총 게시물 수 조회
         int totalCount = countTotalPosts(whereConditions);
 
-        // 페이지네이션 정보 계산
-        int pageIndex = dto.getPageIndex();
-        int pageSize = dto.getPageSize();
-
         List<Long> postIds = queryFactory
             .select(qPostEntity.id)
             .from(qPostEntity)
             .join(qUserEntity).on(qPostEntity.author.id.eq(qUserEntity.id))
             .where(whereConditions)
             .orderBy(qPostEntity.regDt.desc()) // 최신 게시물 순으로 정렬
-            .offset(pageIndex * pageSize)
-            .limit(pageSize)
+            .offset(dto.getOffset())
+            .limit(dto.getLimit())
             .fetch();
         System.out.println("postIds = " + postIds);
         // 조회할 데이터가 없는 경우 빈 결과 반환
@@ -91,8 +87,13 @@ public class AdminPostTableRepositoryImpl implements AdminPostTableQuery {
         // 포스팅 id로 검색 조건 추가
         Long id = dto.getPostIdAsLong();
 
+        System.out.println("조건에 사용될 ID 값: " + id); // ID 값 확인
+
         if(id != null) {
             whereConditions.and(qPostEntity.id.eq(id));
+            System.out.println("검색 조건 추가됨: ID = " + id); // 조건이 추가되었는지 확인
+        } else {
+            System.out.println("ID가 null이므로 검색 조건 추가되지 않음");
         }
 
         return whereConditions;
