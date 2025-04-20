@@ -1,4 +1,4 @@
-package org.faddy.community_feed.admin.repository;
+package org.faddy.community_feed.admin.repository.users;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

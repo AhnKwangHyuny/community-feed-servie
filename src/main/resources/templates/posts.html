@@ -119,7 +119,8 @@
 <script th:inline="javascript">
     const totalCount = [[${totalCount}]];
     const currentIndex = [[${requestDto.getPageIndex()}]];
-    const postId = /*[[${requestDto.getPostId()}]]*/ '';
-    createPagination(totalCount, currentIndex, 'posts', `&postId=${postId}`);
+    const postId = /*[[${requestDto.getPostId() != null ? requestDto.getPostId() : ''}]]*/ '';
+    const postIdParam = postId ? `&postId=${postId}` : '';
+    createPagination(totalCount, currentIndex, 'posts', postIdParam);
 </script>
 </html>

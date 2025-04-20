@@ -1,27 +1,59 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/faddy_community_feed_db
     username: root
     password: Agh@p970314
-
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
-    open-in-view: false
+        show_sql: true
+        use_sql_comments: true
+        # 성능 테스트를 위한 통계 활성화
+        generate_statistics: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 
-# 프로시져 호출 여부 설정
+## Actuator 설정
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,prometheus,metrics
+#  metrics:
+#    export:
+#      prometheus:
+#        enabled: true
+#    tags:
+#      application: community-feed-service
+#    distribution:
+#      percentiles-histogram:
+#        http.server.requests: true
+#        jdbc.connections: true
+
+
+# 테스트 데이터 생성 설정
 app:
-  generate-test-data: false
-  # 생성할 테스트 데이터 수
-  test-data-count: 500000
-
-# 이메일 관련 설정
-email:
-  allowed-domains: naver.com,gmail.com
+  test-data:
+    enabled: true                  # 전체 테스트 데이터 생성 활성화 여부
+    user:
+      enabled: true                # 사용자 데이터 생성 활성화 여부
+      count: 500000
+    post:
+      enabled: true                # 게시물 데이터 생성 활성화 여부
+      count: 500000
 
 secret-key: 9a4f2c8d3b7a1e6f45c8a0b3f267d8b1d4e6f3c8a9d2b5f8e3a9c8b5f6v8a3d9asdfas
+
+
+# SQL 쿼리 로깅
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
+    org.springframework.jdbc.core.StatementCreatorUtils: TRACE
