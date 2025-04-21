@@ -22,6 +22,9 @@ dependencies {
     implementation("org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
+    //FCM
+    implementation("com.google.firebase:firebase-admin:9.3.0")
+
     // mysql
     runtimeOnly("com.mysql:mysql-connector-j")
 
