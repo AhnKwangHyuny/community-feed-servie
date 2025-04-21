@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.faddy.community_feed.post.domain.PostTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-04-21T08:37:38" hostname="Ahns-MacBook-Air.local" time="0.001">
+  <properties/>
+  <testcase name="givenPostCreatedWhenUnlikeThenLikeCountShouldBe0()" classname="org.faddy.community_feed.post.domain.PostTest" time="0.0"/>
+  <testcase name="givenPostCreatedWhenUpdateContentThenContentShouldBeUpdated()" classname="org.faddy.community_feed.post.domain.PostTest" time="0.0"/>
+  <testcase name="givenPostCreatedWhenLikeByOtherUserThenThrowException()" classname="org.faddy.community_feed.post.domain.PostTest" time="0.0"/>
+  <testcase name="givenPostCreatedWhenUpdateContentByOtherUserThenThrowException()" classname="org.faddy.community_feed.post.domain.PostTest" time="0.0"/>
+  <testcase name="givenPostCreatedWhenLikeThenLikeCountShouldBe1()" classname="org.faddy.community_feed.post.domain.PostTest" time="0.0"/>
+  <testcase name="givenPostCreatedAndLikeWhenUnlikeThenLikeCountShouldBe0()" classname="org.faddy.community_feed.post.domain.PostTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

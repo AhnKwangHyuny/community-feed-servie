@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.faddy.community_feed.user.application.UserRelationServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-04-21T08:37:38" hostname="Ahns-MacBook-Air.local" time="0.01">
+  <properties/>
+  <testcase name="givenFollowUserWhenFollowAgainThenThrowException()" classname="org.faddy.community_feed.user.application.UserRelationServiceTest" time="0.006"/>
+  <testcase name="givenCreateTwoUserWhenFollowThenUserFollowOtherUser()" classname="org.faddy.community_feed.user.application.UserRelationServiceTest" time="0.0"/>
+  <testcase name="givenUnfollowUserWhenUnfollowSelfThenThrowException()" classname="org.faddy.community_feed.user.application.UserRelationServiceTest" time="0.001"/>
+  <testcase name="givenFollowUserWhenUnfollowThenUserUnfollowOtherUser()" classname="org.faddy.community_feed.user.application.UserRelationServiceTest" time="0.0"/>
+  <testcase name="givenUnfollowUserWhenUnfollowAgainThenThrowException()" classname="org.faddy.community_feed.user.application.UserRelationServiceTest" time="0.0"/>
+  <testcase name="givenFollowUserWhenFollowSelfThenThrowException()" classname="org.faddy.community_feed.user.application.UserRelationServiceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

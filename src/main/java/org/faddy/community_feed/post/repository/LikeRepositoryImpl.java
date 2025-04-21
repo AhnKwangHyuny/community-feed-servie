@@ -3,6 +3,7 @@ package org.faddy.community_feed.post.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import org.faddy.community_feed.message.application.interfaces.MessageRepository;
 import org.faddy.community_feed.post.application.interfaces.LikeRepository;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.domain.comment.Comment;
@@ -11,11 +12,13 @@ import org.faddy.community_feed.post.repository.jpa.JpaCommentRepository;
 import org.faddy.community_feed.post.repository.jpa.JpaLikeRepository;
 import org.faddy.community_feed.post.repository.jpa.JpaPostRepository;
 import org.faddy.community_feed.user.domain.User;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
+@Primary
 public class LikeRepositoryImpl implements LikeRepository {
 
     @PersistenceContext
@@ -23,6 +26,7 @@ public class LikeRepositoryImpl implements LikeRepository {
     private final JpaPostRepository jpaPostRepository;
     private final JpaCommentRepository jpaCommentRepository;
     private final JpaLikeRepository jpaLikeRepository;
+    private final MessageRepository messageRepository;
 
     @Override
     public boolean checkLike(Post post, User user) {
@@ -42,6 +46,7 @@ public class LikeRepositoryImpl implements LikeRepository {
         LikeEntity entity = new LikeEntity(post, user);
         entityManager.persist(entity);
         jpaPostRepository.updateLikeCount(post);
+        messageRepository.sendLikeMessage(user, post.getAuthor());
     }
 
     @Override

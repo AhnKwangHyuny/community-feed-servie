@@ -43,7 +43,7 @@ public class AcceptanceTestTemplate {
     }
 
     protected String login(String email) {
-        return requestLoginGetToken(new LoginRequestDto(email, "password"));
+        return requestLoginGetToken(new LoginRequestDto(email, "password", "test-token"));
     }
 
     protected void createUser(String email) {

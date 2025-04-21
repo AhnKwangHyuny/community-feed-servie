@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.faddy.community_feed.auth.domain.TokenProviderTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-04-21T08:37:37" hostname="Ahns-MacBook-Air.local" time="0.141">
+  <properties/>
+  <testcase name="givenInvalidToken_whenGetUserId_thenThrowException()" classname="org.faddy.community_feed.auth.domain.TokenProviderTest" time="0.084"/>
+  <testcase name="givenInvalidToken_whenGetRoles_thenThrowException()" classname="org.faddy.community_feed.auth.domain.TokenProviderTest" time="0.002"/>
+  <testcase name="givenValidToken_whenGetUserId_thenReturnCorrectUserId()" classname="org.faddy.community_feed.auth.domain.TokenProviderTest" time="0.046"/>
+  <testcase name="givenValidUserIdAndRole_whenCreateToken_thenReturnValidToken()" classname="org.faddy.community_feed.auth.domain.TokenProviderTest" time="0.004"/>
+  <testcase name="givenValidToken_whenGetRoles_thenReturnCorrectRole()" classname="org.faddy.community_feed.auth.domain.TokenProviderTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

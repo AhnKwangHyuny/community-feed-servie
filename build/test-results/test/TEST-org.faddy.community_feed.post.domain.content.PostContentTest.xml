@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.faddy.community_feed.post.domain.content.PostContentTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2025-04-21T08:37:38" hostname="Ahns-MacBook-Air.local" time="0.024">
+  <properties/>
+  <testcase name="[1] content=null" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.003"/>
+  <testcase name="[2] content=" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.001"/>
+  <testcase name="givenContentLengthIsOkWhenUpdateContentThenNotThrowError()" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.0"/>
+  <testcase name="[1] nullOrEmptyContent=null" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.002"/>
+  <testcase name="[2] nullOrEmptyContent=" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.0"/>
+  <testcase name="[1] koreanContent=뷁" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.001"/>
+  <testcase name="[2] koreanContent=닭" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.002"/>
+  <testcase name="[3] koreanContent=굵" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.001"/>
+  <testcase name="givenContentLengthIsOkWhenCreatePostContentThenReturnTextContext()" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.0"/>
+  <testcase name="givenContentLengthIsOverLimitWhenUpdateContentThenThrowError()" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.001"/>
+  <testcase name="givenContentLengthIsOverLimitCreatePostContentThenThrowError()" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.0"/>
+  <testcase name="givenContentLengthIsUnderLimitCreatePostContentThenThrowError()" classname="org.faddy.community_feed.post.domain.content.PostContentTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

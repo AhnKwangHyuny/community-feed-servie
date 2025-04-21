@@ -36,7 +36,7 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
         //given
 
         //when
-        Integer code = requestLoginGetCode(new LoginRequestDto(email, "password"));
+        Integer code = requestLoginGetCode(new LoginRequestDto(email, "password", "test-token"));
 
         //then
         Assertions.assertEquals(code, 0);
@@ -45,7 +45,7 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenWrongPassword_whenLogin_thenException() {
         // given
-        LoginRequestDto dto = new LoginRequestDto(email, "wrongPassword");
+        LoginRequestDto dto = new LoginRequestDto(email, "wrongPassword", "test-token");
 
         // when
         Integer code = requestLoginGetCode(dto);

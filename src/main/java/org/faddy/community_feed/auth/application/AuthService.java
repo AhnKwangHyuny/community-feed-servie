@@ -11,6 +11,8 @@ import org.faddy.community_feed.auth.domain.Email;
 import org.faddy.community_feed.auth.domain.TokenProvider;
 import org.faddy.community_feed.auth.domain.UserAuth;
 import org.faddy.community_feed.auth.repository.entity.UserAuthEntity;
+import org.faddy.community_feed.message.domain.FcmTokenEntity;
+import org.faddy.community_feed.message.repository.jpaRepository.JpaFcmTokenRepository;
 import org.faddy.community_feed.user.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,20 @@ public class AuthService {
     private final EmailVerificationRepository emailVerificationRepository;
     private final UserAuthRepository userAuthRepository;
     private final EmailDomainService emailDomainService;
+    private final JpaFcmTokenRepository fcmTokenRepository;
 
     public AuthService(
             TokenProvider tokenProvider,
             EmailVerificationRepository emailVerificationRepository,
             UserAuthRepository userAuthRepository,
-            EmailDomainService emailDomainService
+            EmailDomainService emailDomainService,
+            JpaFcmTokenRepository fcmTokenRepository
     ) {
         this.tokenProvider = tokenProvider;
         this.emailVerificationRepository = emailVerificationRepository;
         this.userAuthRepository = userAuthRepository;
         this.emailDomainService = emailDomainService;
+        this.fcmTokenRepository = fcmTokenRepository;
     }
 
     /**
@@ -47,9 +52,9 @@ public class AuthService {
         // 도메인 검증
         emailDomainService.isAllowedDomain(email.getDomain());
 
-        if (!emailVerificationRepository.isEmailVerified(email)) {
-            throw new IllegalArgumentException("Email is not verified");
-        }
+//        if (!emailVerificationRepository.isEmailVerified(email)) {
+//            throw new IllegalArgumentException("Email is not verified");
+//        }
 
         UserAuth userAuth = new UserAuth(dto.email(), dto.password(), dto.role());
         User user = new User(dto.name(), dto.profileImageUrl());
@@ -77,6 +82,10 @@ public class AuthService {
         if (!userAuth.matchPassword(dto.password())) {
             throw new IllegalArgumentException("Invalid password");
         }
+
+        // fcm token 생성
+        FcmTokenEntity token = FcmTokenEntity.createToken(userAuth.getUserId(), userAuth.getEmail());
+        fcmTokenRepository.save(token);
 
         return createToken(userAuth);
     }

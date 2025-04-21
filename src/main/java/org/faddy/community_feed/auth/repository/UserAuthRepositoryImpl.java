@@ -30,6 +30,6 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
 
     @Override
     public UserAuthEntity findByEmail(String email) {
-        return jpaUserAuthRepository.findByEmail(email).orElseThrow();
+        return jpaUserAuthRepository.findByEmail(email).orElseThrow(IllegalArgumentException::new);
     }
 }
