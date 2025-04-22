@@ -59,16 +59,19 @@ const Signup: React.FC = () => {
     setError(null);
     
     try {
+      console.log("이메일 인증 시도:", email, verificationToken);
       const response = await verifyEmail(email, verificationToken);
+      console.log("인증 응답:", response);
+      
       if (response.verified) {
         setIsEmailVerified(true);
         setCurrentStep(SignupStep.USER_REGISTRATION);
       } else {
         setError(response.message || '인증 코드가 유효하지 않습니다.');
       }
-    } catch (err) {
-      setError('인증에 실패했습니다. 다시 시도해주세요.');
+    } catch (err: any) {
       console.error('Token verification error:', err);
+      setError(err.message || '인증에 실패했습니다. 다시 시도해주세요.');
     }
   };
   

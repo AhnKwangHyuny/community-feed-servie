@@ -152,14 +152,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     try {
       const response = await authService.verifyEmail(email, token);
+      console.log("인증 응답:", response);
       return {
         verified: response.verified,
         message: response.message
       };
     } catch (err) {
-      setError('이메일 인증에 실패했습니다.');
       console.error('Email verification error:', err);
-      throw err;
+      setError('이메일 인증에 실패했습니다.');
+      return {
+        verified: false,
+        message: '이메일 인증 처리 중 오류가 발생했습니다.'
+      };
     } finally {
       setLoading(false);
     }

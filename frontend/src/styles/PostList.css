@@ -1,0 +1,44 @@
+/* PostList.css - 새 디자인 */
+.post-grid-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.post-grid-item {
+  width: 100%;
+  animation: fade-in 0.4s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 태블릿 뷰 */
+@media (min-width: 600px) {
+  .post-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 데스크탑 뷰 */
+@media (min-width: 960px) {
+  .post-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 고해상도 디스플레이 */
+@media (min-width: 1200px) {
+  .post-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

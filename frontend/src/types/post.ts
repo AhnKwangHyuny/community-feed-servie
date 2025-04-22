@@ -12,6 +12,8 @@ export interface GetContentResponseDto {
 
 export interface GetPostContentResponseDto extends GetContentResponseDto {
   commentCount: number;
+  thumbnailUrl?: string;
+  viewCount?: number;
 }
 
 export interface CreatePostRequestDto {
@@ -41,6 +43,7 @@ export interface CommentDto {
   updatedAt?: string;
   likeCount: number;
   isLikedByMe: boolean;
+  parentId?: number;  // 대댓글 기능을 위한 부모 댓글 ID
 }
 
 export interface CreateCommentRequestDto {

@@ -100,25 +100,36 @@ const authService = {
     try {
       console.log('이메일 인증 확인 요청:', { email, token });
       
-      const response = await api.post<ApiResponse<VerifyEmailResponseDto>>(
+      const response = await api.post<any>(
         '/signup/verify-email',
         { email, token } as VerifyEmailRequestDto
       );
       
       console.log('이메일 인증 확인 응답:', response.data);
       
-      // data 또는 value 필드에서 응답 추출
+      // ApiResponse<VerifyEmailResponseDto> 형식 처리
       if (response.data.data) {
         return response.data.data;
-      } else if (response.data.value) {
-        return response.data.value as unknown as VerifyEmailResponseDto;
+      } 
+      // 직접 VerifyEmailResponseDto 형식으로 반환된 경우
+      else if (response.data.verified !== undefined) {
+        return response.data;
+      }
+      // success/fail 형식 처리 (백엔드 ApiResponse 클래스 사용 시)
+      else if (response.data.success !== undefined) {
+        return {
+          email,
+          verified: response.data.success,
+          message: response.data.message || '이메일 인증 ' + 
+                  (response.data.success ? '성공' : '실패')
+        };
       }
       
-      // 빈 응답 생성
+      // 기본 실패 응답
       return {
         email,
         verified: false,
-        message: '서버 응답 형식 오류'
+        message: response.data.message || '서버 응답 형식 오류'
       };
     } catch (error) {
       console.error('이메일 인증 코드 확인 에러:', error);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import '../../styles/Header.css';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
@@ -15,17 +16,8 @@ const Header: React.FC = () => {
     <header className="app-header">
       <div className="header-container">
         <div className="logo">
-          <Link to="/">Community Feed</Link>
+          <Link to="/">Faddy</Link>
         </div>
-        
-        <nav className="main-nav">
-          <ul>
-            <li>
-              <Link to="/">홈</Link>
-            </li>
-            {/* 추가 메뉴 항목들 */}
-          </ul>
-        </nav>
         
         <div className="user-actions">
           {user ? (

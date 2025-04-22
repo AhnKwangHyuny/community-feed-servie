@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { GetPostContentResponseDto, CommentDto } from '../../types/post';
 import { useAuth } from '../../context/AuthContext';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
+import '../../styles/Post.css';
 
 interface PostProps {
   post: GetPostContentResponseDto;
@@ -18,7 +20,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
   
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleString();
+    return date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
   };
 
   const handleLike = async () => {
@@ -31,7 +33,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
       const endpoint = post.isLikedByMe ? '/post/unlike' : '/post/like';
       
       await axios.post(endpoint, {
-        userId: user.id,
+        userId: user?.id || 0,
         targetId: post.id
       });
       
@@ -51,7 +53,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     
     try {
       setLoading(true);
-      // 댓글 목록 API 호출 (백엔드 API를 확인하고 실제 경로로 수정 필요)
+      // 댓글 목록 API 호출
       const response = await axios.get(`/post/${post.id}/comments`);
       setComments(response.data.data || []);
       setShowComments(true);
@@ -66,42 +68,59 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     setComments((prevComments) => [newComment, ...prevComments]);
   };
 
+  // 여기서 post.thumbnailUrl은 백엔드에서 아직 구현되지 않은 필드입니다.
+  // 백엔드가 업데이트되면 이 필드를 사용합니다.
+  const thumbnailUrl = post.thumbnailUrl || 'https://via.placeholder.com/400x500';
+
   return (
-    <div className="post">
-      <div className="post-header">
-        <div className="post-author">
-          {post.userProfileImage && (
-            <img 
-              src={post.userProfileImage} 
-              alt={post.userName} 
-              className="profile-image" 
-            />
-          )}
-          <span className="author-name">{post.userName}</span>
-        </div>
-        <div className="post-date">
-          {formatDate(post.createdAt)}
-        </div>
-      </div>
-      
-      <div className="post-content">
-        {post.content}
-      </div>
-      
-      <div className="post-actions">
-        <button 
-          className={`like-button ${post.isLikedByMe ? 'liked' : ''}`}
-          onClick={handleLike}
-        >
-          {post.isLikedByMe ? '♥' : '♡'} {post.likeCount || 0}
-        </button>
+    <article className="post-card">
+      <div className="thumbnail-container">
+        <Link to={`/post/${post.id}`} className="post-link">
+          <img src={thumbnailUrl} alt="게시물 이미지" className="post-thumbnail" />
+          <div className="post-hover-overlay">
+            <div className="post-stats-overlay">
+              <div className="stat-item-overlay">
+                <span className="heart-icon">♥</span>
+                <span className="stat-count">{post.likeCount || 0}</span>
+              </div>
+              <div className="stat-item-overlay">
+                <span className="comment-icon">💬</span>
+                <span className="stat-count">{post.commentCount || 0}</span>
+              </div>
+            </div>
+          </div>
+        </Link>
         
-        <button 
-          className="comment-button"
-          onClick={handleCommentToggle}
-        >
-          💬 {post.commentCount || 0}
-        </button>
+        <div className="post-meta">
+          <div className="post-date">{formatDate(post.createdAt)}</div>
+          <div className="post-author">by {post.userName}</div>
+        </div>
+      </div>
+      
+      <div className="post-info">
+        <h3 className="post-title">
+          <Link to={`/post/${post.id}`}>
+            {post.content.length > 50 
+              ? post.content.substring(0, 50) + '...' 
+              : post.content}
+          </Link>
+        </h3>
+        
+        <div className="post-actions">
+          <button 
+            className={`action-button like-button ${post.isLikedByMe ? 'liked' : ''}`}
+            onClick={handleLike}
+          >
+            {post.isLikedByMe ? '♥' : '♡'} {post.likeCount || 0}
+          </button>
+          
+          <button 
+            className="action-button comment-button"
+            onClick={handleCommentToggle}
+          >
+            💬 {post.commentCount || 0}
+          </button>
+        </div>
       </div>
       
       {showComments && (
@@ -120,7 +139,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
           )}
         </div>
       )}
-    </div>
+    </article>
   );
 };
 

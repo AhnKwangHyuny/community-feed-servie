@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
 import { GetPostContentResponseDto } from '../../types/post';
+import '../../styles/PostList.css';
 
 interface PostListProps {
   posts: GetPostContentResponseDto[];
@@ -49,9 +50,9 @@ const PostList: React.FC<PostListProps> = ({ posts, onLike }) => {
   }
 
   return (
-    <div className="post-list">
+    <div className="post-grid-container">
       {visiblePosts.map((post) => (
-        <div key={post.id} className="post-item-container">
+        <div key={post.id} className="post-grid-item">
           <Post 
             post={post} 
             onLike={onLike}
