@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.faddy.community_feed.auth.domain.RandomTokenGeneratorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-04-21T08:37:37" hostname="Ahns-MacBook-Air.local" time="0.015">
-  <properties/>
-  <testcase name="whenGenerateToken_thenReturnTokenWithValidCharacters()" classname="org.faddy.community_feed.auth.domain.RandomTokenGeneratorTest" time="0.005"/>
-  <testcase name="whenGenerateToken_thenReturnTokenWithCorrectLength()" classname="org.faddy.community_feed.auth.domain.RandomTokenGeneratorTest" time="0.002"/>
-  <testcase name="whenGenerateTokenMultipleTimes_thenReturnUniqueTokens()" classname="org.faddy.community_feed.auth.domain.RandomTokenGeneratorTest" time="0.005"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

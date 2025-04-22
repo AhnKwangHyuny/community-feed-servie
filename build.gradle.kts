@@ -22,6 +22,10 @@ dependencies {
     implementation("org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
+
+    // Spring Mail
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+
     //FCM
     implementation("com.google.firebase:firebase-admin:9.3.0")
 
@@ -31,6 +35,9 @@ dependencies {
     // lombok
     implementation ("org.projectlombok:lombok")
     annotationProcessor ("org.projectlombok:lombok")
+
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
     // querydsl
     implementation ("com.querydsl:querydsl-jpa:5.0.0:jakarta")

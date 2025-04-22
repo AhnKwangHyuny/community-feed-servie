@@ -18,22 +18,18 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
-## Actuator 설정
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: health,info,prometheus,metrics
-#  metrics:
-#    export:
-#      prometheus:
-#        enabled: true
-#    tags:
-#      application: community-feed-service
-#    distribution:
-#      percentiles-histogram:
-#        http.server.requests: true
-#        jdbc.connections: true
+  mail:
+    host: smtp.gmail.com  # 또는 다른 SMTP 서버
+    port: 587
+    username: agh0314@gmail.com
+    password: pwjp apmf ivdw eqey
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+  data:
+    redis:
+      port: 6379
+      host: localhost
 
 
 # 테스트 데이터 생성 설정

@@ -6,6 +6,8 @@ import org.faddy.community_feed.auth.application.EmailService;
 import org.faddy.community_feed.auth.application.dto.CreateUserAuthRequestDto;
 import org.faddy.community_feed.auth.application.dto.SendEmailRequestDto;
 import org.faddy.community_feed.auth.application.dto.UserAccessTokenResponseDto;
+import org.faddy.community_feed.auth.application.dto.VerifyEmailRequestDto;
+import org.faddy.community_feed.auth.application.dto.VerifyEmailResponseDto;
 import org.faddy.community_feed.common.ui.Response;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +30,8 @@ public class SignUpController {
     }
 
     @GetMapping("/verify-email")
-    public Response<Void> verifyEmail(String email, String token) {
-        emailService.verify(email, token);
-        return Response.ok(null);
+    public Response<VerifyEmailResponseDto> verifyEmail(String email, String token) {
+        return Response.ok(emailService.verify(email, token));
     }
 
     @PostMapping("/register")
