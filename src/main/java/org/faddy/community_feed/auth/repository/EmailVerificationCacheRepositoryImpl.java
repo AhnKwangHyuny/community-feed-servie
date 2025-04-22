@@ -24,6 +24,7 @@ public class EmailVerificationCacheRepositoryImpl implements EmailVerificationCa
     @Override
     public String getEmailVerificationToken(String email) {
         String key = CacheKeys.emailVerificationTokenKey(email);
+        System.out.println("key = " + key);
         return redisTemplate.opsForValue().get(key);
     }
 

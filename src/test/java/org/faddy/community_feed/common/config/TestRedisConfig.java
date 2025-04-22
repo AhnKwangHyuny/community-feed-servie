@@ -7,11 +7,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 @TestConfiguration
-@Profile("test") // test 프로파일에서만 활성화
 public class TestRedisConfig {
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
-        // 테스트용 Mock 연결 팩토리 생성
-        return Mockito.mock(RedisConnectionFactory.class);
-    }
+//    @Bean
+//    public RedisConnectionFactory redisConnectionFactory() {
+//        // 테스트용 Mock 연결 팩토리 생성
+//        return Mockito.mock(RedisConnectionFactory.class);
+//    }
 }

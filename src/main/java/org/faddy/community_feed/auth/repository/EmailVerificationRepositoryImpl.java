@@ -60,4 +60,15 @@ public class EmailVerificationRepositoryImpl implements EmailVerificationReposit
 
         return entity.isVerified();
     }
+
+    @Override
+    public EmailVerificationEntity getEmailVerification(String email, String token) {
+
+        if(email == null || token == null) {
+            throw new IllegalArgumentException("email or token is null. %s %s".formatted(email, token));
+        }
+
+        return jpaEmailVerificationRepository.findByEmailAndToken(email, token)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않은 이메일 인증 객체 입니다. (EmailVerificationRepository :findByEmailAndToken )"));
+    }
 }

@@ -1,7 +1,6 @@
 package org.faddy.community_feed.auth.application;
 
 import java.time.Duration;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.faddy.community_feed.auth.application.dto.SendEmailRequestDto;
@@ -57,6 +56,9 @@ public class EmailService {
                 throw new RuntimeException("이메일 전송에 실패했습니다.");
             }
 
+            //이메일 인증 정보 저장
+            emailVerificationRepository.createEmailVerification(emailValue , verificationToken);
+
             // 클라이언트에게 필요한 정보 반환
             return SendEmailVerificationTokenResponseDto.of(emailValue.getEmailText(), verificationToken, sent);
         } catch (Exception e) {
@@ -71,22 +73,36 @@ public class EmailService {
      * @param token 인증 토큰
      * @return 인증 결과 정보
      */
+    @Transactional
     public VerifyEmailResponseDto verify(String email, String token) {
         Email emailValue = Email.createEmail(email);
-
-        // Redis에서 토큰 검증
-        boolean isVerified = emailVerificationCacheRepository.verifyEmailToken(email, token);
-
-        if (!isVerified) {
-            throw new IllegalArgumentException("유효하지 않거나 만료된 인증 코드입니다.");
+        boolean isVerified = false;
+        
+        try {
+            // Redis에서 토큰 검증
+            isVerified = emailVerificationCacheRepository.verifyEmailToken(email, token);
+            
+            // 검증 결과와 관계없이 Redis에서 토큰 삭제 (중복 검증 방지)
+            emailVerificationCacheRepository.removeEmailVerificationToken(email);
+            
+            if (!isVerified) {
+                // 검증 실패 시 예외 던지지 않고 실패 응답 반환
+                return VerifyEmailResponseDto.of(email, false, "유효하지 않거나 만료된 인증 코드입니다.");
+            }
+            
+            // 인증 성공 시 DB에 인증 완료 상태 저장 (isVerify -> true)
+            emailVerificationRepository.verifyEmail(emailValue, token);
+            
+            // 성공 응답 반환
+            return VerifyEmailResponseDto.of(email, true, "이메일 인증이 성공적으로 완료되었습니다.");
+        } catch (Exception e) {
+            // 예외 발생 시 로깅
+            System.err.println("이메일 인증 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+            
+            // 실패 응답 반환
+            return VerifyEmailResponseDto.of(email, false, "이메일 인증 처리 중 오류가 발생했습니다.");
         }
-
-        // Redis에서 토큰 삭제
-        emailVerificationCacheRepository.removeEmailVerificationToken(email);
-
-        // 인증 성공 시 DB에 인증 완료 상태 저장 (EmailVerificationEntity)
-        emailVerificationRepository.verifyEmail(emailValue, token);
-
-        return new VerifyEmailResponseDto(email, true, "이메일 인증이 완료되었습니다.");
     }
+
 }
