@@ -39,6 +39,8 @@ public class QPostEntity extends EntityPathBase<PostEntity> {
 
     public final EnumPath<org.faddy.community_feed.post.domain.PostPublicationState> state = createEnum("state", org.faddy.community_feed.post.domain.PostPublicationState.class);
 
+    public final ListPath<org.faddy.community_feed.post.repository.entity.image.PostThumbnailEntity, org.faddy.community_feed.post.repository.entity.image.QPostThumbnailEntity> thumbnails = this.<org.faddy.community_feed.post.repository.entity.image.PostThumbnailEntity, org.faddy.community_feed.post.repository.entity.image.QPostThumbnailEntity>createList("thumbnails", org.faddy.community_feed.post.repository.entity.image.PostThumbnailEntity.class, org.faddy.community_feed.post.repository.entity.image.QPostThumbnailEntity.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updDt = _super.updDt;
 

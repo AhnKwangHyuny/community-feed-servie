@@ -2,13 +2,14 @@ package org.faddy.community_feed.post.domain.image;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.faddy.community_feed.image.domain.BaseImage;
 import org.faddy.community_feed.image.domain.ImageType;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.repository.entity.image.PostThumbnailEntity;
 
 @Getter
-@Builder
+@SuperBuilder
 public class PostThumbnail extends BaseImage {
     private final Post post;
     private final int displayOrder;
@@ -23,7 +24,7 @@ public class PostThumbnail extends BaseImage {
         Post post,
         int displayOrder,
         boolean isMain) {
-        super(  id , url, originalFilename, contentType, size, ImageType.POST_THUMBNAIL);
+        super(id, url, originalFilename, contentType, size, ImageType.POST_THUMBNAIL);
         this.post = post;
         this.displayOrder = displayOrder;
         this.isMain = isMain;

@@ -23,7 +23,7 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public Response<Long> createPost(@RequestBody CreatePostRequestDto dto) {
+    public Response<Long> createPost( @RequestBody CreatePostRequestDto dto) {
         Post post = postService.createPost(dto);
         return Response.ok(post.getId());
     }

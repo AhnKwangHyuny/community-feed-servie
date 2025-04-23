@@ -15,38 +15,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Slf4j
-public class ImageRepositoryImpl<T extends Image> implements ImageRepository<T> {
+@RequiredArgsConstructor
+public class ImageRepositoryImpl implements ImageRepository<BaseImage> {
 
     private final JpaImageRepository jpaImageRepository;
-    private final Class<T> domainClass;
-
-    public ImageRepositoryImpl(JpaImageRepository jpaImageRepository, Class<T> domainClass) {
-        this.jpaImageRepository = jpaImageRepository;
-        this.domainClass = domainClass;
-    }
-
-    // 타입 안전한 캐스팅을 위한 메서드
-    @SuppressWarnings("unchecked")
-    protected T safeCast(BaseImage baseImage) {
-        if (domainClass.isInstance(baseImage)) {
-            return (T) baseImage;
-        }
-        throw new ClassCastException("Cannot cast " + baseImage.getClass() + " to " + domainClass);
-    }
 
 
     @Override
     @Transactional
-    public T save(T image) {
+    public BaseImage save(BaseImage image) {
         ImageEntity imageEntity = convertToEntity(image);
         ImageEntity savedEntity = jpaImageRepository.save(imageEntity);
-        return (T) convertToDomain(savedEntity);
+        return convertToDomain(savedEntity);
     }
 
     @Override
-    public Optional<T> findById(Long id) {
+    public Optional<BaseImage> findById(Long id) {
         return jpaImageRepository.findById(id)
-            .map(entity -> (T) convertToDomain(entity));
+            .map(this::convertToDomain);
     }
 
     @Override
@@ -56,9 +42,9 @@ public class ImageRepositoryImpl<T extends Image> implements ImageRepository<T> 
     }
 
     @Override
-    public List<T> findAll() {
+    public List<BaseImage> findAll() {
         return jpaImageRepository.findAll().stream()
-            .map(entity -> (T) convertToDomain(entity))
+            .map(this::convertToDomain)
             .collect(Collectors.toList());
     }
 

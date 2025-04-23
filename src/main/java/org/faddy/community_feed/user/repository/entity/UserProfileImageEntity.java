@@ -37,5 +37,6 @@ public class UserProfileImageEntity extends TimeBaseEntity {
     private ImageEntity image;
 
     @Column(name = "is_active", nullable = false)
+    @Builder.Default
     private boolean isActive = true;
 }
