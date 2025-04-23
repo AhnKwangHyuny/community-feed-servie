@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import { Link } from 'react-router-dom';
 import { GetPostContentResponseDto, CommentDto } from '../../types/post';
 import { useAuth } from '../../context/AuthContext';
@@ -32,8 +32,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     try {
       const endpoint = post.isLikedByMe ? '/post/unlike' : '/post/like';
       
-      await axios.post(endpoint, {
-        userId: user?.id || 0,
+      await api.post(endpoint, {
         targetId: post.id
       });
       
@@ -54,7 +53,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     try {
       setLoading(true);
       // 댓글 목록 API 호출
-      const response = await axios.get(`/post/${post.id}/comments`);
+      const response = await api.get(`/post/${post.id}/comments`);
       setComments(response.data.data || []);
       setShowComments(true);
     } catch (error) {

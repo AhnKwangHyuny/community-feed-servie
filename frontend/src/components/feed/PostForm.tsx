@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { GetPostContentResponseDto } from '../../types/post';
 import '../../styles/PostForm.css';
@@ -60,20 +60,20 @@ const PostForm: React.FC<PostFormProps> = ({ onPostCreated }) => {
       
       // 포스트 데이터 생성
       const postData = {
-        userId: user?.id || 0,
         content: content.trim(),
+        state: 'PUBLIC'  // PostPublicationState.PUBLIC
       };
       
       // 이미지가 있는 경우 FormData로 변환
       if (thumbnail) {
         const formData = new FormData();
-        formData.append('userId', user?.id?.toString() || '0');
         formData.append('content', content.trim());
+        formData.append('state', 'PUBLIC');
         formData.append('thumbnail', thumbnail);
         
         // 이미지 업로드 API 호출 (백엔드 구현 필요)
         // 백엔드 API 구현 전까지는 기존 API를 사용
-        const response = await axios.post<{data: number}>('/post', postData);
+        const response = await api.post<{data: number}>('/post', postData);
         
         // 임시 포스트 객체 생성
         const newPost: GetPostContentResponseDto = {
@@ -93,7 +93,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostCreated }) => {
         onPostCreated(newPost);
       } else {
         // 기존 텍스트만 있는 포스트 생성
-        const response = await axios.post<{data: number}>('/post', postData);
+        const response = await api.post<{data: number}>('/post', postData);
         
         // 임시 포스트 객체 생성
         const newPost: GetPostContentResponseDto = {

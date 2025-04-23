@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import PostList from '../components/feed/PostList';
 import PostForm from '../components/feed/PostForm';
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
     try {
       setLoading(true);
-      const response = await axios.get<{ data: GetPostContentResponseDto[] }>('/feed', {
+      const response = await api.get<{ data: GetPostContentResponseDto[] }>('/feed', {
         params: { 
           lastContentId,
           category: activeCategory === '인기글' ? 'popular' : 

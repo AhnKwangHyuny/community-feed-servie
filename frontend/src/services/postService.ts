@@ -3,7 +3,7 @@ import { GetPostContentResponseDto, CommentDto } from '../types/post';
 
 export interface CreatePostRequestDto {
   content: string;
-  state?: string;
+  state: string;
 }
 
 export interface UpdatePostRequestDto {
@@ -31,7 +31,10 @@ const postService = {
       console.log('포스트 생성 응답:', response.data);
       
       // response.data는 {code: 0, message: "ok", data: 123} 형식 
-      return response.data.data;
+      if (!response.data.data && !response.data.value) {
+        throw new Error('포스트 생성 실패: 서버에서 ID를 반환하지 않았습니다');
+      }
+      return response.data.data ?? (response.data.value as number);
     } catch (error) {
       console.error('포스트 생성 에러:', error);
       throw error;
@@ -47,7 +50,10 @@ const postService = {
   async updatePost(postId: number, data: UpdatePostRequestDto): Promise<number> {
     try {
       const response = await api.patch<ApiResponse<number>>(`/post/${postId}`, data);
-      return response.data.data;
+      if (!response.data.data && !response.data.value) {
+        throw new Error('포스트 수정 실패: 서버에서 ID를 반환하지 않았습니다');
+      }
+      return response.data.data ?? (response.data.value as number);
     } catch (error) {
       console.error('포스트 수정 에러:', error);
       throw error;

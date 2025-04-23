@@ -17,18 +17,16 @@ export interface GetPostContentResponseDto extends GetContentResponseDto {
 }
 
 export interface CreatePostRequestDto {
-  userId: number;
   content: string;
+  state: string;  // state가 필수값이 되었습니다
 }
 
 export interface UpdatePostRequestDto {
-  userId: number;
   content: string;
   state?: string;
 }
 
 export interface LikeRequestDto {
-  userId: number;
   targetId: number;
 }
 

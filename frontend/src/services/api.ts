@@ -4,7 +4,8 @@ import axios from 'axios';
 export interface ApiResponse<T> {
   code: number;
   message: string;
-  data: T;
+  data?: T;
+  value?: any; // 백엔드에서 사용하는 대체 필드
 }
 
 // API 인스턴스 생성

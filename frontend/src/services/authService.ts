@@ -1,14 +1,6 @@
 // /Users/ahnkwanghyun/Documents/dev/community-feed-service/frontend/src/services/authService.ts
 
-import axios from 'axios';
-
-// API 응답 타입 정의
-interface ApiResponse<T> {
-  code: number;
-  message: string;
-  data?: T;
-  value?: any; // 백엔드에서 사용하는 대체 필드
-}
+import api, { ApiResponse } from './api';
 
 // 각 API 요청/응답 타입 정의
 interface SendEmailRequestDto {
@@ -43,26 +35,6 @@ interface LoginRequestDto {
   password: string;
   fcmToken?: string;
 }
-
-// API 클라이언트 생성
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// 요청 인터셉터 - 토큰이 있으면 헤더에 추가
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 /**
  * 인증 관련 API 호출 함수들을 제공하는 서비스

@@ -21,6 +21,9 @@ const commentService = {
       const response = await api.post<ApiResponse<CommentDto>>('/comment', data);
       console.log('댓글 생성 응답:', response.data);
       
+      if (!response.data.data) {
+        throw new Error('댓글 생성 실패: 서버에서 데이터를 반환하지 않았습니다');
+      }
       return response.data.data;
     } catch (error) {
       console.error('댓글 생성 에러:', error);
