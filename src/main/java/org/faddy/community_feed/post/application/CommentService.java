@@ -5,6 +5,7 @@ import org.faddy.community_feed.post.application.dto.LikeRequestDto;
 import org.faddy.community_feed.post.application.dto.UpdateCommentRequestDto;
 import org.faddy.community_feed.post.application.interfaces.CommentRepository;
 import org.faddy.community_feed.post.application.interfaces.LikeRepository;
+import org.faddy.community_feed.post.application.interfaces.PostService;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.domain.comment.Comment;
 import org.faddy.community_feed.user.application.UserService;

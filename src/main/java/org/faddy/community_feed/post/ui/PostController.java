@@ -2,11 +2,13 @@ package org.faddy.community_feed.post.ui;
 
 import lombok.RequiredArgsConstructor;
 import org.faddy.community_feed.common.idempotency.annotation.Idempotent;
+import org.faddy.community_feed.common.principal.AuthPrincipal;
+import org.faddy.community_feed.common.principal.UserPrincipal;
 import org.faddy.community_feed.common.ui.Response;
-import org.faddy.community_feed.post.application.PostService;
 import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.LikeRequestDto;
 import org.faddy.community_feed.post.application.dto.UpdatePostRequestDto;
+import org.faddy.community_feed.post.application.interfaces.PostService;
 import org.faddy.community_feed.post.domain.Post;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,27 +25,32 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public Response<Long> createPost( @RequestBody CreatePostRequestDto dto) {
-        Post post = postService.createPost(dto);
+    public Response<Long> createPost(@RequestBody CreatePostRequestDto dto,
+        @AuthPrincipal UserPrincipal principal) {
+        Post post = postService.createPost(principal.getUserId() , dto);
         return Response.ok(post.getId());
     }
 
     @PatchMapping("/{postId}")
-    public Response<Long> updatePost(@PathVariable(name = "postId") Long postId, @RequestBody UpdatePostRequestDto dto) {
-        Post post = postService.updatePost(postId, dto);
+    public Response<Long> updatePost(@PathVariable(name = "postId") Long postId,
+        @RequestBody UpdatePostRequestDto dto,
+        @AuthPrincipal UserPrincipal principal) {
+        Post post = postService.updatePost(postId, principal.getUserId(), dto);
         return Response.ok(post.getId());
     }
 
     @Idempotent
     @PostMapping("/like")
-    public Response<Void> likePost(@RequestBody LikeRequestDto dto) {
-        postService.likePost(dto);
+    public Response<Void> likePost(@RequestBody LikeRequestDto dto,
+        @AuthPrincipal UserPrincipal principal) {
+        postService.likePost(principal.getUserId(), dto.targetId());
         return Response.ok(null);
     }
 
     @PostMapping("/unlike")
-    public Response<Void> unlikePost(@RequestBody LikeRequestDto dto) {
-        postService.unlikePost(dto);
+    public Response<Void> unlikePost(@RequestBody LikeRequestDto dto,
+        @AuthPrincipal UserPrincipal principal) {
+        postService.unlikePost(principal.getUserId(), dto.targetId());
         return Response.ok(null);
     }
 }
