@@ -35,7 +35,7 @@ class FeedAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenUserHasFollowerWhenCreatePostThenFollowerFeedCanGetPost() {
         // given
-        CreatePostRequestDto dto = new CreatePostRequestDto(2L, "1 content", PostPublicationState.PUBLIC);
+        CreatePostRequestDto dto = new CreatePostRequestDto( "1 content", PostPublicationState.PUBLIC);
         Long createdPostId = requestCreatePost(dto);
 
         // when, 팔로워의 피드 요청

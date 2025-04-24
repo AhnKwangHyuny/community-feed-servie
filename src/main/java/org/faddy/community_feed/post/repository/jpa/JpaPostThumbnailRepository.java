@@ -20,6 +20,10 @@ public interface JpaPostThumbnailRepository extends JpaRepository<PostThumbnailE
     List<PostThumbnailEntity> findByPostId(@Param("postId") Long postId);
 
     @Modifying
-    @Query("DELETE FROM PostThumbnailEntity t WHERE t.post.id = :postId")
+    @Query("DELETE FROM PostThumbnailEntity p WHERE p.post.id = :postId")
     void deleteByPostId(@Param("postId") Long postId);
+
+    // 이미지 ID로 썸네일 조회
+    @Query("SELECT t FROM PostThumbnailEntity t JOIN FETCH t.image WHERE t.image.id = :imageId")
+    Optional<PostThumbnailEntity> findByImageId(@Param("imageId") Long imageId);
 }

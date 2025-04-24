@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.faddy.community_feed.image.application.interfaces.ImageRepository;
 import org.faddy.community_feed.image.domain.BaseImage;
+import org.faddy.community_feed.image.domain.ImageStatus;
 import org.faddy.community_feed.image.repository.entity.ImageEntity;
 import org.faddy.community_feed.user.application.interfaces.UserProfileImageRepository;
 import org.faddy.community_feed.user.domain.User;
@@ -115,6 +116,16 @@ public class UserProfileImageRepositoryImpl implements UserProfileImageRepositor
                 return toDomain(entity, imageEntity, userEntity.toUser());
             })
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserProfileImage updateStatus(Long imageId, ImageStatus status) {
+        return null;
+    }
+
+    @Override
+    public List<UserProfileImage> findByIds(List<Long> ids) {
+        return List.of();
     }
 
     @Override

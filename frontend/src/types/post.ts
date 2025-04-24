@@ -19,6 +19,7 @@ export interface GetPostContentResponseDto extends GetContentResponseDto {
 export interface CreatePostRequestDto {
   content: string;
   state: string;  // state가 필수값이 되었습니다
+  imageIds?: number[];  // 게시물에 첨부할 이미지 ID 목록
 }
 
 export interface UpdatePostRequestDto {

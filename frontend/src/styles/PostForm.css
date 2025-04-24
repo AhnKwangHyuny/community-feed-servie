@@ -25,11 +25,11 @@
   border-color: #1976d2;
 }
 
-.thumbnail-upload {
+.image-upload {
   position: relative;
 }
 
-.thumbnail-label {
+.image-label {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -58,23 +58,29 @@
   border: 0;
 }
 
-.thumbnail-preview-container {
-  position: relative;
-  width: 100%;
+.images-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 16px;
+}
+
+.image-preview-wrapper {
+  position: relative;
+  width: calc(33.33% - 8px);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.thumbnail-preview {
+.image-preview {
   width: 100%;
-  max-height: 300px;
-  object-fit: contain;
+  height: 120px;
+  object-fit: cover;
   display: block;
 }
 
-.remove-thumbnail-btn {
+.remove-image-btn {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -92,8 +98,32 @@
   transition: background-color 0.2s;
 }
 
-.remove-thumbnail-btn:hover {
+.remove-image-btn:hover {
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.main-image-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background-color: rgba(25, 118, 210, 0.8);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 모바일 환경에서는 이미지를 더 크게 표시 */
+@media (max-width: 768px) {
+  .image-preview-wrapper {
+    width: calc(50% - 6px);
+  }
+}
+
+@media (max-width: 480px) {
+  .image-preview-wrapper {
+    width: 100%;
+  }
 }
 
 .form-actions {

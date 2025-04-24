@@ -24,7 +24,7 @@ public class PostThumbnail extends BaseImage {
         Post post,
         int displayOrder,
         boolean isMain) {
-        super(id, url, originalFilename, contentType, size, ImageType.POST_THUMBNAIL);
+        super(id, url, originalFilename, contentType, size, ImageType.POST);
         this.post = post;
         this.displayOrder = displayOrder;
         this.isMain = isMain;

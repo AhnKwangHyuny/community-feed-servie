@@ -50,6 +50,13 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-gson:0.12.6")
 
+    // AWS S3
+    implementation("com.amazonaws:aws-java-sdk-s3:1.12.395")
+
+    // 이미지 처리 라이브러리
+    implementation("org.imgscalr:imgscalr-lib:4.2")
+    implementation("javax.xml.bind:jaxb-api:2.3.1")
+
 
     // test
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
@@ -78,7 +85,8 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.test {
-    enabled = false  // 모든 테스트 비활성화
+    enabled = true  // 테스트 활성화
+    useJUnitPlatform()
 }
 
 tasks.named("clean") {

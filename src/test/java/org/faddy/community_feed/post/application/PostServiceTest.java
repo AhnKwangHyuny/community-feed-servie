@@ -11,12 +11,13 @@ import org.faddy.community_feed.post.domain.content.Content;
 import org.junit.jupiter.api.Test;
 
 class PostServiceTest extends PostServiceTestTemplate {
-    CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(), "test-content", PostPublicationState.PUBLIC);
+    CreatePostRequestDto dto = new CreatePostRequestDto("test-content", PostPublicationState.PUBLIC);
+    Long testUserId = 123213L;
 
     @Test
     void givenPostRequestDtoWhenCreateThenReturnPost() {
         // when
-        Post savedPost = postService.createPost(dto);
+        Post savedPost = postService.createPost(testUserId, dto);
 
         // then
         Post post = postService.getPost(savedPost.getId());
@@ -26,11 +27,11 @@ class PostServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCreatePostWhenUpdateThenReturnUpdatedPost() {
         // given
-        Post savedPost = postService.createPost(dto);
+        Post savedPost = postService.createPost(testUserId, dto);
 
         // when
-        UpdatePostRequestDto updateDto = new UpdatePostRequestDto(user.getId(), "updated-content", PostPublicationState.PRIVATE);
-        Post updatedPost = postService.updatePost(savedPost.getId(), updateDto);
+        UpdatePostRequestDto updateDto = new UpdatePostRequestDto("updated-content", PostPublicationState.PRIVATE);
+        Post updatedPost = postService.updatePost(savedPost.getId(),testUserId ,  updateDto);
 
         // then
         Content content = updatedPost.getContent();
@@ -41,11 +42,11 @@ class PostServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCreatedPostWhenLikedThenReturnPostWithLike() {
         // given
-        Post savedPost = postService.createPost(dto);
+        Post savedPost = postService.createPost(testUserId, dto);
 
         // when
         LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId(), savedPost.getId());
-        postService.likePost(likeRequestDto);
+        postService.likePost(testUserId, likeRequestDto.targetId());
 
         // then
         assertEquals(1, savedPost.getLikeCount());
@@ -54,12 +55,12 @@ class PostServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCreatedPostWhenLikedTwiceThenReturnPostWithLike() {
         // given
-        Post savedPost = postService.createPost(dto);
+        Post savedPost = postService.createPost(testUserId , dto);
 
         // when
         LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId(), savedPost.getId());
-        postService.likePost(likeRequestDto);
-        postService.likePost(likeRequestDto);
+        postService.likePost(testUserId , likeRequestDto.targetId());
+        postService.likePost(testUserId ,likeRequestDto.targetId());
 
         // then
         assertEquals(1, savedPost.getLikeCount());
@@ -68,12 +69,12 @@ class PostServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCreatedPostWhenUnlikedThenReturnPostWithoutLike() {
         // given
-        Post savedPost = postService.createPost(dto);
+        Post savedPost = postService.createPost(testUserId, dto);
 
         // when
         LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId(), savedPost.getId());
-        postService.likePost(likeRequestDto);
-        postService.unlikePost(likeRequestDto);
+        postService.likePost(testUserId, likeRequestDto.targetId());
+        postService.unlikePost(testUserId, likeRequestDto.targetId());
 
         // then
         assertEquals(0, savedPost.getLikeCount());
@@ -82,13 +83,13 @@ class PostServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCreatedPostWhenUnlikedTwiceThenReturnPostWithoutLike() {
         // given
-        Post savedPost = postService.createPost(dto);
+        Post savedPost = postService.createPost(testUserId , dto);
 
         // when
         LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId(), savedPost.getId());
-        postService.likePost(likeRequestDto);
-        postService.unlikePost(likeRequestDto);
-        postService.unlikePost(likeRequestDto);
+        postService.likePost(testUserId, likeRequestDto.targetId());
+        postService.unlikePost(testUserId , likeRequestDto.targetId());
+        postService.unlikePost(testUserId, likeRequestDto.targetId());
 
         // then
         assertEquals(0, savedPost.getLikeCount());

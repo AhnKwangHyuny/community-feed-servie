@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.faddy.community_feed.common.repository.TimeBaseEntity;
+import org.faddy.community_feed.image.domain.ImageStatus;
 import org.faddy.community_feed.image.domain.ImageType;
 
 @Entity
@@ -22,6 +23,7 @@ import org.faddy.community_feed.image.domain.ImageType;
 @AllArgsConstructor
 @Builder
 public class ImageEntity extends TimeBaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,4 +42,19 @@ public class ImageEntity extends TimeBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ImageType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ImageStatus status = ImageStatus.TEMPORARY;
+
+    @Column(name = "bucket_path")
+    private String bucketPath;  // S3 내 경로
+
+    public void setStatus(ImageStatus status) {
+        this.status = status;
+    }
+
+    public void setBucketPath(String bucketPath) {
+        this.bucketPath = bucketPath;
+    }
 }

@@ -8,7 +8,7 @@ import org.faddy.community_feed.common.ui.Response;
 import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.LikeRequestDto;
 import org.faddy.community_feed.post.application.dto.UpdatePostRequestDto;
-import org.faddy.community_feed.post.application.interfaces.PostService;
+import org.faddy.community_feed.post.application.service.PostService;
 import org.faddy.community_feed.post.domain.Post;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;

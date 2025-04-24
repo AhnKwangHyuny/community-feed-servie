@@ -1,4 +1,4 @@
-package org.faddy.community_feed.post.application.interfaces;
+package org.faddy.community_feed.post.application.service;
 
 import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.UpdatePostRequestDto;

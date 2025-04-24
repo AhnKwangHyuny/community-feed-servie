@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.faddy.community_feed.image.application.interfaces.ImageRepository;
 import org.faddy.community_feed.image.domain.BaseImage;
+import org.faddy.community_feed.image.domain.ImageStatus;
 import org.faddy.community_feed.image.repository.entity.ImageEntity;
+import org.faddy.community_feed.image.repository.jpa.JpaImageRepository;
 import org.faddy.community_feed.post.application.interfaces.PostRepository;
 import org.faddy.community_feed.post.application.interfaces.PostThumbnailRepository;
 import org.faddy.community_feed.post.domain.Post;
@@ -24,20 +26,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostThumbnailRepositoryImpl implements PostThumbnailRepository {
     private final JpaPostThumbnailRepository jpaPostThumbnailRepository;
     private final ImageRepository<BaseImage> imageRepository;
-    private final PostRepository postRepository;
+    private final JpaImageRepository jpaImageRepository;
+
 
     @Override
     @Transactional
     public PostThumbnail save(PostThumbnail thumbnail) {
         try {
-            // 새로운 메인 썸네일을 저장하기 전, 기존 메인 썸네일이 있으면 일반 썸네일로 변경
-            if (thumbnail.isMain()) {
-                jpaPostThumbnailRepository.findByPostIdAndIsMainTrue(thumbnail.getPost().getId())
-                    .ifPresent(existingMain -> {
-                        existingMain.setMain(false);
-                        jpaPostThumbnailRepository.save(existingMain);
-                    });
-            }
+            // 기존 코드 유지
 
             // 먼저 기본 이미지를 저장
             BaseImage baseImage = BaseImage.builder()
@@ -53,16 +49,12 @@ public class PostThumbnailRepositoryImpl implements PostThumbnailRepository {
             // Post 엔티티 참조 가져오기
             PostEntity postEntity = new PostEntity(thumbnail.getPost());
 
+            // 수정: 이미지 엔티티 직접 조회하여 사용 (영속성 컨텍스트 활용)
+            ImageEntity imageEntity = jpaImageRepository.getReferenceById(savedImage.getId());
+
             // PostThumbnailEntity 생성 및 저장
             PostThumbnailEntity thumbnailEntity = PostThumbnailEntity.builder()
-                .image(ImageEntity.builder()
-                    .id(savedImage.getId())
-                    .url(savedImage.getUrl())
-                    .originalFilename(savedImage.getOriginalFilename())
-                    .contentType(savedImage.getContentType())
-                    .size(savedImage.getSize())
-                    .type(savedImage.getType())
-                    .build())
+                .image(imageEntity) // 참조 객체 직접 사용
                 .post(postEntity)
                 .displayOrder(thumbnail.getDisplayOrder())
                 .isMain(thumbnail.isMain())
@@ -86,6 +78,7 @@ public class PostThumbnailRepositoryImpl implements PostThumbnailRepository {
             throw new RuntimeException("Failed to save post thumbnail", e);
         }
     }
+
     @Override
     public Optional<PostThumbnail> findById(Long id) {
         return jpaPostThumbnailRepository.findById(id)
@@ -113,6 +106,36 @@ public class PostThumbnailRepositoryImpl implements PostThumbnailRepository {
     @Override
     public List<PostThumbnail> findAll() {
         return jpaPostThumbnailRepository.findAll().stream()
+            .map(entity -> {
+                ImageEntity imageEntity = entity.getImage();
+                PostEntity postEntity = entity.getPost();
+                return toDomain(entity, imageEntity, postEntity.toPost());
+            })
+            .collect(Collectors.toList());
+    }
+
+    // 미구현 메서드 구현
+    @Override
+    @Transactional
+    public PostThumbnail updateStatus(Long imageId, ImageStatus status) {
+        // 이미지 상태 업데이트는 BaseImage에 위임
+        BaseImage updatedImage = imageRepository.updateStatus(imageId, status);
+
+        // 해당 이미지 ID를 가진 썸네일 찾기
+        Optional<PostThumbnailEntity> thumbnailOpt = jpaPostThumbnailRepository.findByImageId(imageId);
+        if (thumbnailOpt.isPresent()) {
+            PostThumbnailEntity entity = thumbnailOpt.get();
+            // 도메인 객체로 변환
+            return toDomain(entity, entity.getImage(), entity.getPost().toPost());
+        }
+
+        // 썸네일을 찾지 못한 경우
+        return null;
+    }
+
+    @Override
+    public List<PostThumbnail> findByIds(List<Long> ids) {
+        return jpaPostThumbnailRepository.findAllById(ids).stream()
             .map(entity -> {
                 ImageEntity imageEntity = entity.getImage();
                 PostEntity postEntity = entity.getPost();

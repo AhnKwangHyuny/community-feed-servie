@@ -1,62 +1,119 @@
+# ==========================
+# Spring DataSource 설정
+# ==========================
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/faddy_community_feed_db
     username: root
     password: Agh@p970314
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # ==========================
+  # JPA 및 Hibernate 설정
+  # ==========================
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create  # 데이터베이스 초기화 전략
     properties:
       hibernate:
-        format_sql: true
-        show_sql: true
-        use_sql_comments: true
-        # 성능 테스트를 위한 통계 활성화
-        generate_statistics: true
+        format_sql: true  # SQL 포맷팅 활성화
+        show_sql: true    # SQL 로그 출력
+        use_sql_comments: true  # SQL 주석 출력
+        generate_statistics: true  # 성능 테스트를 위한 통계 활성화
+
+  # ==========================
+  # Thymeleaf 템플릿 설정
+  # ==========================
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
 
+  # ==========================
+  # 이메일 설정
+  # ==========================
   mail:
-    host: smtp.gmail.com  # 또는 다른 SMTP 서버
-    port: 587
+    host: smtp.gmail.com  # SMTP 서버 호스트 (예: Gmail)
+    port: 587            # SMTP 서버 포트
     username: agh0314@gmail.com
     password: pwjp apmf ivdw eqey
     properties:
-      mail.smtp.auth: true
-      mail.smtp.starttls.enable: true
+      mail.smtp.auth: true  # 인증 활성화
+      mail.smtp.starttls.enable: true  # TLS 사용
+
+  # ==========================
+  # Redis 설정
+  # ==========================
   data:
     redis:
       port: 6379
       host: localhost
 
+# ==========================
+# AWS S3 설정
+# ==========================
+aws:
+  s3:
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
+    region: ${AWS_REGION}
+    bucket-name: ${AWS_S3_BUCKET}
+    endpoint: ${AWS_S3_ENDPOINT}
 
+# ==========================
 # 테스트 데이터 생성 설정
+# ==========================
 app:
   test-data:
-    enabled: true                  # 전체 테스트 데이터 생성 활성화 여부
+    enabled: true  # 전체 테스트 데이터 생성 활성화 여부
     user:
-      enabled: true                # 사용자 데이터 생성 활성화 여부
-      count: 500000
+      enabled: true  # 사용자 데이터 생성 활성화 여부
+      count: 500000  # 생성할 사용자 수
     post:
-      enabled: true                # 게시물 데이터 생성 활성화 여부
-      count: 500000
+      enabled: true  # 게시물 데이터 생성 활성화 여부
+      count: 500000  # 생성할 게시물 수
 
+  # ==========================
+  # 이미지 처리 설정
+  # ==========================
+  image:
+    max-file-size: 10485760  # 10MB
+    allowed-types:
+      - image/jpeg
+      - image/png
+      - image/gif
+      - image/webp
+    thumbnail:
+      width: 300
+      height: 300
+    medium:
+      width: 800
+      height: 800
+
+# ==========================
 # CORS 설정
+# ==========================
 cors:
   allowed-origins:
-    - http://localhost:3000    # 로컬 개발 환경
+    - http://localhost:3000  # 로컬 개발 환경
     - https://your-production-domain.com  # 프로덕션 환경 (필요시 수정)
 
+# ==========================
+# 보안 키 설정
+# ==========================
 secret-key: 9a4f2c8d3b7a1e6f45c8a0b3f267d8b1d4e6f3c8a9d2b5f8e3a9c8b5f6v8a3d9asdfas
 
+# ==========================
+# Firebase Cloud Messaging 설정
+# ==========================
 fcm:
   certification: community-service-91877-firebase-adminsdk-fbsvc-ef129dc21c.json
-# SQL 쿼리 로깅
+
+# ==========================
+# 로깅 설정
+# ==========================
 logging:
   level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.springframework.jdbc.core.JdbcTemplate: DEBUG
-    org.springframework.jdbc.core.StatementCreatorUtils: TRACE
+    org.hibernate.SQL: DEBUG  # SQL 쿼리 로깅 레벨 설정
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # Hibernate 바인딩 로그 레벨
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG  # JdbcTemplate 로깅 레벨
+    org.springframework.jdbc.core.StatementCreatorUtils: TRACE  # StatementCreatorUtils 로깅 레벨

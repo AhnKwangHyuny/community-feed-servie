@@ -2,6 +2,7 @@ package org.faddy.community_feed.post.application;
 
 import org.faddy.community_feed.common.domain.repository.FakeObjectFactory;
 import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
+import org.faddy.community_feed.post.application.service.PostService;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.domain.PostPublicationState;
 import org.faddy.community_feed.user.application.UserService;
@@ -16,6 +17,6 @@ public class PostServiceTestTemplate {
     final User user = userService.createUser(new CreateUserRequestDto("user1", null));
     final User otherUser = userService.createUser(new CreateUserRequestDto("user1", null));
 
-    CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(), "this is test content", PostPublicationState.PUBLIC);
-    final Post post = postService.createPost(dto);
+    CreatePostRequestDto dto = new CreatePostRequestDto( "this is test content", PostPublicationState.PUBLIC);
+    final Post post = postService.createPost(user.getId() , dto);
 }

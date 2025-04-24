@@ -21,6 +21,8 @@ public class QImageEntity extends EntityPathBase<ImageEntity> {
 
     public final org.faddy.community_feed.common.repository.QTimeBaseEntity _super = new org.faddy.community_feed.common.repository.QTimeBaseEntity(this);
 
+    public final StringPath bucketPath = createString("bucketPath");
+
     public final StringPath contentType = createString("contentType");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -31,6 +33,8 @@ public class QImageEntity extends EntityPathBase<ImageEntity> {
     public final DateTimePath<java.time.LocalDateTime> regDt = _super.regDt;
 
     public final NumberPath<Long> size = createNumber("size", Long.class);
+
+    public final EnumPath<org.faddy.community_feed.image.domain.ImageStatus> status = createEnum("status", org.faddy.community_feed.image.domain.ImageStatus.class);
 
     public final EnumPath<org.faddy.community_feed.image.domain.ImageType> type = createEnum("type", org.faddy.community_feed.image.domain.ImageType.class);
 

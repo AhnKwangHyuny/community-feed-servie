@@ -27,3 +27,6 @@ replay_pid*
 community-service-91877-firebase-adminsdk-fbsvc-ef129dc21c.json
 
 src/main/resources/*.json
+
+#환경 변수 차단
+.env
