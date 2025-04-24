@@ -1,5 +1,6 @@
 package org.faddy.community_feed.post.application;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.faddy.community_feed.common.domain.PositiveIntegerCounter;
 import org.faddy.community_feed.common.idempotency.annotation.Idempotent;
@@ -7,6 +8,7 @@ import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.UpdatePostRequestDto;
 import org.faddy.community_feed.post.application.interfaces.LikeRepository;
 import org.faddy.community_feed.post.application.interfaces.PostRepository;
+import org.faddy.community_feed.post.application.service.PostImageService;
 import org.faddy.community_feed.post.application.service.PostService;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.domain.content.PostContent;
@@ -18,18 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
     private final UserService userService;
     private final PostRepository postRepository;
     private final LikeRepository likeRepository;
+    private final PostImageService postImageService;
 
-    public PostServiceImpl(UserService userService, PostRepository postRepository,
-        LikeRepository likeRepository) {
-        this.userService = userService;
-        this.postRepository = postRepository;
-        this.likeRepository = likeRepository;
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -72,8 +70,8 @@ public class PostServiceImpl implements PostService {
             if (dto.imageIds() != null && !dto.imageIds().isEmpty()) {
                 log.info("Attaching images to post: {}, image count: {}", savedPost.getId(), dto.imageIds().size());
                 // 이미지 연결 처리 (PostImageService 활용)
-//                String mainImageUrl = postImageService.attachImagesToPost(dto.imageIds(), savedPost.getId());
-//                log.info("Main image URL: {}", mainImageUrl);
+                String mainImageUrl = postImageService.attachImagesToPost(dto.imageIds(), savedPost.getId());
+                log.info("Main image URL: {}", mainImageUrl);
             }
             
             return savedPost;

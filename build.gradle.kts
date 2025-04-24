@@ -22,6 +22,10 @@ dependencies {
     implementation("org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
+    // batch
+    implementation("org.springframework.boot:spring-boot-starter-batch")
+    implementation("org.springframework.batch:spring-batch-core")
+
 
     // Spring Mail
     implementation("org.springframework.boot:spring-boot-starter-mail")

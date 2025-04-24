@@ -1,6 +1,7 @@
 package org.faddy.community_feed.post.ui;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.faddy.community_feed.common.idempotency.annotation.Idempotent;
 import org.faddy.community_feed.common.principal.AuthPrincipal;
 import org.faddy.community_feed.common.principal.UserPrincipal;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/post")
+@Slf4j
 @RequiredArgsConstructor
 public class PostController {
 

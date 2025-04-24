@@ -12,4 +12,13 @@ public record CreatePostRequestDto(
     public CreatePostRequestDto(String content, PostPublicationState state) {
         this(content, state, List.of());
     }
+
+    @Override
+    public String toString() {
+        return "CreatePostRequestDto{" +
+            "content='" + content + '\'' +
+            ", state=" + state +
+            ", imageIds=" + imageIds +
+            '}';
+    }
 }
