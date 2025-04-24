@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaAuditing
 @SpringBootApplication
 @RequiredArgsConstructor
-@EnableScheduling  
+@EnableScheduling
 public class Application implements CommandLineRunner {
 
   private final TestDataGenerationService testDataGenerationService;

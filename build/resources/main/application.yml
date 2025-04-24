@@ -9,6 +9,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # ==========================
+  # Spring Scheduler 설정
+  # ==========================
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+
+  # ==========================
   # JPA 및 Hibernate 설정
   # ==========================
   jpa:
@@ -20,6 +29,8 @@ spring:
         show_sql: true    # SQL 로그 출력
         use_sql_comments: true  # SQL 주석 출력
         generate_statistics: true  # 성능 테스트를 위한 통계 활성화
+        jdbc:
+          batch_size: 30  # 배치 처리 최적화
 
   # ==========================
   # Thymeleaf 템플릿 설정
@@ -64,7 +75,7 @@ aws:
 # ==========================
 app:
   test-data:
-    enabled: true  # 전체 테스트 데이터 생성 활성화 여부
+    enabled: false  # 전체 테스트 데이터 생성 활성화 여부
     user:
       enabled: true  # 사용자 데이터 생성 활성화 여부
       count: 500000  # 생성할 사용자 수
@@ -117,3 +128,5 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # Hibernate 바인딩 로그 레벨
     org.springframework.jdbc.core.JdbcTemplate: DEBUG  # JdbcTemplate 로깅 레벨
     org.springframework.jdbc.core.StatementCreatorUtils: TRACE  # StatementCreatorUtils 로깅 레벨
+    org.springframework.batch: INFO
+    org.faddy.community_feed.image.infra.scheduler: INFO
