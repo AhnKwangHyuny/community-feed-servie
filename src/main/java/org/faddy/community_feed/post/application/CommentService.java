@@ -1,8 +1,8 @@
 package org.faddy.community_feed.post.application;
 
-import org.faddy.community_feed.post.application.dto.CreateCommentRequestDto;
-import org.faddy.community_feed.post.application.dto.LikeRequestDto;
-import org.faddy.community_feed.post.application.dto.UpdateCommentRequestDto;
+import org.faddy.community_feed.post.application.dto.request.CreateCommentRequestDto;
+import org.faddy.community_feed.post.application.dto.request.LikeRequestDto;
+import org.faddy.community_feed.post.application.dto.request.UpdateCommentRequestDto;
 import org.faddy.community_feed.post.application.interfaces.CommentRepository;
 import org.faddy.community_feed.post.application.interfaces.LikeRepository;
 import org.faddy.community_feed.post.application.service.PostService;

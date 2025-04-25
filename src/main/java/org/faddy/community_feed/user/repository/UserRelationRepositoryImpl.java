@@ -2,7 +2,7 @@ package org.faddy.community_feed.user.repository;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.faddy.community_feed.post.repository.post_queue.UserPostQueueCommandRepository;
+import org.faddy.community_feed.post.repository.post_queue.interfaces.UserPostQueueCommandRepository;
 import org.faddy.community_feed.user.application.interfaces.UserRelationRepository;
 import org.faddy.community_feed.user.domain.User;
 import org.faddy.community_feed.user.repository.entity.UserEntity;

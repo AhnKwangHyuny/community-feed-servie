@@ -1,7 +1,7 @@
 package org.faddy.community_feed.post.application;
 
 import org.faddy.community_feed.common.domain.repository.FakeObjectFactory;
-import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
+import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.service.PostService;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.domain.PostPublicationState;

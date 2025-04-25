@@ -1,4 +1,4 @@
-package org.faddy.community_feed.post.application.dto;
+package org.faddy.community_feed.post.application.dto.response;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

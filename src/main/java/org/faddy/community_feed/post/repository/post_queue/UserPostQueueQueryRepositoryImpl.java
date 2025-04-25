@@ -7,8 +7,9 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.faddy.community_feed.post.application.dto.GetPostContentResponseDto;
+import org.faddy.community_feed.post.application.dto.response.GetPostContentResponseDto;
 import org.faddy.community_feed.post.repository.entity.post.PostEntity;
+import org.faddy.community_feed.post.repository.post_queue.interfaces.UserPostQueueQueryRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

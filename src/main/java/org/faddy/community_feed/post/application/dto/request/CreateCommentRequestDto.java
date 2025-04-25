@@ -1,4 +1,4 @@
-package org.faddy.community_feed.post.application.dto;
+package org.faddy.community_feed.post.application.dto.request;
 
 public record CreateCommentRequestDto(
     Long postId,

@@ -5,7 +5,7 @@ import org.faddy.community_feed.post.application.interfaces.PostRepository;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.repository.entity.post.PostEntity;
 import org.faddy.community_feed.post.repository.jpa.JpaPostRepository;
-import org.faddy.community_feed.post.repository.post_queue.UserPostQueueCommandRepository;
+import org.faddy.community_feed.post.repository.post_queue.interfaces.UserPostQueueCommandRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,20 +1,20 @@
-/* PostList.css - 새 디자인 */
+/* PostList.css - 모바일 최적화 (세로 카드) */
 .post-grid-container {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* 기본적으로 2개씩 표시 */
   gap: 16px;
   width: 100%;
 }
 
 .post-grid-item {
   width: 100%;
-  animation: fade-in 0.4s ease-in-out;
+  animation: fade-in 0.3s ease-in-out;
 }
 
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -22,23 +22,47 @@
   }
 }
 
+/* 모바일 뷰 */
+@media (max-width: 768px) {
+  .post-grid-container {
+    grid-template-columns: repeat(1, 1fr); /* 모바일에서는 1개씩 표시 */
+    gap: 16px; /* 좀 더 넓은 간격 */
+  }
+  
+  /* 모바일에서 카드 간 간격 조정 */
+  .post-grid-item {
+    margin-bottom: 16px;
+  }
+}
+
+/* 작은 모바일 화면 */
+@media (max-width: 480px) {
+  .post-grid-container {
+    grid-template-columns: repeat(1, 1fr); /* 작은 화면에서도 1개 유지 */
+    gap: 12px;
+  }
+}
+
 /* 태블릿 뷰 */
-@media (min-width: 600px) {
+@media (min-width: 769px) and (max-width: 991px) {
   .post-grid-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 
 /* 데스크탑 뷰 */
-@media (min-width: 960px) {
+@media (min-width: 992px) {
   .post-grid-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
 /* 고해상도 디스플레이 */
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .post-grid-container {
     grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 }

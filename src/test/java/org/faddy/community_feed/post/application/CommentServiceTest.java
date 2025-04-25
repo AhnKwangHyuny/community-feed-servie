@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.faddy.community_feed.common.domain.repository.FakeObjectFactory;
-import org.faddy.community_feed.post.application.dto.CreateCommentRequestDto;
-import org.faddy.community_feed.post.application.dto.LikeRequestDto;
-import org.faddy.community_feed.post.application.dto.UpdateCommentRequestDto;
+import org.faddy.community_feed.post.application.dto.request.CreateCommentRequestDto;
+import org.faddy.community_feed.post.application.dto.request.LikeRequestDto;
+import org.faddy.community_feed.post.application.dto.request.UpdateCommentRequestDto;
 import org.faddy.community_feed.post.domain.comment.Comment;
 import org.faddy.community_feed.post.domain.content.Content;
 import org.junit.jupiter.api.Test;

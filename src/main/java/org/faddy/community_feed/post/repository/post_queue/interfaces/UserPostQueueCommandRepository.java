@@ -1,4 +1,4 @@
-package org.faddy.community_feed.post.repository.post_queue;
+package org.faddy.community_feed.post.repository.post_queue.interfaces;
 
 import org.faddy.community_feed.post.repository.entity.post.PostEntity;
 

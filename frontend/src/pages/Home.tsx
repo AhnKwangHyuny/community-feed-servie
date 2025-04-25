@@ -10,6 +10,61 @@ import '../styles/Home.css';
 
 type CategoryType = '인기글' | '전체글' | '마이페이지' | '추천순';
 
+// 기본 게시글 3개 (하드코딩)
+const DEFAULT_POSTS: GetPostContentResponseDto[] = [
+  {
+    id: 9999,
+    content: '안녕하세요! Faddy 커뮤니티에 오신 것을 환영합니다. 여러분의 일상과 이야기를 공유해보세요.',
+    userId: 1,
+    userName: '안광현',
+    userProfileImage: 'https://via.placeholder.com/100',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    likeCount: 42,
+    isLikedByMe: false,
+    commentCount: 5,
+    images: [
+      'https://images.unsplash.com/photo-1682686580391-615ee3e7b6d9',
+      'https://images.unsplash.com/photo-1682686580186-b55d2a91053c',
+      'https://images.unsplash.com/photo-1682687982167-d7fb3ed8541d'
+    ]
+  },
+  {
+    id: 9998,
+    content: '오늘 진행한 새로운 프로젝트입니다. 리액트와 스프링부트를 활용한 SNS 서비스를 개발 중이에요. 많은 관심 부탁드립니다!',
+    userId: 1,
+    userName: '안광현',
+    userProfileImage: 'https://via.placeholder.com/100',
+    createdAt: new Date(Date.now() - 86400000).toISOString(), // 1일 전
+    updatedAt: new Date(Date.now() - 86400000).toISOString(),
+    likeCount: 24,
+    isLikedByMe: false,
+    commentCount: 3,
+    images: [
+      'https://images.unsplash.com/photo-1587620962725-abab7fe55159',
+      'https://images.unsplash.com/photo-1517694712202-14dd9538aa97',
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c'
+    ]
+  },
+  {
+    id: 9997,
+    content: '커뮤니티 피드 서비스가 새롭게 오픈했습니다! 다양한 기능을 체험해보세요. 이미지를 업로드하고, 좋아요와 댓글로 소통해보세요.',
+    userId: 1,
+    userName: '안광현',
+    userProfileImage: 'https://via.placeholder.com/100',
+    createdAt: new Date(Date.now() - 172800000).toISOString(), // 2일 전
+    updatedAt: new Date(Date.now() - 172800000).toISOString(),
+    likeCount: 56,
+    isLikedByMe: true,
+    commentCount: 7,
+    images: [
+      'https://images.unsplash.com/photo-1522542550221-31fd19575a2d',
+      'https://images.unsplash.com/photo-1522199755839-a2bacb67c546',
+      'https://images.unsplash.com/photo-1520333789090-1afc82db536a'
+    ]
+  }
+];
+
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<GetPostContentResponseDto[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -47,15 +102,22 @@ const Home: React.FC = () => {
       
       setLoading(false);
     } catch (err) {
-      setError('포스트를 불러오는데 실패했습니다.');
-      setLoading(false);
       console.error('Failed to fetch posts:', err);
       
-      addNotification({
-        message: '게시물을 불러오는 중 오류가 발생했습니다.',
-        type: 'error',
-        duration: 5000
-      });
+      // API 호출이 실패하더라도 기본 게시글을 보여주기
+      setPosts(DEFAULT_POSTS);
+      setHasMore(false);
+      setLoading(false);
+      
+      // 개발 환경에서만 에러 메시지 표시
+      if (process.env.NODE_ENV === 'development') {
+        setError('포스트를 불러오는데 실패했습니다.');
+        addNotification({
+          message: '게시물을 불러오는 중 오류가 발생했습니다. 기본 게시글을 표시합니다.',
+          type: 'warning',
+          duration: 5000
+        });
+      }
     }
   }, [hasMore, lastContentId, loading, addNotification, activeCategory]);
 
@@ -112,7 +174,19 @@ const Home: React.FC = () => {
 
   // 초기 로딩
   useEffect(() => {
+    const timeout = setTimeout(() => {
+      // 5초 동안 로딩 중이면 기본 게시글 표시
+      if (loading && posts.length === 0) {
+        setPosts(DEFAULT_POSTS);
+        setLoading(false);
+        setHasMore(false);
+        console.log('로딩 타임아웃으로 기본 게시글 표시');
+      }
+    }, 5000);
+    
     fetchPosts();
+    
+    return () => clearTimeout(timeout);
   }, [fetchPosts]);
 
   return (
@@ -171,12 +245,14 @@ const Home: React.FC = () => {
           )}
           
           <div className="feed-section">
-            <PostList 
-              posts={posts} 
-              onLike={handlePostLike} 
-            />
+            {posts.length > 0 && (
+              <PostList 
+                posts={posts} 
+                onLike={handlePostLike} 
+              />
+            )}
             
-            {loading && (
+            {loading && posts.length === 0 && (
               <div className="loading-indicator">
                 <div className="spinner"></div>
                 <p>게시물을 불러오는 중...</p>

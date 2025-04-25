@@ -18,6 +18,11 @@ interface GroupedComments {
 const CommentList: React.FC<CommentListProps> = ({ comments, postAuthorId }) => {
   const [visibleComments, setVisibleComments] = useState<CommentDto[]>([]);
   
+  // 댓글 삭제 처리
+  const handleDeleteComment = (commentId: number) => {
+    setVisibleComments(prev => prev.filter(c => c.id !== commentId));
+  };
+  
   // 댓글이 변경될 때마다 애니메이션을 위해 순차적으로 표시
   useEffect(() => {
     // 이미 표시된 댓글 ID 추적
@@ -48,7 +53,10 @@ const CommentList: React.FC<CommentListProps> = ({ comments, postAuthorId }) => 
           ...prev.filter(c => c.id !== comment.id), // 중복 제거
           comment
         ].sort((a, b) => {
-          // 정렬 기준: 최신순 (ID 기준)
+          // 베스트 댓글이 먼저 표시되도록 함
+          if (a.isBestComment && !b.isBestComment) return -1;
+          if (!a.isBestComment && b.isBestComment) return 1;
+          // 그 다음 최신순 (ID 기준)
           return b.id - a.id;
         }));
       }, delay);
@@ -86,11 +94,15 @@ const CommentList: React.FC<CommentListProps> = ({ comments, postAuthorId }) => 
     return acc;
   }, {});
 
-  // 그룹화된 댓글을 배열로 변환 (부모 댓글 ID로 정렬)
+  // 그룹화된 댓글을 배열로 변환 (베스트 댓글 우선, 그 다음 최신순)
   const sortedCommentGroups = Object.values(groupedComments)
     .filter(group => group.parent.id) // 유효한 부모 댓글만 필터링
     .sort((a, b) => {
-      return b.parent.id - a.parent.id; // 최신순 정렬
+      // 베스트 댓글이 먼저 표시
+      if (a.parent.isBestComment && !b.parent.isBestComment) return -1;
+      if (!a.parent.isBestComment && b.parent.isBestComment) return 1;
+      // 그 다음 최신순
+      return b.parent.id - a.parent.id;
     });
 
   if (visibleComments.length === 0) {
@@ -99,13 +111,16 @@ const CommentList: React.FC<CommentListProps> = ({ comments, postAuthorId }) => 
 
   return (
     <div className="comment-list">
-      <div className="comment-count">댓글 {visibleComments.length}개</div>
+      <div className="comment-header">
+        <div className="comment-count">댓글 {visibleComments.length}개</div>
+      </div>
       
       {sortedCommentGroups.map(group => (
         <div key={group.parent.id} className="comment-group">
           <Comment 
             comment={group.parent} 
             isAuthor={group.parent.userId === postAuthorId}
+            onDelete={handleDeleteComment}
           />
           
           {group.replies.length > 0 && (
@@ -115,6 +130,7 @@ const CommentList: React.FC<CommentListProps> = ({ comments, postAuthorId }) => 
                   key={reply.id} 
                   comment={reply}
                   isAuthor={reply.userId === postAuthorId}
+                  onDelete={handleDeleteComment}
                 />
               ))}
             </div>

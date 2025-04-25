@@ -1,106 +1,43 @@
-/* CommentList.css */
 .comment-list {
-  margin-top: 20px;
+  margin-top: 24px;
+  border-top: 1px solid #ddd;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  margin-bottom: 8px;
 }
 
 .comment-count {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #eaeaea;
 }
 
 .no-comments {
+  padding: 24px 0;
   text-align: center;
-  color: #757575;
+  color: #888;
   font-size: 14px;
-  padding: 20px 0;
-  background-color: #f9f9f9;
-  border-radius: 8px;
 }
 
 .comment-group {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
-.comment-replies {
-  margin-top: 8px;
-  margin-left: 20px;
-  position: relative;
-}
-
-/* 대댓글 구분선 */
-.comment-replies::before {
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: 0;
-  height: calc(100% - 12px);
-  width: 2px;
-  background-color: #e0e0e0;
-}
-
-/* 첫 번째 대댓글의 상단 연결선 */
-.comment-replies .comment:first-child::before {
-  content: '';
-  position: absolute;
-  left: -15px;
-  top: 16px;
-  width: 10px;
-  height: 2px;
-  background-color: #e0e0e0;
-}
-
-/* 베스트 댓글 표시 */
-.best-comment {
-  background-color: #fff8e1;
-  border-left: 3px solid #ffc107;
-}
-
-.best-comment-tag {
-  background-color: #ffc107;
-  color: white;
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-left: 8px;
-}
-
-/* 반응형 디자인 */
+/* 모바일 대응 */
 @media (max-width: 768px) {
-  .comment-count {
-    font-size: 13px;
-    margin-bottom: 12px;
+  .comment-content,
+  .comment-actions,
+  .reply-form-container {
+    padding-left: 0;
   }
   
   .comment-replies {
     margin-left: 12px;
-  }
-  
-  .no-comments {
-    font-size: 13px;
-    padding: 16px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .comment-count {
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-  
-  .comment-replies {
-    margin-left: 8px;
-  }
-  
-  .comment-replies::before {
-    left: -6px;
-  }
-  
-  .comment-replies .comment:first-child::before {
-    left: -12px;
-    width: 6px;
+    padding-left: 12px;
   }
 }

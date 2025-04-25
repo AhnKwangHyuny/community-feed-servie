@@ -1,4 +1,4 @@
-package org.faddy.community_feed.image.application.ui;
+package org.faddy.community_feed.image.ui;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;

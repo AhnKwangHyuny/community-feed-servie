@@ -5,7 +5,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.faddy.community_feed.post.application.dto.GetContentResponseDto;
+import org.faddy.community_feed.post.application.dto.response.GetContentResponseDto;
 import org.faddy.community_feed.post.repository.entity.comment.QCommentEntity;
 import org.faddy.community_feed.post.repository.entity.like.LikeTarget;
 import org.faddy.community_feed.post.repository.entity.like.QLikeEntity;

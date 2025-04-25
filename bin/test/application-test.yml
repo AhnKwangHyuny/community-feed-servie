@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  h2:
+    console:
+      enabled: true
+
+# S3 설정
+aws:
+  s3:
+    access-key: ${AWS_ACCESS_KEY:test-access-key}
+    secret-key: ${AWS_SECRET_KEY:test-secret-key}
+    region: ${AWS_REGION:ap-northeast-2}
+    bucket-name: ${AWS_S3_BUCKET:community-feed-service}
+    endpoint: ${AWS_S3_ENDPOINT:https://s3.ap-northeast-2.amazonaws.com}
+
+# 앱 설정
+app:
+  image:
+    max-file-size: 10485760 # 10MB
+    allowed-types: 
+      - image/jpeg
+      - image/png
+      - image/gif
+      - image/webp
+    thumbnail:
+      width: 300
+      height: 300
+    medium:
+      width: 800
+      height: 800

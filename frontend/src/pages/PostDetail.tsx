@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import Header from '../components/layout/Header';
 import CommentForm from '../components/feed/CommentForm';
 import CommentList from '../components/feed/CommentList';
+import ImageGrid from '../components/feed/ImageGrid'; // 새로 추가한 이미지 그리드 컴포넌트
 import { GetPostContentResponseDto, CommentDto } from '../types/post';
 import { useNotification } from '../context/NotificationContext';
 import '../styles/PostDetail.css';
@@ -20,6 +21,9 @@ const PostDetail: React.FC = () => {
   const { addNotification } = useNotification();
   const navigate = useNavigate();
 
+  // 댓글 기능 비활성화 플래그 (댓글 기능이 준비되면 false로 변경)
+  const COMMENTS_DISABLED = true;
+
   // 포스트 상세 정보 로드
   useEffect(() => {
     const fetchPostDetail = async () => {
@@ -29,8 +33,10 @@ const PostDetail: React.FC = () => {
         setPost(response.data.data);
         setLoading(false);
         
-        // 포스트 로드 후 댓글도 로드
-        fetchComments();
+        // 댓글 기능이 활성화된 경우에만 댓글 로드
+        if (!COMMENTS_DISABLED) {
+          fetchComments();
+        }
       } catch (err) {
         setError('포스트를 불러오는데 실패했습니다.');
         setLoading(false);
@@ -43,14 +49,28 @@ const PostDetail: React.FC = () => {
     }
   }, [postId]);
 
-  // 댓글 로드
+  // 댓글 로드 - 백엔드 API 경로 수정
   const fetchComments = async () => {
-    if (!postId) return;
+    if (!postId || COMMENTS_DISABLED) return;
     
     try {
       setCommentLoading(true);
-      const response = await axios.get<{ data: CommentDto[] }>(`/post/${postId}/comments`);
-      setComments(response.data.data || []);
+      // 백엔드 API 경로를 /comment/post/{postId}로 수정
+      const response = await axios.get<{ data: CommentDto[] }>(`/comment/post/${postId}`, {
+        params: {
+          userId: user?.id || null,
+          lastCommentId: null
+        }
+      });
+      
+      // 좋아요가 많은 상위 1개 댓글을 베스트 댓글로 표시
+      const sortedComments = [...(response.data.data || [])].sort((a, b) => b.likeCount - a.likeCount);
+      
+      if (sortedComments.length > 0 && sortedComments[0].likeCount > 0) {
+        sortedComments[0].isBestComment = true;
+      }
+      
+      setComments(sortedComments);
       setCommentLoading(false);
     } catch (err) {
       console.error('댓글을 불러오는 중 오류:', err);
@@ -60,6 +80,15 @@ const PostDetail: React.FC = () => {
 
   // 댓글 추가 처리
   const handleCommentSubmit = (newComment: CommentDto) => {
+    if (COMMENTS_DISABLED) {
+      addNotification({
+        message: '댓글 기능은 현재 개발 중입니다.',
+        type: 'info',
+        duration: 3000
+      });
+      return;
+    }
+    
     setComments(prevComments => [newComment, ...prevComments]);
     
     addNotification({
@@ -68,11 +97,22 @@ const PostDetail: React.FC = () => {
       duration: 3000
     });
   };
+  
+  // 댓글 삭제 처리
+  const handleCommentDelete = (commentId: number) => {
+    if (COMMENTS_DISABLED) return;
+    
+    setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
+  };
 
   // 좋아요 처리
   const handleLike = async () => {
     if (!user || !post) {
-      alert('좋아요를 누르려면 로그인이 필요합니다.');
+      addNotification({
+        message: '좋아요를 누르려면 로그인이 필요합니다.',
+        type: 'warning',
+        duration: 3000
+      });
       return;
     }
 
@@ -80,7 +120,6 @@ const PostDetail: React.FC = () => {
       const endpoint = post.isLikedByMe ? '/post/unlike' : '/post/like';
       
       await axios.post(endpoint, {
-        userId: user?.id || 0,
         targetId: post.id
       });
       
@@ -98,7 +137,11 @@ const PostDetail: React.FC = () => {
       });
     } catch (error) {
       console.error('좋아요 처리 중 오류:', error);
-      alert('좋아요 처리 중 오류가 발생했습니다.');
+      addNotification({
+        message: '좋아요 처리 중 오류가 발생했습니다.',
+        type: 'error',
+        duration: 3000
+      });
     }
   };
 
@@ -107,7 +150,11 @@ const PostDetail: React.FC = () => {
     if (!user || !post) return;
     
     if (user.id !== post.userId) {
-      alert('자신의 게시물만 삭제할 수 있습니다.');
+      addNotification({
+        message: '자신의 게시물만 삭제할 수 있습니다.',
+        type: 'warning',
+        duration: 3000
+      });
       return;
     }
     
@@ -115,9 +162,7 @@ const PostDetail: React.FC = () => {
     if (!confirmDelete) return;
     
     try {
-      await axios.delete(`/post/${post.id}`, {
-        data: { userId: user.id }
-      });
+      await axios.delete(`/post/${post.id}`);
       
       addNotification({
         message: '게시물이 삭제되었습니다.',
@@ -129,7 +174,11 @@ const PostDetail: React.FC = () => {
       navigate('/');
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error);
-      alert('게시물 삭제 중 오류가 발생했습니다.');
+      addNotification({
+        message: '게시물 삭제 중 오류가 발생했습니다.',
+        type: 'error',
+        duration: 3000
+      });
     }
   };
 
@@ -141,7 +190,23 @@ const PostDetail: React.FC = () => {
       day: '2-digit',
       hour: '2-digit',
       minute: '2-digit'
-    });
+    }).replace(/\./g, '').replace(/\s\s+/g, ' ');
+  };
+
+  // 다중 이미지 변환 (백엔드가 아직 다중 이미지를 지원하지 않을 경우 대비)
+  const getPostImages = (post: GetPostContentResponseDto): string[] => {
+    // images 배열이 있으면 그대로 사용
+    if (post.images && post.images.length > 0) {
+      return post.images;
+    }
+    
+    // 그렇지 않고 thumbnailUrl이 있으면 단일 이미지 배열로 변환
+    if (post.thumbnailUrl) {
+      return [post.thumbnailUrl];
+    }
+    
+    // 이미지가 없는 경우
+    return [];
   };
 
   return (
@@ -191,15 +256,8 @@ const PostDetail: React.FC = () => {
                 </div>
               </div>
               
-              <div className="post-thumbnail-container">
-                {post.thumbnailUrl && (
-                  <img 
-                    src={post.thumbnailUrl} 
-                    alt="게시물 이미지" 
-                    className="post-detail-thumbnail" 
-                  />
-                )}
-              </div>
+              {/* 이미지 그리드 컴포넌트 사용 */}
+              <ImageGrid images={getPostImages(post)} />
               
               <div className="post-body">
                 <div className="post-content">
@@ -250,30 +308,39 @@ const PostDetail: React.FC = () => {
               </div>
             </div>
             
+            {/* 댓글 섹션 - 비활성화 모드일 때는 개발 중 메시지 표시 */}
             <div className="comments-section">
-              {user && (
-                <div className="comment-form-container">
-                  <h3 className="section-title">댓글 작성</h3>
-                  <CommentForm 
-                    postId={post.id} 
-                    onCommentSubmit={handleCommentSubmit} 
-                  />
+              {COMMENTS_DISABLED ? (
+                <div className="comment-development-notice">
+                  <p>댓글 기능은 현재 개발 중입니다.</p>
                 </div>
-              )}
-              
-              <div className="comment-list-container">
-                {commentLoading ? (
-                  <div className="loading-container">
-                    <div className="spinner-small"></div>
-                    <p>댓글을 불러오는 중...</p>
+              ) : (
+                <>
+                  {user && (
+                    <div className="comment-form-container">
+                      <h3 className="section-title">댓글 작성</h3>
+                      <CommentForm 
+                        postId={post.id} 
+                        onCommentSubmit={handleCommentSubmit} 
+                      />
+                    </div>
+                  )}
+                  
+                  <div className="comment-list-container">
+                    {commentLoading ? (
+                      <div className="loading-container">
+                        <div className="spinner-small"></div>
+                        <p>댓글을 불러오는 중...</p>
+                      </div>
+                    ) : (
+                      <CommentList 
+                        comments={comments}
+                        postAuthorId={post.userId} 
+                      />
+                    )}
                   </div>
-                ) : (
-                  <CommentList 
-                    comments={comments}
-                    postAuthorId={post.userId} 
-                  />
-                )}
-              </div>
+                </>
+              )}
             </div>
           </>
         ) : (

@@ -2,9 +2,9 @@ package org.faddy.community_feed.post.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
-import org.faddy.community_feed.post.application.dto.LikeRequestDto;
-import org.faddy.community_feed.post.application.dto.UpdatePostRequestDto;
+import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDto;
+import org.faddy.community_feed.post.application.dto.request.LikeRequestDto;
+import org.faddy.community_feed.post.application.dto.request.UpdatePostRequestDto;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.domain.PostPublicationState;
 import org.faddy.community_feed.post.domain.content.Content;

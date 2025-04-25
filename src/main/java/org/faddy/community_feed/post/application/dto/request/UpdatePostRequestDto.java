@@ -1,4 +1,4 @@
-package org.faddy.community_feed.post.application.dto;
+package org.faddy.community_feed.post.application.dto.request;
 
 import java.util.List;
 import org.faddy.community_feed.post.domain.PostPublicationState;

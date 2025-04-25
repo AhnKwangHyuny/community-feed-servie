@@ -2,8 +2,8 @@ package org.faddy.community_feed.acceptance.post;
 
 import io.restassured.RestAssured;
 import java.util.List;
-import org.faddy.community_feed.post.application.dto.CreatePostRequestDto;
-import org.faddy.community_feed.post.application.dto.GetPostContentResponseDto;
+import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDto;
+import org.faddy.community_feed.post.application.dto.response.GetPostContentResponseDto;
 import org.springframework.http.MediaType;
 
 public class FeedAcceptanceSteps {
