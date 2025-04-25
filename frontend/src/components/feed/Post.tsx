@@ -31,7 +31,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     }
 
     try {
-      const endpoint = post.isLikedByMe ? '/post/unlike' : '/post/like';
+      const endpoint = post.isLikedByMe ? '/api/posts/unlike' : '/api/posts/like';
       
       await api.post(endpoint, {
         targetId: post.id
@@ -54,7 +54,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     try {
       setLoading(true);
       // 댓글 목록 API 호출 (현재는 비활성화)
-      // const response = await api.get(`/post/${post.id}/comments`);
+      // const response = await api.get(`/api/posts/${post.id}/comments`);
       // setComments(response.data.data || []);
       
       // 댓글 기능이 완성되기 전까지는 빈 배열 사용
@@ -71,14 +71,18 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     setComments((prevComments) => [newComment, ...prevComments]);
   };
 
-  // 다중 이미지 변환 (백엔드가 아직 다중 이미지를 지원하지 않을 경우 대비)
+  // 다중 이미지 변환 (여러 형식의 이미지 필드 지원)
   const getPostImages = (): string[] => {
-    // images 배열이 있으면 그대로 사용
+    // thumbnails 배열이 있으면 URL 추출
+    if (post.thumbnails && post.thumbnails.length > 0) {
+      return post.thumbnails.map(thumbnail => thumbnail.url);
+    }
+    
+    // 이전 버전 호환성을 위한 코드
     if (post.images && post.images.length > 0) {
       return post.images;
     }
     
-    // 그렇지 않고 thumbnailUrl이 있으면 단일 이미지 배열로 변환
     if (post.thumbnailUrl) {
       return [post.thumbnailUrl];
     }
@@ -97,7 +101,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     <article className="post-card">
       <div className="thumbnail-container">
         <div className="post-link-container">
-          <Link to={`/post/${post.id}`} className="post-link">
+          <Link to={`/post/detail/${post.id}`} className="post-link">
             <img src={thumbnailUrl} alt="게시물 이미지" className="post-thumbnail" />
           </Link>
           <div 
@@ -122,7 +126,7 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
           
           <div className="post-title-wrapper">
             <h3 className="post-title">
-              <Link to={`/post/${post.id}`}>
+              <Link to={`/post/detail/${post.id}`}>
                 {post.content.length > 50 
                   ? post.content.substring(0, 50) + '...' 
                   : post.content}

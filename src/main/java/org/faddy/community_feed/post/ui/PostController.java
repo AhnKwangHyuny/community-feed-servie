@@ -9,8 +9,10 @@ import org.faddy.community_feed.common.ui.Response;
 import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.request.LikeRequestDto;
 import org.faddy.community_feed.post.application.dto.request.UpdatePostRequestDto;
+import org.faddy.community_feed.post.application.dto.response.GetPostContent2ResponseDto;
 import org.faddy.community_feed.post.application.service.PostService;
 import org.faddy.community_feed.post.domain.Post;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/api/posts")
 @Slf4j
 @RequiredArgsConstructor
 public class PostController {
@@ -55,4 +57,6 @@ public class PostController {
         postService.unlikePost(principal.getUserId(), dto.targetId());
         return Response.ok(null);
     }
+
+
 }

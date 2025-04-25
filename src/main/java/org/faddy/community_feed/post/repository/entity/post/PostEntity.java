@@ -68,6 +68,7 @@ public class PostEntity extends TimeBaseEntity {
             .content(new PostContent(content))
             .state(state)
             .positiveIntegerCounter(new PositiveIntegerCounter(likeCount))
+            .createdAt(this.getRegDt())
             .build();
     }
 }

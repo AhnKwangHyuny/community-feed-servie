@@ -10,11 +10,22 @@ export interface GetContentResponseDto {
   isLikedByMe: boolean;
 }
 
+export interface ThumbnailDto {
+  id: number;
+  url: string;
+  originalFilename: string;
+  contentType: string;
+  displayOrder: number;
+  isMain: boolean;
+}
+
 export interface GetPostContentResponseDto extends GetContentResponseDto {
   commentCount: number;
   thumbnailUrl?: string;
   images?: string[]; // 다중 이미지 지원을 위한 필드 추가
   viewCount?: number;
+  thumbnails?: ThumbnailDto[]; // 새로운 API 응답 형식에 맞게 추가
+  state?: string; // 게시물 상태 (PUBLIC, PRIVATE 등)
 }
 
 export interface CreatePostRequestDto {

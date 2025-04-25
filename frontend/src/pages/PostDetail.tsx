@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import Header from '../components/layout/Header';
 import CommentForm from '../components/feed/CommentForm';
 import CommentList from '../components/feed/CommentList';
-import ImageGrid from '../components/feed/ImageGrid'; // 새로 추가한 이미지 그리드 컴포넌트
+import ImageGrid from '../components/feed/ImageGrid';
 import { GetPostContentResponseDto, CommentDto } from '../types/post';
 import { useNotification } from '../context/NotificationContext';
+import postService from '../services/postService';
+import api from '../services/api';
 import '../styles/PostDetail.css';
 
 const PostDetail: React.FC = () => {
@@ -20,6 +21,8 @@ const PostDetail: React.FC = () => {
   const { user } = useAuth();
   const { addNotification } = useNotification();
   const navigate = useNavigate();
+  
+  console.log("PostDetail 컴포넌트 마운트됨, postId:", postId);
 
   // 댓글 기능 비활성화 플래그 (댓글 기능이 준비되면 false로 변경)
   const COMMENTS_DISABLED = true;
@@ -27,10 +30,13 @@ const PostDetail: React.FC = () => {
   // 포스트 상세 정보 로드
   useEffect(() => {
     const fetchPostDetail = async () => {
+      console.log("fetchPostDetail 호출됨, postId:", postId);
       try {
         setLoading(true);
-        const response = await axios.get<{ data: GetPostContentResponseDto }>(`/post/${postId}`);
-        setPost(response.data.data);
+        console.log("API 호출 전, URL:", `/api/posts/detail/${postId}`);
+        const postDetail = await postService.getPostDetail(Number(postId));
+        console.log("API 응답 받음:", postDetail);
+        setPost(postDetail);
         setLoading(false);
         
         // 댓글 기능이 활성화된 경우에만 댓글 로드
@@ -38,33 +44,36 @@ const PostDetail: React.FC = () => {
           fetchComments();
         }
       } catch (err) {
+        console.error('API 호출 오류:', err);
         setError('포스트를 불러오는데 실패했습니다.');
         setLoading(false);
-        console.error('Failed to fetch post details:', err);
       }
     };
 
     if (postId) {
       fetchPostDetail();
+    } else {
+      console.log("postId가 없습니다.");
     }
   }, [postId]);
+  
+  // 이미지 디버깅용 로그
+  useEffect(() => {
+    if (post) {
+      console.log("이미지 목록:", getPostImages(post));
+    }
+  }, [post]);
 
-  // 댓글 로드 - 백엔드 API 경로 수정
+  // 댓글 로드
   const fetchComments = async () => {
     if (!postId || COMMENTS_DISABLED) return;
     
     try {
       setCommentLoading(true);
-      // 백엔드 API 경로를 /comment/post/{postId}로 수정
-      const response = await axios.get<{ data: CommentDto[] }>(`/comment/post/${postId}`, {
-        params: {
-          userId: user?.id || null,
-          lastCommentId: null
-        }
-      });
+      const commentsData = await postService.getComments(Number(postId));
       
       // 좋아요가 많은 상위 1개 댓글을 베스트 댓글로 표시
-      const sortedComments = [...(response.data.data || [])].sort((a, b) => b.likeCount - a.likeCount);
+      const sortedComments = [...commentsData].sort((a, b) => b.likeCount - a.likeCount);
       
       if (sortedComments.length > 0 && sortedComments[0].likeCount > 0) {
         sortedComments[0].isBestComment = true;
@@ -117,11 +126,11 @@ const PostDetail: React.FC = () => {
     }
 
     try {
-      const endpoint = post.isLikedByMe ? '/post/unlike' : '/post/like';
-      
-      await axios.post(endpoint, {
-        targetId: post.id
-      });
+      if (post.isLikedByMe) {
+        await postService.unlikePost(post.id);
+      } else {
+        await postService.likePost(post.id);
+      }
       
       // 좋아요 상태 업데이트
       setPost(prevPost => {
@@ -162,7 +171,7 @@ const PostDetail: React.FC = () => {
     if (!confirmDelete) return;
     
     try {
-      await axios.delete(`/post/${post.id}`);
+      await api.delete(`/api/posts/${post.id}`);
       
       addNotification({
         message: '게시물이 삭제되었습니다.',
@@ -193,14 +202,20 @@ const PostDetail: React.FC = () => {
     }).replace(/\./g, '').replace(/\s\s+/g, ' ');
   };
 
-  // 다중 이미지 변환 (백엔드가 아직 다중 이미지를 지원하지 않을 경우 대비)
-  const getPostImages = (post: GetPostContentResponseDto): string[] => {
-    // images 배열이 있으면 그대로 사용
+  // 이미지 URL 추출 함수
+  const getPostImages = (post: any): string[] => {
+    console.log("Post thumbnails:", post.thumbnails);
+    
+    // thumbnails 배열이 있으면 URL 추출
+    if (post.thumbnails && post.thumbnails.length > 0) {
+      return post.thumbnails.map((thumbnail: any) => thumbnail.url);
+    }
+    
+    // 이전 버전 호환성을 위한 코드
     if (post.images && post.images.length > 0) {
       return post.images;
     }
     
-    // 그렇지 않고 thumbnailUrl이 있으면 단일 이미지 배열로 변환
     if (post.thumbnailUrl) {
       return [post.thumbnailUrl];
     }

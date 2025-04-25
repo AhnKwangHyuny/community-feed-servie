@@ -6,6 +6,7 @@ import org.faddy.community_feed.common.domain.PositiveIntegerCounter;
 import org.faddy.community_feed.common.idempotency.annotation.Idempotent;
 import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.request.UpdatePostRequestDto;
+import org.faddy.community_feed.post.application.dto.response.PostDetailResponseDto;
 import org.faddy.community_feed.post.application.interfaces.LikeRepository;
 import org.faddy.community_feed.post.application.interfaces.PostRepository;
 import org.faddy.community_feed.post.application.service.PostImageService;
@@ -193,5 +194,30 @@ public class PostServiceImpl implements PostService {
         if (content.length() > 5000) {  // 예시: 최대 5000자 제한
             throw new IllegalArgumentException("Post content exceeds maximum length (5000 characters)");
         }
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public PostDetailResponseDto getPostDetail(Long postId, Long userId) {
+        log.info("Fetching post detail for postId: {}, userId: {}", postId, userId);
+
+        // 게시물 조회 (썸네일 포함)
+        Post post = postRepository.findByIdWithThumbnails(postId);
+
+        // 좋아요 상태 확인
+        if (userId != null) {
+            User user = userService.getUser(userId);
+            post.isLikedByMe(likeRepository.checkLike(post, user));
+        }
+
+        // 댓글 수는 댓글 기능 구현 시 실제 값으로 대체
+        int commentCount = 0; // 추후 댓글 시스템 구현 시 실제 댓글 수 조회
+
+        log.info("Post detail fetched successfully. post: {}, thumbnails: {}",
+            post.getId(),
+            post.getThumbnails() != null ? post.getThumbnails().size() : 0);
+
+        return PostDetailResponseDto.from(post, commentCount);
     }
 }

@@ -19,7 +19,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/post/:postId" element={<PostDetail />} />
+            <Route path="/post/detail/:postId" element={<PostDetail />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Router>

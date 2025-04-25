@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
+import PostDetail from './pages/PostDetail';
 
 interface Route {
   path: string;
@@ -32,6 +33,11 @@ export const routes: Route[] = [
     path: '/profile',
     element: <Profile />,
     auth: true,
+  },
+  {
+    path: '/post/detail/:postId',
+    element: <PostDetail />,
+    auth: false,
   },
   {
     path: '*',

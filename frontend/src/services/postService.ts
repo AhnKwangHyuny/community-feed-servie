@@ -43,7 +43,7 @@ const postService = {
   async createPost(data: CreatePostRequestDto): Promise<number> {
     try {
       console.log('포스트 생성 요청:', data);
-      const response = await api.post<ApiResponse<number>>('/post', data);
+      const response = await api.post<ApiResponse<number>>('/api/posts', data);
       console.log('포스트 생성 응답:', response.data);
       
       // response.data는 {code: 0, message: "ok", data: 123} 형식 
@@ -169,7 +169,7 @@ const postService = {
    */
   async updatePost(postId: number, data: UpdatePostRequestDto): Promise<number> {
     try {
-      const response = await api.patch<ApiResponse<number>>(`/post/${postId}`, data);
+      const response = await api.patch<ApiResponse<number>>(`/api/posts/${postId}`, data);
       if (!response.data.data && !response.data.value) {
         throw new Error('포스트 수정 실패: 서버에서 ID를 반환하지 않았습니다');
       }
@@ -187,7 +187,7 @@ const postService = {
   async likePost(postId: number): Promise<void> {
     try {
       const dto: LikeRequestDto = { targetId: postId };
-      await api.post<ApiResponse<null>>('/post/like', dto);
+      await api.post<ApiResponse<null>>('/api/posts/like', dto);
     } catch (error) {
       console.error('좋아요 에러:', error);
       throw error;
@@ -201,7 +201,7 @@ const postService = {
   async unlikePost(postId: number): Promise<void> {
     try {
       const dto: LikeRequestDto = { targetId: postId };
-      await api.post<ApiResponse<null>>('/post/unlike', dto);
+      await api.post<ApiResponse<null>>('/api/posts/unlike', dto);
     } catch (error) {
       console.error('좋아요 취소 에러:', error);
       throw error;
@@ -215,10 +215,27 @@ const postService = {
    */
   async getComments(postId: number): Promise<CommentDto[]> {
     try {
-      const response = await api.get<ApiResponse<CommentDto[]>>(`/post/${postId}/comments`);
+      const response = await api.get<ApiResponse<CommentDto[]>>(`/api/posts/${postId}/comments`);
       return response.data.data || [];
     } catch (error) {
       console.error('댓글 목록 조회 에러:', error);
+      throw error;
+    }
+  },
+  
+  /**
+   * 포스트 상세 정보를 가져오는 함수
+   * @param postId 포스트 ID
+   * @returns 포스트 상세 정보
+   */
+  async getPostDetail(postId: number): Promise<any> {
+    try {
+      console.log(`getPostDetail 호출됨, postId: ${postId}, URL: /api/posts/detail/${postId}`);
+      const response = await api.get<ApiResponse<any>>(`/api/posts/detail/${postId}`);
+      console.log('API 응답:', response);
+      return response.data.data || response.data.value || null;
+    } catch (error) {
+      console.error('포스트 상세 조회 에러:', error);
       throw error;
     }
   }

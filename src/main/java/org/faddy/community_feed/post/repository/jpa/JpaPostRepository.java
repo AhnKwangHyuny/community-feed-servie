@@ -1,6 +1,8 @@
 package org.faddy.community_feed.post.repository.jpa;
 
+import io.lettuce.core.dynamic.annotation.Param;
 import java.util.List;
+import java.util.Optional;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.repository.entity.post.PostEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,4 +30,12 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
     @Modifying
     @Query("UPDATE PostEntity p SET p.commentCounter = p.commentCounter + 1 WHERE p.id = :postId")
     void increaseCommentCounter(Long postId);
+
+
+    @Query("SELECT p FROM PostEntity p " +
+        "LEFT JOIN FETCH p.author " +
+        "LEFT JOIN FETCH p.thumbnails t " +
+        "LEFT JOIN FETCH t.image " +
+        "WHERE p.id = :postId")
+    Optional<PostEntity> findByIdWithThumbnails(@Param("postId") Long postId);
 }

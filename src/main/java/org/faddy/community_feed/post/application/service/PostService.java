@@ -2,6 +2,7 @@ package org.faddy.community_feed.post.application.service;
 
 import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.request.UpdatePostRequestDto;
+import org.faddy.community_feed.post.application.dto.response.PostDetailResponseDto;
 import org.faddy.community_feed.post.domain.Post;
 
 public interface PostService {
@@ -10,6 +11,6 @@ public interface PostService {
     void likePost(Long userId, Long targetId);
     void unlikePost(Long userId, Long targetId);
     Post getPost(Long postId);
-
+    PostDetailResponseDto getPostDetail(Long postId, Long userId);
 
 }
