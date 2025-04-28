@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.faddy.community_feed.post.domain.PostPublicationState;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 
 @Getter
 @Setter

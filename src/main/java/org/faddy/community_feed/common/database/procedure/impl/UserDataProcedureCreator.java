@@ -27,6 +27,7 @@ public class UserDataProcedureCreator implements ProcedureCreator {
                     "BEGIN\n" +
                     "    DECLARE i INT DEFAULT 1;\n" +
                     "    DECLARE last_id INT;\n" +
+                    "    DECLARE profile_image_url VARCHAR(255);\n" +
                     "    \n" +
                     "    -- 마지막 ID 확인\n" +
                     "    SELECT IFNULL(MAX(id), 0) INTO last_id FROM community_user;\n" +
@@ -36,27 +37,35 @@ public class UserDataProcedureCreator implements ProcedureCreator {
                     "    START TRANSACTION;\n" +
                     "    \n" +
                     "    WHILE i <= (last_id + total_records) DO\n" +
+                    "        -- 프로필 이미지를 5개 중 하나로 랜덤 선택\n" +
+                    "        SET profile_image_url = CASE FLOOR(1 + RAND() * 5)\n" +
+                    "            WHEN 1 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-33 001.jpeg'\n" +
+                    "            WHEN 2 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-34 002.jpeg'\n" +
+                    "            WHEN 3 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-34 003.jpeg'\n" +
+                    "            WHEN 4 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-34 004.jpeg'\n" +
+                    "            ELSE '/images/testImages/test_default_image.png'\n" +
+                    "        END;\n" +
+                    "        \n" +
                     "        -- community_user 테이블에 데이터 삽입\n" +
                     "        INSERT INTO community_user (\n" +
-                    "            id, follower_count, following_count, reg_date, reg_dt, upd_dt, name, profile_image\n" +
+                    "            id, reg_dt, upd_dt, follower_count, following_count, name, profile_image\n" +
                     "        ) VALUES (\n" +
                     "            i,\n" +
-                    "            FLOOR(10 + RAND() * 3000),\n" +
-                    "            FLOOR(10 + RAND() * 1500),\n" +
-                    "            DATE_ADD('2023-01-01', INTERVAL FLOOR(RAND() * 365) DAY),\n" +
                     "            DATE_FORMAT(\n" +
-                    "                DATE_ADD('2023-01-01 00:00:00', INTERVAL FLOOR(RAND() * 365 * 24 * 60 * 60) SECOND),\n" +
+                    "                DATE_ADD('2024-01-01 00:00:00', INTERVAL FLOOR(RAND() * 120 * 24 * 60 * 60) SECOND),\n" +
                     "                '%Y-%m-%d %H:%i:%s'\n" +
                     "            ),\n" +
                     "            DATE_FORMAT(\n" +
-                    "                DATE_ADD('2023-01-01 00:00:00', INTERVAL FLOOR(RAND() * 365 * 24 * 60 * 60) SECOND),\n" +
+                    "                DATE_ADD('2024-01-01 00:00:00', INTERVAL FLOOR(RAND() * 120 * 24 * 60 * 60) SECOND),\n" +
                     "                '%Y-%m-%d %H:%i:%s'\n" +
                     "            ),\n" +
+                    "            FLOOR(RAND() * 300),\n" +
+                    "            FLOOR(RAND() * 150),\n" +
                     "            CONCAT(\n" +
                     "                ELT(FLOOR(1 + RAND() * 10), '김', '이', '박', '최', '정', '강', '윤', '임', '한', '송'),\n" +
                     "                ELT(FLOOR(1 + RAND() * 10), '민준', '서연', '지호', '수아', '도윤', '지유', '서준', '하은', '민서', '지원')\n" +
                     "            ),\n" +
-                    "            CONCAT('profile/', IF(RAND() < 0.3, CONCAT('default', FLOOR(RAND() * 10) + 1, '.jpg'), CONCAT('user', i, '.png')))\n" +
+                    "            profile_image_url\n" +
                     "        );\n" +
                     "        \n" +
                     "        -- community_user_auth 테이블에 데이터 삽입\n" +
@@ -70,18 +79,23 @@ public class UserDataProcedureCreator implements ProcedureCreator {
                     "                i, '@example.com'\n" +
                     "            ),\n" +
                     "            CONCAT('$2a$10$', SUBSTRING(MD5(RAND()), 1, 30)),\n" +
-                    "            ELT(FLOOR(1 + RAND() * 3), 'USER', 'MODERATOR', 'ADMIN'),\n" +
+                    "            CASE\n" +
+                    "                WHEN RAND() < 0.9 THEN 'USER'\n" +
+                    "                WHEN RAND() < 0.5 THEN 'MODERATOR'\n" +
+                    "                ELSE 'ADMIN'\n" +
+                    "            END,\n" +
                     "            i,\n" +
                     "            DATE_FORMAT(\n" +
-                    "                DATE_ADD('2023-01-01 00:00:00', INTERVAL FLOOR(RAND() * 365 * 24 * 60 * 60) SECOND),\n" +
+                    "                DATE_ADD('2024-01-01 00:00:00', INTERVAL FLOOR(RAND() * 120 * 24 * 60 * 60) SECOND),\n" +
                     "                '%Y-%m-%d %H:%i:%s'\n" +
                     "            )\n" +
                     "        );\n" +
                     "        \n" +
-                    "        -- 5000개 단위로 커밋\n" +
-                    "        IF i % 5000 = 0 THEN\n" +
+                    "        -- 1000개 단위로 커밋\n" +
+                    "        IF i % 1000 = 0 THEN\n" +
                     "            COMMIT;\n" +
                     "            START TRANSACTION;\n" +
+                    "            SELECT CONCAT('사용자 생성 진행 중... ', i, '/', last_id + total_records) AS progress;\n" +
                     "        END IF;\n" +
                     "        \n" +
                     "        SET i = i + 1;\n" +
@@ -89,9 +103,13 @@ public class UserDataProcedureCreator implements ProcedureCreator {
                     "    \n" +
                     "    -- 남은 트랜잭션 커밋\n" +
                     "    COMMIT;\n" +
+                    "    \n" +
+                    "    SELECT CONCAT('총 ', total_records, '명의 사용자가 생성되었습니다.') AS completion_message;\n" +
                     "END"
             );
             System.out.println("'" + getProcedureName() + "' 저장 프로시저가 성공적으로 생성되었습니다.");
+        } else {
+            System.out.println("'" + getProcedureName() + "' 저장 프로시저가 이미 존재합니다.");
         }
     }
 

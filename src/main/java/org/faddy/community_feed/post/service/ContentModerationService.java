@@ -6,9 +6,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-/**
- * Service for moderating content based on various rules.
- */
+
 @Service
 public class ContentModerationService {
     
@@ -28,12 +26,7 @@ public class ContentModerationService {
             bannedWords = Arrays.asList(bannedWordsConfig.toLowerCase().split(","));
         }
     }
-    
-    /**
-     * Validates content against moderation rules
-     * @param content Content to validate
-     * @throws IllegalArgumentException if content violates moderation rules
-     */
+
     public void validateContent(String content) {
         if (!moderationEnabled) {
             return;

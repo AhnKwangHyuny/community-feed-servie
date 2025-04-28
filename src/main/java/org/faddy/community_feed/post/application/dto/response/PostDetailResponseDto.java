@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import org.faddy.community_feed.post.domain.Post;
-import org.faddy.community_feed.post.domain.PostPublicationState;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 import org.faddy.community_feed.post.domain.image.PostThumbnail;
 
 @Builder

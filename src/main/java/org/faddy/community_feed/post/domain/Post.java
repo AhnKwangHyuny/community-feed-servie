@@ -8,6 +8,7 @@ import lombok.Getter;
 import org.faddy.community_feed.common.domain.PositiveIntegerCounter;
 import org.faddy.community_feed.post.domain.content.Content;
 import org.faddy.community_feed.post.domain.content.PostContent;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 import org.faddy.community_feed.post.domain.image.PostThumbnail;
 import org.faddy.community_feed.user.domain.User;
 

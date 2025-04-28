@@ -9,7 +9,7 @@ import java.util.List;
 import org.faddy.community_feed.acceptance.utils.AcceptanceTestTemplate;
 import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDto;
 import org.faddy.community_feed.post.application.dto.response.GetPostContentResponseDto;
-import org.faddy.community_feed.post.domain.PostPublicationState;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

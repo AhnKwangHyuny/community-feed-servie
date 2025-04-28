@@ -2,7 +2,7 @@ package org.faddy.community_feed.post.repository.entity.post;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import org.faddy.community_feed.post.domain.PostPublicationState;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 
 @Converter
 public class PostPublicationStateConverter implements AttributeConverter<PostPublicationState, String>{

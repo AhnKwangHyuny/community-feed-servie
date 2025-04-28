@@ -66,7 +66,7 @@ public class PostServiceImpl implements PostService {
 
             // 게시물 저장
             Post savedPost = postRepository.publish(post);
-            
+
             // 이미지 ID가 있는 경우 처리
             if (dto.imageIds() != null && !dto.imageIds().isEmpty()) {
                 log.info("Attaching images to post: {}, image count: {}", savedPost.getId(), dto.imageIds().size());
@@ -74,7 +74,7 @@ public class PostServiceImpl implements PostService {
                 String mainImageUrl = postImageService.attachImagesToPost(dto.imageIds(), savedPost.getId());
                 log.info("Main image URL: {}", mainImageUrl);
             }
-            
+
             return savedPost;
         } catch (Exception e) {
             log.error("Failed to create post for user: {}", userId, e);
@@ -109,12 +109,12 @@ public class PostServiceImpl implements PostService {
             // 게시물 업데이트
             post.updateContent(user, dto.content(), dto.state());
             Post updatedPost = postRepository.save(post);
-            
+
             // 이미지 ID 목록이 제공된 경우 처리
             if (dto.imageIds() != null) {
                 // 기존 이미지 연결 삭제
 //                postImageService.deletePostImages(postId);
-                
+
                 // 새 이미지 연결 처리
                 if (!dto.imageIds().isEmpty()) {
                     log.info("Updating images for post: {}, image count: {}", postId, dto.imageIds().size());
@@ -122,7 +122,7 @@ public class PostServiceImpl implements PostService {
 //                    log.info("Updated main image URL: {}", mainImageUrl);
                 }
             }
-            
+
             return updatedPost;
         } catch (Exception e) {
             log.error("Failed to update post: {} for user: {}", postId, userId, e);

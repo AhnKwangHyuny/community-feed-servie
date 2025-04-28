@@ -1,7 +1,7 @@
 package org.faddy.community_feed.post.application.dto.request;
 
 import java.util.List;
-import org.faddy.community_feed.post.domain.PostPublicationState;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 
 public record UpdatePostRequestDto(
     String content,

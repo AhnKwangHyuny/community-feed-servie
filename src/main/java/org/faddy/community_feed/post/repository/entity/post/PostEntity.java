@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 import org.faddy.community_feed.common.domain.PositiveIntegerCounter;
 import org.faddy.community_feed.common.repository.TimeBaseEntity;
 import org.faddy.community_feed.post.domain.Post;
-import org.faddy.community_feed.post.domain.PostPublicationState;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 import org.faddy.community_feed.post.domain.content.PostContent;
 import org.faddy.community_feed.post.repository.entity.image.PostThumbnailEntity;
 import org.faddy.community_feed.user.repository.entity.UserEntity;
@@ -52,6 +52,9 @@ public class PostEntity extends TimeBaseEntity {
 
     @ColumnDefault("0")
     private int commentCounter;
+
+    @ColumnDefault("0")
+    private int viewCounter;
 
     public PostEntity(Post post) {
         this.id = post.getId();

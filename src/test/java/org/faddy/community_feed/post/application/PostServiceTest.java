@@ -6,7 +6,7 @@ import org.faddy.community_feed.post.application.dto.request.CreatePostRequestDt
 import org.faddy.community_feed.post.application.dto.request.LikeRequestDto;
 import org.faddy.community_feed.post.application.dto.request.UpdatePostRequestDto;
 import org.faddy.community_feed.post.domain.Post;
-import org.faddy.community_feed.post.domain.PostPublicationState;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 import org.faddy.community_feed.post.domain.content.Content;
 import org.junit.jupiter.api.Test;
 

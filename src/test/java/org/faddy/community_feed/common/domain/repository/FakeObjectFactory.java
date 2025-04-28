@@ -27,8 +27,8 @@ public class FakeObjectFactory {
 
     private static final UserService userService = new UserService(fakeUserRepository);
     private static final UserRelationService userRelationService = new UserRelationService(fakeUserRelationRepository, userService);
-    private static final PostService postService = new PostServiceImpl(userService, fakePostRepository, fakeLikeRepository);
-    private static final CommentService commentService = new CommentService(userService, postService, fakeCommentRepository, fakeLikeRepository);
+//    private static final PostService postService = new PostServiceImpl(   userService, fakePostRepository, fakeLikeRepository);
+//    private static final CommentService commentService = new CommentService(userService, postService, fakeCommentRepository, fakeLikeRepository);
 
     private FakeObjectFactory() {
     }
@@ -41,11 +41,11 @@ public class FakeObjectFactory {
         return userRelationService;
     }
 
-    public static PostService getPostService() {
-        return postService;
-    }
+//    public static PostService getPostService() {
+//        return postService;
+//    }
 
-    public static CommentService getCommentService() {
-        return commentService;
-    }
+//    public static CommentService getCommentService() {
+//        return commentService;
+//    }
 }
