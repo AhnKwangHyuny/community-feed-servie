@@ -182,6 +182,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostCreated }) => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         likeCount: 0,
+        viewCount: 0, // 필수 필드 추가
         isLikedByMe: false,
         commentCount: 0,
         thumbnailUrl: imageUrls.length > 0 ? imageUrls[0] : undefined

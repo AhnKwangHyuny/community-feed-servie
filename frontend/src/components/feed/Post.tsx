@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import api from '../../services/api';
 import { Link } from 'react-router-dom';
-import { GetPostContentResponseDto, CommentDto } from '../../types/post';
+import api from '../../services/api';
+import { GetPostContentResponseDto } from '../../types/post';
 import { useAuth } from '../../context/AuthContext';
-import CommentForm from './CommentForm';
-import CommentList from './CommentList';
-import ImageGrid from './ImageGrid'; // 이미지 그리드 컴포넌트 추가
 import '../../styles/Post.css';
 
 interface PostProps {
@@ -14,14 +11,35 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post, onLike }) => {
-  const [showComments, setShowComments] = useState(false);
-  const [comments, setComments] = useState<CommentDto[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [isLiking, setIsLiking] = useState(false);
   const { user } = useAuth();
   
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHour = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHour / 24);
+
+    // 1일 이내면 시간 표시
+    if (diffDay < 1) {
+      if (diffHour < 1) {
+        if (diffMin < 1) {
+          return '방금 전';
+        }
+        return `${diffMin}분 전`;
+      }
+      return `${diffHour}시간 전`;
+    }
+    
+    // 오늘이 아니면 날짜 표시
+    return date.toLocaleDateString('ko-KR', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit' 
+    });
   };
 
   const handleLike = async () => {
@@ -30,7 +48,10 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
       return;
     }
 
+    if (isLiking) return; // 중복 요청 방지
+
     try {
+      setIsLiking(true);
       const endpoint = post.isLikedByMe ? '/api/posts/unlike' : '/api/posts/like';
       
       await api.post(endpoint, {
@@ -41,34 +62,9 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
     } catch (error) {
       console.error('좋아요 처리 중 오류:', error);
       alert('좋아요 처리 중 오류가 발생했습니다.');
-    }
-  };
-
-  const handleCommentToggle = async () => {
-    // 댓글이 이미 보이는 상태면 숨기기만 하고 API 호출 하지 않음
-    if (showComments) {
-      setShowComments(false);
-      return;
-    }
-    
-    try {
-      setLoading(true);
-      // 댓글 목록 API 호출 (현재는 비활성화)
-      // const response = await api.get(`/api/posts/${post.id}/comments`);
-      // setComments(response.data.data || []);
-      
-      // 댓글 기능이 완성되기 전까지는 빈 배열 사용
-      setComments([]);
-      setShowComments(true);
-    } catch (error) {
-      console.error('댓글을 불러오는 중 오류:', error);
     } finally {
-      setLoading(false);
+      setIsLiking(false);
     }
-  };
-
-  const handleCommentSubmit = (newComment: any) => {
-    setComments((prevComments) => [newComment, ...prevComments]);
   };
 
   // 다중 이미지 변환 (여러 형식의 이미지 필드 지원)
@@ -87,82 +83,90 @@ const Post: React.FC<PostProps> = ({ post, onLike }) => {
       return [post.thumbnailUrl];
     }
     
-    // 이미지가 없는 경우 기본 이미지 사용
-    return ['https://via.placeholder.com/400x300'];
+    return [];
   };
 
   // 프로필 이미지가 없는 경우 기본 이미지 사용
-  const profileImageUrl = post.userProfileImage || 'https://via.placeholder.com/100';
+  const profileImageUrl = post.userProfileImage || 'https://via.placeholder.com/40';
 
-  // 피드에서는 첫 번째 이미지만 썸네일로 표시
-  const thumbnailUrl = getPostImages()[0];
+  // 이미지 목록 가져오기
+  const postImages = getPostImages();
+  const hasImages = postImages.length > 0;
+
+  // 내용 길이에 따라 더보기 표시
+  const isLongContent = post.content.length > 100;
+  const displayContent = isLongContent 
+    ? post.content.substring(0, 100) + '...' 
+    : post.content;
 
   return (
     <article className="post-card">
-      <div className="thumbnail-container">
-        <div className="post-link-container">
-          <Link to={`/post/detail/${post.id}`} className="post-link">
-            <img src={thumbnailUrl} alt="게시물 이미지" className="post-thumbnail" />
+      {hasImages && (
+        <div className="post-thumbnail-container">
+          <Link to={`/post/detail/${post.id}`} className="post-thumbnail-link">
+            <img 
+              src={postImages[0]} 
+              alt="게시물 썸네일" 
+              className="post-thumbnail" 
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=이미지+로드+실패';
+              }}
+            />
+            {postImages.length > 1 && (
+              <div className="multiple-images-badge">+{postImages.length - 1}</div>
+            )}
           </Link>
-          <div 
-            className={`post-like-count ${post.isLikedByMe ? 'liked' : ''}`}
+          <button 
+            className={`post-like-button ${post.isLikedByMe ? 'liked' : ''}`}
             onClick={handleLike}
+            disabled={isLiking}
           >
-            <span className="heart-icon-overlay">{post.isLikedByMe ? '❤️' : '🤍'}</span>
-            <span className="like-count-overlay">{post.likeCount || 0}</span>
-          </div>
+            <span className="heart-icon">{post.isLikedByMe ? '❤️' : '🤍'}</span>
+            <span className="like-count">{post.likeCount || 0}</span>
+          </button>
         </div>
-      </div>
+      )}
       
-      <div className="post-content-area">
-        <div className="post-profile-section">
-          <Link to={`/profile/${post.userId}`} className="post-profile-link">
+      <div className="post-content-container">
+        <div className="post-header">
+          <Link to={`/profile/${post.userId}`} className="post-author-link">
             <img 
               src={profileImageUrl} 
               alt={`${post.userName}의 프로필`} 
               className="post-author-avatar" 
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/40?text=오류';
+              }}
             />
+            <span className="post-author-name">{post.userName}</span>
+          </Link>
+          <span className="post-date">{formatDate(post.createdAt)}</span>
+        </div>
+        
+        <div className="post-body">
+          <Link to={`/post/detail/${post.id}`} className="post-content-link">
+            <p className="post-content">{displayContent}</p>
+            {isLongContent && <span className="read-more">더 보기</span>}
           </Link>
           
-          <div className="post-title-wrapper">
-            <h3 className="post-title">
-              <Link to={`/post/detail/${post.id}`}>
-                {post.content.length > 50 
-                  ? post.content.substring(0, 50) + '...' 
-                  : post.content}
-                {post.commentCount > 0 && (
-                  <span className="post-comment-count"> [{post.commentCount}]</span>
-                )}
-              </Link>
-            </h3>
-            
-            <div className="post-meta-info">
-              <div className="post-author-name">{post.userName}</div>
-              <div className="post-meta-stats">
-                <span className="post-date">{formatDate(post.createdAt)}</span>
-                <span className="post-like-info">♥ {post.likeCount || 0}</span>
-              </div>
+          {!hasImages && (
+            <div className="post-actions">
+              <button 
+                className={`post-like-button-text ${post.isLikedByMe ? 'liked' : ''}`}
+                onClick={handleLike}
+                disabled={isLiking}
+              >
+                {post.isLikedByMe ? '❤️' : '🤍'} {post.likeCount || 0}
+              </button>
+              {post.commentCount > 0 && (
+                <Link to={`/post/detail/${post.id}`} className="post-comment-link">
+                  💬 {post.commentCount}
+                </Link>
+              )}
             </div>
-          </div>
+          )}
         </div>
       </div>
-      
-      {showComments && (
-        <div className="post-comments">
-          {user && (
-            <CommentForm 
-              postId={post.id} 
-              onCommentSubmit={handleCommentSubmit} 
-            />
-          )}
-          
-          {loading ? (
-            <div className="loading">댓글 로딩 중...</div>
-          ) : (
-            <CommentList comments={comments} />
-          )}
-        </div>
-      )}
     </article>
   );
 };

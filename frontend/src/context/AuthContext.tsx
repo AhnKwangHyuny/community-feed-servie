@@ -1,197 +1,29 @@
-// /Users/ahnkwanghyun/Documents/dev/community-feed-service/frontend/src/context/AuthContext.tsx
+import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import api from '../services/api';
 
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import authService from '../services/authService';
-
-// 사용자 정보 타입
 interface User {
-  id?: number;
+  id: number;
+  name: string;
   email: string;
-  name?: string;
-  profileImageUrl?: string;
+  profileImage?: string;
+  profileImageUrl?: string; // 호환성을 위해 추가
 }
 
-// 인증 컨텍스트 타입
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  isAuthenticated: boolean;
-  login: (email: string, password: string, fcmToken?: string) => Promise<void>;
-  logout: () => void;
-  register: (userData: {
-    email: string;
-    password: string;
-    name: string;
-    profileImageUrl?: string;
-  }) => Promise<void>;
-  sendVerificationEmail: (email: string) => Promise<boolean>;
-  verifyEmail: (email: string, token: string) => Promise<{verified: boolean, message: string}>;
   error: string | null;
+  isAuthenticated: boolean; // 추가
+  login: (email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string) => Promise<void>;
+  logout: () => void;
+  register: (name: string, email: string, password: string) => Promise<void>; // signup의 별칭
+  sendVerificationEmail: (email: string) => Promise<void>; // 추가
+  verifyEmail: (email: string, code: string) => Promise<void>; // 추가
 }
 
-// 기본값으로 빈 컨텍스트 생성
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  loading: false,
-  isAuthenticated: false,
-  login: async () => {},
-  logout: () => {},
-  register: async () => {},
-  sendVerificationEmail: async () => false,
-  verifyEmail: async () => ({verified: false, message: ''}),
-  error: null,
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// 인증 상태 제공자 컴포넌트
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  // 초기 로딩 시 토큰 확인
-  useEffect(() => {
-    const token = authService.getToken();
-    if (token) {
-      // 여기서 토큰으로 사용자 정보를 가져오는 API를 호출할 수 있음
-      // 임시로 토큰이 있으면 인증된 것으로 처리
-      setUser({ email: 'authenticated@example.com' });
-    }
-    setLoading(false);
-  }, []);
-
-  // 로그인 함수
-  const login = async (email: string, password: string, fcmToken?: string) => {
-    setError(null);
-    setLoading(true);
-    
-    try {
-      const response = await authService.login(email, password, fcmToken);
-      
-      // 토큰 저장
-      authService.saveToken(response.accessToken);
-      
-      // 사용자 정보 설정 (실제로는 API로 사용자 정보 가져올 수 있음)
-      setUser({ email });
-    } catch (err) {
-      setError('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
-      console.error('Login error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 로그아웃 함수
-  const logout = () => {
-    authService.removeToken();
-    setUser(null);
-  };
-
-  // 회원가입 함수
-  const register = async (userData: {
-    email: string;
-    password: string;
-    name: string;
-    profileImageUrl?: string;
-  }) => {
-    setError(null);
-    setLoading(true);
-    
-    try {
-      console.log('회원가입 요청:', userData);
-      const response = await authService.register({
-        ...userData,
-        role: 'USER', // 기본 역할
-      });
-      console.log('회원가입 성공 응답:', response);
-      
-      // 토큰 저장
-      if (response && response.accessToken) {
-        authService.saveToken(response.accessToken);
-        
-        // 사용자 정보 설정
-        setUser({
-          email: userData.email,
-          name: userData.name,
-          profileImageUrl: userData.profileImageUrl,
-        });
-        
-        console.log('회원가입 성공: 사용자 정보 설정 및 토큰 저장 완료');
-        return; // 성공적으로 완료
-      } else {
-        throw new Error('유효한 액세스 토큰을 받지 못했습니다');
-      }
-    } catch (err) {
-      console.error('회원가입 실패:', err);
-      setError('회원가입에 실패했습니다. 다시 시도해주세요.');
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 이메일 인증 요청 함수
-  const sendVerificationEmail = async (email: string): Promise<boolean> => {
-    setError(null);
-    setLoading(true);
-    
-    try {
-      return await authService.sendVerificationEmail(email);
-    } catch (err) {
-      setError('이메일 인증 요청에 실패했습니다.');
-      console.error('Email verification error:', err);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 이메일 인증 코드 확인 함수
-  const verifyEmail = async (email: string, token: string): Promise<{verified: boolean, message: string}> => {
-    setError(null);
-    setLoading(true);
-    
-    try {
-      const response = await authService.verifyEmail(email, token);
-      console.log("인증 응답:", response);
-      return {
-        verified: response.verified,
-        message: response.message
-      };
-    } catch (err) {
-      console.error('Email verification error:', err);
-      setError('이메일 인증에 실패했습니다.');
-      return {
-        verified: false,
-        message: '이메일 인증 처리 중 오류가 발생했습니다.'
-      };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 인증 상태 값
-  const isAuthenticated = !!user;
-
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        isAuthenticated,
-        login,
-        logout,
-        register,
-        sendVerificationEmail,
-        verifyEmail,
-        error,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-// 커스텀 훅으로 인증 컨텍스트 사용하기 쉽게 제공
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -200,4 +32,173 @@ export const useAuth = () => {
   return context;
 };
 
-export default AuthContext;
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // 초기 사용자 정보 로드
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+
+        const response = await api.get('/api/auth/me');
+        
+        if (response.data && response.data.data) {
+          setUser(response.data.data);
+        }
+      } catch (err) {
+        console.error('사용자 정보를 가져오는 중 오류 발생:', err);
+        // 토큰이 유효하지 않으면 로그아웃 처리
+        localStorage.removeItem('accessToken');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  // 로그인 함수
+  const login = async (email: string, password: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await api.post('/api/auth/login', {
+        email,
+        password
+      });
+
+      if (response.data && response.data.data && response.data.data.token) {
+        localStorage.setItem('accessToken', response.data.data.token);
+        
+        // 사용자 정보 가져오기
+        const userResponse = await api.get('/api/auth/me');
+        if (userResponse.data && userResponse.data.data) {
+          const userData = userResponse.data.data;
+          // profileImage와 profileImageUrl 동기화
+          if (userData.profileImage && !userData.profileImageUrl) {
+            userData.profileImageUrl = userData.profileImage;
+          } else if (userData.profileImageUrl && !userData.profileImage) {
+            userData.profileImage = userData.profileImageUrl;
+          }
+          setUser(userData);
+        }
+      } else {
+        throw new Error('로그인에 실패했습니다.');
+      }
+    } catch (err: any) {
+      console.error('로그인 중 오류 발생:', err);
+      setError(err.response?.data?.message || '로그인에 실패했습니다.');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 회원가입 함수
+  const signup = async (name: string, email: string, password: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await api.post('/api/auth/signup', {
+        name,
+        email,
+        password
+      });
+
+      if (response.data && response.data.data && response.data.data.token) {
+        localStorage.setItem('accessToken', response.data.data.token);
+        
+        // 사용자 정보 가져오기
+        const userResponse = await api.get('/api/auth/me');
+        if (userResponse.data && userResponse.data.data) {
+          const userData = userResponse.data.data;
+          // profileImage와 profileImageUrl 동기화
+          if (userData.profileImage && !userData.profileImageUrl) {
+            userData.profileImageUrl = userData.profileImage;
+          } else if (userData.profileImageUrl && !userData.profileImage) {
+            userData.profileImage = userData.profileImageUrl;
+          }
+          setUser(userData);
+        }
+      } else {
+        throw new Error('회원가입에 실패했습니다.');
+      }
+    } catch (err: any) {
+      console.error('회원가입 중 오류 발생:', err);
+      setError(err.response?.data?.message || '회원가입에 실패했습니다.');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 로그아웃 함수
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    setUser(null);
+  };
+
+  // register는 signup의 별칭
+  const register = signup;
+
+  // 이메일 인증 메일 전송 함수
+  const sendVerificationEmail = async (email: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      await api.post('/api/auth/send-verification', { email });
+    } catch (err: any) {
+      console.error('인증 메일 전송 중 오류 발생:', err);
+      setError(err.response?.data?.message || '인증 메일 전송에 실패했습니다.');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 이메일 인증 코드 확인 함수
+  const verifyEmail = async (email: string, code: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      await api.post('/api/auth/verify-email', { email, code });
+    } catch (err: any) {
+      console.error('이메일 인증 중 오류 발생:', err);
+      setError(err.response?.data?.message || '이메일 인증에 실패했습니다.');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // isAuthenticated 계산
+  const isAuthenticated = user !== null;
+
+  const value = {
+    user,
+    loading,
+    error,
+    isAuthenticated,
+    login,
+    signup,
+    logout,
+    register,
+    sendVerificationEmail,
+    verifyEmail
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

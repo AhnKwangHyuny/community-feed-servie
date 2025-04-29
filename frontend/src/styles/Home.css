@@ -1,260 +1,97 @@
-/* Home.css - 트렌디한 디자인 */
 .home-container {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f8f9fa;
-  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.category-tabs {
-  display: flex;
-  background: white;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding: 0;
-  margin: 0;
-  border-bottom: 1px solid #f0f0f0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.category-tab {
-  padding: 15px 20px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #666;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.category-tab:hover {
-  color: #ff4081;
-}
-
-.category-tab.active {
-  font-weight: 600;
-  color: #ff4081;
-}
-
-.category-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #ff4081;
-}
-
-.main-content {
-  width: 100%;
-  max-width: 768px; /* 모바일 최적화를 위해 최대 너비 축소 */
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0; /* 모바일에서 패딩 제거 */
+  padding: 1rem;
 }
 
-.feed-container {
-  width: 100%;
-}
-
-.post-actions {
+.home-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-  padding: 16px;
-  background-color: white;
-  border-radius: 12px;
-  border: 1px solid #f0f0f0;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.create-post-btn {
-  background-color: #ff4081;
+/* 새 포스트 작성 버튼 */
+.new-post-button {
+  background-color: #ef5da8;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.new-post-button:hover {
+  background-color: #e04b93;
+}
+
+.new-post-button:before {
+  content: "+";
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* 빈 피드 상태 */
+.empty-feed {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.empty-feed p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.primary-button {
+  background-color: #5271ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.create-post-btn:hover {
-  background-color: #e73371;
+.primary-button:hover {
+  background-color: #405ce4;
 }
 
-.refresh-button {
-  background-color: white;
-  color: #ff4081;
-  border: 1px solid #ff4081;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.refresh-button:hover {
-  background-color: rgba(255, 64, 129, 0.05);
-}
-
-.post-form-container {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #f0f0f0;
-}
-
-.feed-section {
-  width: 100%;
-}
-
-.empty-state {
+/* 에러 메시지 */
+.error-message {
   text-align: center;
-  padding: 60px 0;
-  background-color: white;
-  border-radius: 12px;
-  border: 1px solid #f0f0f0;
-}
-
-.empty-state-icon {
-  font-size: 64px;
-  margin-bottom: 20px;
-}
-
-.loading-indicator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 0;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(255, 64, 129, 0.1);
-  border-radius: 50%;
-  border-top-color: #ff4081;
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 15px;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.load-more-button {
-  display: block;
-  width: 200px;
-  margin: 30px auto;
-  padding: 12px 0;
-  background-color: white;
-  color: #ff4081;
-  border: 1px solid #ff4081;
+  color: #e74c3c;
+  background-color: #fdeaea;
+  padding: 1rem;
   border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
+  margin: 1rem 0;
 }
 
-.load-more-button:hover {
-  background-color: rgba(255, 64, 129, 0.05);
-}
-
+/* 피드 끝 메시지 */
 .end-of-feed {
   text-align: center;
+  padding: 2rem 0;
   color: #888;
-  padding: 30px 0;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
-.error-message {
-  background-color: #fff8f9;
-  color: #e73371;
-  padding: 14px 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border: 1px solid #ffccd5;
-}
-
-/* 반응형 디자인 - 모바일 최적화 */
+/* 반응형 조정 */
 @media (max-width: 768px) {
-  .main-content {
-    padding: 10px 12px;
-  }
-  
-  .category-tab {
-    padding: 12px 15px;
-    font-size: 14px;
-  }
-  
-  .feed-container {
-    margin-top: 5px;
-  }
-  
-  .post-actions {
-    margin-bottom: 15px;
-    padding: 12px;
-  }
-  
-  .load-more-button {
-    margin: 20px auto;
-    width: 150px;
-  }
-}
-
-@media (max-width: 576px) {
-  .main-content {
-    padding: 8px;
-  }
-  
-  .post-actions {
+  .home-header {
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .create-post-btn, .refresh-button {
-    width: 100%;
-    padding: 8px 12px;
-  }
-  
-  .category-tab {
-    padding: 10px 12px;
-    font-size: 13px;
-  }
-  
-  .post-form-container {
-    padding: 12px;
-    margin-bottom: 15px;
-  }
-  
-  .load-more-button {
-    margin: 15px auto;
-    padding: 8px 0;
-    width: 140px;
-  }
-}
-
-@media (max-width: 480px) {
-  .category-tab {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-  
-  .post-actions {
-    margin-bottom: 12px;
-  }
-  
-  .load-more-button {
-    font-size: 13px;
+    align-items: stretch;
   }
 }

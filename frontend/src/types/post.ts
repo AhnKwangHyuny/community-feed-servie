@@ -1,72 +1,52 @@
-export interface GetContentResponseDto {
-  id: number;
-  content: string;
-  userId: number;
-  userName: string;
-  userProfileImage: string;
-  createdAt: string;
-  updatedAt: string;
-  likeCount: number;
-  isLikedByMe: boolean;
-}
+// src/types/post.ts
 
 export interface ThumbnailDto {
   id: number;
   url: string;
-  originalFilename: string;
-  contentType: string;
-  displayOrder: number;
-  isMain: boolean;
+  order: number;
 }
 
-export interface GetPostContentResponseDto extends GetContentResponseDto {
+export interface GetPostContentResponseDto {
+  id: number;
+  userId: number;
+  userName: string;
+  userProfileImage?: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  likeCount: number;
+  viewCount: number;
   commentCount: number;
+  isLikedByMe: boolean;
+  
+  // 이미지 관련 필드 (다양한 형태 지원)
+  thumbnails?: ThumbnailDto[];
   thumbnailUrl?: string;
-  images?: string[]; // 다중 이미지 지원을 위한 필드 추가
-  viewCount?: number;
-  thumbnails?: ThumbnailDto[]; // 새로운 API 응답 형식에 맞게 추가
-  state?: string; // 게시물 상태 (PUBLIC, PRIVATE 등)
+  images?: string[];
 }
 
-export interface CreatePostRequestDto {
+export interface PostCreateRequestDto {
   content: string;
-  state: string;  // state가 필수값이 되었습니다
-  imageIds?: number[];  // 게시물에 첨부할 이미지 ID 목록
-}
-
-export interface UpdatePostRequestDto {
-  content: string;
-  state?: string;
-  imageIds?: number[]; // 이미지 업데이트 지원
-}
-
-export interface LikeRequestDto {
-  targetId: number;
+  images?: File[];
 }
 
 export interface CommentDto {
   id: number;
-  content: string;
   postId: number;
   userId: number;
   userName: string;
   userProfileImage?: string;
+  content: string;
   createdAt: string;
-  updatedAt?: string;
   likeCount: number;
   isLikedByMe: boolean;
-  parentId?: number;  // 대댓글 기능을 위한 부모 댓글 ID
-  isBestComment?: boolean; // 베스트 댓글 표시를 위한 필드 추가
+  parentId?: number;
+  childComments?: CommentDto[];
+  isBestComment?: boolean; // 베스트 댓글 표시를 위해 추가
 }
 
-export interface CreateCommentRequestDto {
-  userId: number;
+export interface CommentCreateRequestDto {
   postId: number;
   content: string;
-  parentId?: number; // 대댓글을 위한 부모 댓글 ID
-}
-
-export interface UpdateCommentRequestDto {
-  userId: number;
-  content: string;
+  parentId?: number;
 }

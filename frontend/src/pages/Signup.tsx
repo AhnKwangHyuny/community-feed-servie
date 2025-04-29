@@ -42,11 +42,10 @@ const Signup: React.FC = () => {
     
     try {
       console.log('이메일 인증 요청 전송:', email);
-      const success = await sendVerificationEmail(email);
-      if (success) {
-        setEmailSent(true);
-        setCurrentStep(SignupStep.TOKEN_VERIFICATION);
-      }
+      await sendVerificationEmail(email);
+      // void 반환 함수는 truthy 검사 없이 진행
+      setEmailSent(true);
+      setCurrentStep(SignupStep.TOKEN_VERIFICATION);
     } catch (err) {
       setError('이메일 전송에 실패했습니다. 다시 시도해주세요.');
       console.error('Email sending error:', err);
@@ -60,15 +59,12 @@ const Signup: React.FC = () => {
     
     try {
       console.log("이메일 인증 시도:", email, verificationToken);
-      const response = await verifyEmail(email, verificationToken);
-      console.log("인증 응답:", response);
+      await verifyEmail(email, verificationToken);
+      console.log("인증 완료");
       
-      if (response.verified) {
-        setIsEmailVerified(true);
-        setCurrentStep(SignupStep.USER_REGISTRATION);
-      } else {
-        setError(response.message || '인증 코드가 유효하지 않습니다.');
-      }
+      // verifyEmail이 성공적으로 완료되면 다음 단계로 진행
+      setIsEmailVerified(true);
+      setCurrentStep(SignupStep.USER_REGISTRATION);
     } catch (err: any) {
       console.error('Token verification error:', err);
       setError(err.message || '인증에 실패했습니다. 다시 시도해주세요.');
@@ -86,11 +82,7 @@ const Signup: React.FC = () => {
     }
     
     try {
-      await register({
-        email,
-        password,
-        name
-      });
+      await register(name, email, password);
       
       navigate('/');
     } catch (err) {
