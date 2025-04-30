@@ -1,15 +1,20 @@
 package org.faddy.community_feed.post.repository;
 
+import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.list;
+import static org.faddy.community_feed.post.repository.entity.like.QLikeEntity.likeEntity;
 import static org.faddy.community_feed.post.repository.entity.post.QPostEntity.postEntity;
 import static org.faddy.community_feed.user.repository.entity.QUserEntity.userEntity;
-import static org.faddy.community_feed.post.repository.entity.like.QLikeEntity.likeEntity;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.faddy.community_feed.post.application.dto.response.GetPostContent2ResponseDto;
@@ -18,16 +23,7 @@ import org.faddy.community_feed.post.repository.post_queue.interfaces.PostQueryR
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StopWatch;
 
-/**
- * 게시물 조회를 위한 QueryDSL 기반 레포지토리 구현체
- * <p>
- * 메서드화된 where 조건을 사용하여 가독성과 재사용성을 높였습니다.
- * 커서 기반 페이징을 사용하여 효율적인 무한 스크롤을 구현합니다.
- * </p>
- *
- * @author Kwanghyun Ahn
- * @since 2025.04.28
- */
+
 @Repository
 @RequiredArgsConstructor
 @Slf4j
@@ -50,6 +46,7 @@ public class PostQueryRepositoryImpl implements PostQueryRepository {
             int sanitizedPageSize = sanitizePageSize(pageSize);
             log.debug("최신순 게시물 조회: lastContentId={}, pageSize={}, userId={}", lastContentId, sanitizedPageSize, userId);
 
+            // 기본 정보 조회
             List<GetPostContent2ResponseDto> result = queryFactory
                 .select(getPostProjection(userId))
                 .from(postEntity)
@@ -62,6 +59,14 @@ public class PostQueryRepositoryImpl implements PostQueryRepository {
                 .limit(sanitizedPageSize)
                 .fetch();
 
+            // 이미지 정보 보강
+            if (!result.isEmpty()) {
+                List<Long> postIds = result.stream()
+                    .map(GetPostContent2ResponseDto::getId)
+                    .collect(Collectors.toList());
+                enrichPostsWithImages(result, postIds);
+            }
+
             log.debug("최신순 게시물 조회 결과: {} 건", result.size());
             return result;
 
@@ -73,7 +78,6 @@ public class PostQueryRepositoryImpl implements PostQueryRepository {
             logExecutionTime(stopWatch);
         }
     }
-
     /**
      * {@inheritDoc}
      */
@@ -298,28 +302,30 @@ public class PostQueryRepositoryImpl implements PostQueryRepository {
         }
     }
 
-    // =========================
     // Where 조건 메서드
-    // =========================
-
     /**
      * 게시물 DTO 프로젝션 생성
      */
     private com.querydsl.core.types.Expression<GetPostContent2ResponseDto> getPostProjection(Long userId) {
-        return Projections.constructor(GetPostContent2ResponseDto.class,
-            postEntity.id,
-            postEntity.content,
-            postEntity.regDt,
-            postEntity.author.id,
-            postEntity.author.name,
-            postEntity.author.profileImage,
-            postEntity.likeCount,
-            postEntity.commentCounter,
-            postEntity.viewCounter,
-            isLikedByUser(userId)
+        return Projections.fields(GetPostContent2ResponseDto.class,
+            // 상위 클래스 필드들 (GetContentResponseDto)
+            postEntity.id.as("id"),
+            postEntity.content.as("content"),
+            postEntity.author.id.as("userId"),
+            postEntity.author.name.as("userName"),
+            postEntity.author.profileImage.as("userProfileImage"),
+            postEntity.regDt.as("createdAt"),
+            postEntity.updDt.as("updatedAt"),
+            postEntity.likeCount.as("likeCount"),
+            isLikedByUser(userId).as("isLikedByMe"),
+
+            // GetPostContent2ResponseDto 고유 필드들 (이미지 관련 필드 제외)
+            postEntity.commentCounter.as("commentCount"),
+            postEntity.viewCounter.as("viewCount"),
+            postEntity.state.as("state")
+            // thumbnailUrl과 images는 별도 처리
         );
     }
-
     /**
      * 추천 점수 계산식
      * 좋아요(3) + 조회수(1) + 댓글 수(2)의 가중치 합산
@@ -496,6 +502,56 @@ public class PostQueryRepositoryImpl implements PostQueryRepository {
         } else {
             log.debug("쿼리 소요시간: {}ms ({})",
                 stopWatch.getTotalTimeMillis(), stopWatch.getId());
+        }
+    }
+
+    /**
+    * 이미지 정보 보강 메서드 추가
+    * */
+
+    private void enrichPostsWithImages(List<GetPostContent2ResponseDto> posts, List<Long> postIds) {
+        try {
+            // 메인 썸네일 URL 조회 (isMain=true)
+            Map<Long, String> mainThumbnails = queryFactory
+                .select(postEntity.id, postEntity.thumbnails.any().image.url)
+                .from(postEntity)
+                .join(postEntity.thumbnails)
+                .join(postEntity.thumbnails.any().image)
+                .where(
+                    postEntity.id.in(postIds),
+                    postEntity.thumbnails.any().isMain.isTrue()
+                )
+                .transform(groupBy(postEntity.id).as(postEntity.thumbnails.any().image.url));
+
+            // 모든 이미지 URL 조회
+            Map<Long, List<String>> allImages = queryFactory
+                .select(postEntity.id, postEntity.thumbnails.any().image.url)
+                .from(postEntity)
+                .join(postEntity.thumbnails)
+                .join(postEntity.thumbnails.any().image)
+                .where(postEntity.id.in(postIds))
+                .orderBy(postEntity.thumbnails.any().displayOrder.asc()) // 순서 정렬
+                .transform(groupBy(postEntity.id).as(list(postEntity.thumbnails.any().image.url)));
+
+            // DTO에 이미지 정보 설정
+            for (GetPostContent2ResponseDto post : posts) {
+                Long postId = post.getId();
+
+                // 메인 썸네일 설정
+                if (mainThumbnails.containsKey(postId)) {
+                    post.setThumbnailUrl(mainThumbnails.get(postId));
+                }
+
+                // 모든 이미지 URL 설정
+                if (allImages.containsKey(postId)) {
+                    post.setImages(allImages.get(postId));
+                } else {
+                    post.setImages(Collections.emptyList());
+                }
+            }
+        } catch (Exception e) {
+            log.warn("이미지 정보 보강 중 오류 발생: {}", e.getMessage());
+            // 이미지 오류로 전체 조회를 실패시키지 않음
         }
     }
 }

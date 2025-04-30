@@ -1,5 +1,8 @@
 package org.faddy.community_feed.common.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,16 +45,23 @@ public class RedisConfig {
         // 키 직렬화에는 StringRedisSerializer 사용
         redisTemplate.setKeySerializer(new StringRedisSerializer());
 
-        // 값 직렬화에는 GenericJackson2JsonRedisSerializer 사용 // 이전 버전 삭제 이슈 존재
-        GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer();
+        // ObjectMapper 생성 및 Java 8 날짜/시간 모듈 등록
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // 커스텀 ObjectMapper를 사용하는 JSON 직렬화기 생성
+        GenericJackson2JsonRedisSerializer jsonSerializer =
+            new GenericJackson2JsonRedisSerializer(objectMapper);
+
+        // 값 직렬화기 설정
         redisTemplate.setValueSerializer(jsonSerializer);
         redisTemplate.setHashValueSerializer(jsonSerializer);
 
-        // 컬렉션 직렬화기 설정
+        // 컬렉션 키 직렬화기 설정
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
 
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
-
 }

@@ -12,6 +12,7 @@ const FeedFilter: React.FC<FeedFilterProps> = ({ currentSort, onSortChange }) =>
 
   const sortOptions = [
     { id: 'latest', label: '최신순', icon: '🕒' },
+    { id: 'oldest', label: '오래된순', icon: '📅' },
     { id: 'popular', label: '인기순', icon: '🔥' },
     { id: 'recommended', label: '추천순', icon: '✨' },
   ];

@@ -16,6 +16,8 @@ spring:
       initialize-schema: always
     job:
       enabled: false
+    main:
+      web-application-type: SERVLET
 
   # ==========================
   # JPA 및 Hibernate 설정

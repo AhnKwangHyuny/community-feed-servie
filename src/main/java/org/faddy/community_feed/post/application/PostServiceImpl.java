@@ -1,5 +1,6 @@
 package org.faddy.community_feed.post.application;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.faddy.community_feed.common.domain.PositiveIntegerCounter;
@@ -13,6 +14,7 @@ import org.faddy.community_feed.post.application.service.PostImageService;
 import org.faddy.community_feed.post.application.service.PostService;
 import org.faddy.community_feed.post.domain.Post;
 import org.faddy.community_feed.post.domain.content.PostContent;
+import org.faddy.community_feed.post.domain.enumeration.PostPublicationState;
 import org.faddy.community_feed.user.application.UserService;
 import org.faddy.community_feed.user.domain.User;
 import org.springframework.stereotype.Service;
@@ -38,50 +40,30 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public Post createPost(Long userId , CreatePostRequestDto dto) {
+    public Post createPost(Long userId, CreatePostRequestDto dto) {
         log.info("Creating post for user: {}", userId);
 
         try {
-            // 사용자 조회 및 검증
-            User author = userService.getUser(userId);
-            if (author == null) {
-                throw new IllegalArgumentException("User not found with ID: " + userId );
-            }
+            // 1. 사용자 검증
+            User author = validateAndGetAuthor(userId);
 
-            // 컨텐츠 유효성 검증
+            // 2. 컨텐츠 검증
             validateContent(dto.content());
+            validateState(dto.state());
 
-            // 게시물 생성
-            Post post;
-            if (dto.state() == null) {
-                throw new IllegalArgumentException("State is required");
-            }
+            // 3. 게시물 생성
+            Post post = buildPost(author, dto);
 
-            post = Post.builder()
-                .author(author)
-                .content(new PostContent(dto.content()))
-                .state(dto.state())
-                .positiveIntegerCounter(new PositiveIntegerCounter())
-                .build();
-
-            // 게시물 저장
+            // 4. 게시물 저장
             Post savedPost = postRepository.publish(post);
 
-            // 이미지 ID가 있는 경우 처리
-            if (dto.imageIds() != null && !dto.imageIds().isEmpty()) {
-                log.info("Attaching images to post: {}, image count: {}", savedPost.getId(), dto.imageIds().size());
-                // 이미지 연결 처리 (PostImageService 활용)
-                String mainImageUrl = postImageService.attachImagesToPost(dto.imageIds(), savedPost.getId());
-                log.info("Main image URL: {}", mainImageUrl);
-            }
+            // 5. 이미지 처리
+            processPostImages(savedPost, dto.imageIds());
 
             return savedPost;
         } catch (Exception e) {
             log.error("Failed to create post for user: {}", userId, e);
-            if (e instanceof Exception) {
-                throw e;
-            }
-            throw new IllegalArgumentException("Failed to create post", e);
+            throw e; // 예외 단순화
         }
     }
 
@@ -185,17 +167,6 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-    // 헬퍼 메서드
-    private void validateContent(String content) {
-        if (content == null || content.trim().isEmpty()) {
-            throw new IllegalArgumentException("Post content cannot be empty");
-        }
-
-        if (content.length() > 5000) {  // 예시: 최대 5000자 제한
-            throw new IllegalArgumentException("Post content exceeds maximum length (5000 characters)");
-        }
-    }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -220,4 +191,51 @@ public class PostServiceImpl implements PostService {
 
         return PostDetailResponseDto.from(post, commentCount);
     }
+
+    // 사용자 검증 및 조회
+    private User validateAndGetAuthor(Long userId) {
+        User author = userService.getUser(userId);
+        if (author == null) {
+            throw new IllegalArgumentException("User not found with ID: " + userId);
+        }
+        return author;
+    }
+
+    // 상태 검증
+    private void validateState(PostPublicationState state) {
+        if (state == null) {
+            throw new IllegalArgumentException("State is required");
+        }
+    }
+
+    // 게시물 객체 생성
+    private Post buildPost(User author, CreatePostRequestDto dto) {
+        return Post.builder()
+            .author(author)
+            .content(new PostContent(dto.content()))
+            .state(dto.state())
+            .positiveIntegerCounter(new PositiveIntegerCounter())
+            .build();
+    }
+
+    // 이미지 처리
+    private void processPostImages(Post savedPost, List<Long> imageIds) {
+        if (imageIds != null && !imageIds.isEmpty()) {
+            log.info("Attaching images to post: {}, image count: {}", savedPost.getId(), imageIds.size());
+            String mainImageUrl = postImageService.attachImagesToPost(imageIds, savedPost.getId());
+            log.info("Main image URL: {}", mainImageUrl);
+        }
+    }
+
+    // 헬퍼 메서드
+    private void validateContent(String content) {
+        if (content == null || content.trim().isEmpty()) {
+            throw new IllegalArgumentException("Post content cannot be empty");
+        }
+
+        if (content.length() > 5000) {  // 예시: 최대 5000자 제한
+            throw new IllegalArgumentException("Post content exceeds maximum length (5000 characters)");
+        }
+    }
+
 }

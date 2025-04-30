@@ -23,17 +23,26 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         try {
             String authorization = webRequest.getHeader("Authorization");
+            
+            // 인증 헤더가 없거나 형식이 맞지 않으면 null 반환 (비로그인 사용자)
             if (authorization == null || authorization.split(" ").length != 2) {
-                throw new IllegalArgumentException("Invalid token");
+                return null;
             }
+            
             String token = authorization.split(" ")[1];
-
-            Long userId = tokenProvider.getUserId(token);
-            String role = tokenProvider.getRoles(token);
-
-            return new UserPrincipal(userId, role);
+            
+            try {
+                // 토큰 처리 시도
+                Long userId = tokenProvider.getUserId(token);
+                String role = tokenProvider.getRoles(token);
+                return new UserPrincipal(userId, role);
+            } catch (Exception e) {
+                // 토큰이 유효하지 않은 경우도 null 반환
+                return null;
+            }
         } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid token");
+            // 기타 예외 상황에서도 null 반환
+            return null;
         }
     }
 }

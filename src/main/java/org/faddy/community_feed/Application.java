@@ -18,7 +18,7 @@ public class Application implements CommandLineRunner {
   private final TestDataGenerationService testDataGenerationService;
 
   // 전체 테스트 데이터 생성 여부
-  @Value("${app.test-data.enabled:false}")
+  @Value("${app.test-data.enabled:true}")
   private boolean testDataEnabled;
 
   public static void main(String[] args) {

@@ -39,11 +39,11 @@ public class UserDataProcedureCreator implements ProcedureCreator {
                     "    WHILE i <= (last_id + total_records) DO\n" +
                     "        -- 프로필 이미지를 5개 중 하나로 랜덤 선택\n" +
                     "        SET profile_image_url = CASE FLOOR(1 + RAND() * 5)\n" +
-                    "            WHEN 1 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-33 001.jpeg'\n" +
-                    "            WHEN 2 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-34 002.jpeg'\n" +
-                    "            WHEN 3 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-34 003.jpeg'\n" +
-                    "            WHEN 4 THEN '/images/testImages/KakaoTalk_Photo_2025-04-28-22-23-34 004.jpeg'\n" +
-                    "            ELSE '/images/testImages/test_default_image.png'\n" +
+                    "            WHEN 1 THEN '/static/images/test/default_profile.jpg'\n" +
+                    "            WHEN 2 THEN '/static/images/test/default_profile.jpg'\n" +
+                    "            WHEN 3 THEN '/static/images/test/default_profile.jpg'\n" +
+                    "            WHEN 4 THEN '/static/images/test/default_profile.jpg'\n" +
+                    "            ELSE '/static/images/test/default_profile.jpg'\n" +
                     "        END;\n" +
                     "        \n" +
                     "        -- community_user 테이블에 데이터 삽입\n" +
@@ -76,12 +76,11 @@ public class UserDataProcedureCreator implements ProcedureCreator {
                     "                LOWER(\n" +
                     "                    ELT(FLOOR(1 + RAND() * 10), 'user', 'member', 'account', 'person', 'client', 'customer', 'individual', 'profile', 'identity', 'user')\n" +
                     "                ),\n" +
-                    "                i, '@example.com'\n" +
+                    "                i, '@naver.com'\n" +
                     "            ),\n" +
                     "            CONCAT('$2a$10$', SUBSTRING(MD5(RAND()), 1, 30)),\n" +
                     "            CASE\n" +
                     "                WHEN RAND() < 0.9 THEN 'USER'\n" +
-                    "                WHEN RAND() < 0.5 THEN 'MODERATOR'\n" +
                     "                ELSE 'ADMIN'\n" +
                     "            END,\n" +
                     "            i,\n" +

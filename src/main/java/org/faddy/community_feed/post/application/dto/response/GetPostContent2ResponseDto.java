@@ -18,6 +18,6 @@ public class GetPostContent2ResponseDto extends GetContentResponseDto {
     private Integer commentCount;
     private String thumbnailUrl;
     private List<String> images;
-//    private Integer viewCount;    // 조회수
+    private Integer viewCount;
     private PostPublicationState state; // 게시물 상태 (PUBLIC, PRIVATE 등)
 }

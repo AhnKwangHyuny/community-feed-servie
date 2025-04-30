@@ -4,6 +4,48 @@
   padding: 1rem;
 }
 
+.tab-navigation {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-button-container {
+  display: flex;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-button.active {
+  background-color: #f0f5ff;
+  color: #3366ff;
+  font-weight: 600;
+}
+
+.tab-button:hover:not(.active) {
+  background-color: #f5f5f5;
+}
+
+.tab-icon {
+  font-size: 1.2rem;
+}
+
 .home-header {
   display: flex;
   justify-content: space-between;
@@ -26,17 +68,37 @@
   transition: background-color 0.2s;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 200px;
 }
 
 .new-post-button:hover {
   background-color: #e04b93;
 }
 
-.new-post-button:before {
-  content: "+";
+.plus-icon {
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+/* 첫 게시물 작성 버튼 */
+.first-post-button {
+  background-color: #5271ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.first-post-button:hover {
+  background-color: #405ce4;
 }
 
 /* 빈 피드 상태 */

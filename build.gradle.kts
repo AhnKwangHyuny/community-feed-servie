@@ -61,6 +61,8 @@ dependencies {
     implementation("org.imgscalr:imgscalr-lib:4.2")
     implementation("javax.xml.bind:jaxb-api:2.3.1")
 
+    // json 직렬화
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
     // test
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
